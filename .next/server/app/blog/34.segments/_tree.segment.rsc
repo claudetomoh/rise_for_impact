@@ -1,9 +1,0 @@
-:HL["/_next/static/chunks/6a9fa9c41c49d728.css","style"]
-:HL["/images/backgrounds/ClubMeeting.jpeg","image"]
-:HL["/images/backgrounds/youthLead.jpeg","image"]
-:HL["/images/backgrounds/impact.jpeg","image"]
-:HL["/images/backgrounds/Togetherness.jpg","image"]
-:HL["/images/backgrounds/ClaudeMeeting1.jpeg","image"]
-:HL["/images/backgrounds/impact_clinic.jpeg","image"]
-:HL["/images/backgrounds/ClubMeeting2.jpeg","image"]
-0:{"buildId":"HK6XUdue7h4Q7qBqmt0vi","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"blog","paramType":null,"paramKey":"blog","hasRuntimePrefetch":false,"slots":{"children":{"name":"id","paramType":"d","paramKey":"34","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
