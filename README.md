@@ -1,1 +1,0 @@
-# rise_for_impact
