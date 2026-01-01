@@ -19,32 +19,28 @@ import { Input } from '@/components/ui/input'
 
 const footerLinks = {
   about: [
-    { name: 'Our Story', href: '/about' },
-    { name: 'Mission & Vision', href: '/about/mission' },
-    { name: 'Team', href: '/team' },
+    { name: 'Our Story', href: '/#about' },
+    { name: 'Mission & Vision', href: '/#mission' },
+    { name: 'Team', href: '/#team' },
     { name: 'Partners', href: '/partners' },
     { name: 'Annual Reports', href: '/reports' },
   ],
   programs: [
-    { name: 'Rise Circles', href: '/programs/rise-circles' },
-    { name: 'Impact Clinics', href: '/programs/impact-clinics' },
-    { name: 'Rise for Climate', href: '/programs/climate' },
-    { name: 'Civic Education', href: '/programs/civic' },
-    { name: 'All Programs', href: '/programs' },
+    { name: 'Rise Circles', href: '/#programs' },
+    { name: 'Impact Clinics', href: '/#programs' },
+    { name: 'Rise for Climate', href: '/#programs' },
+    { name: 'All Programs', href: '/#programs' },
   ],
   regions: [
-    { name: 'Cameroon Northwest', href: '/regions/cameroon-northwest' },
-    { name: 'Cameroon Southwest', href: '/regions/cameroon-southwest' },
-    { name: 'University Clubs', href: '/clubs' },
-    { name: 'Ashesi Club', href: '/clubs/ashesi' },
+    { name: 'Cameroon Northwest', href: '/#regions' },
+    { name: 'Cameroon Southwest', href: '/#regions' },
+    { name: 'University Clubs', href: '/#clubs' },
     { name: 'All Regions', href: '/regions' },
   ],
   resources: [
     { name: 'Blog', href: '/blog' },
-    { name: 'Media Hub', href: '/media' },
-    { name: 'Impact Stories', href: '/stories' },
+    { name: 'Media Hub', href: '/#media' },
     { name: 'Press Kit', href: '/press' },
-    { name: 'Contact Us', href: '/contact' },
   ],
 }
 

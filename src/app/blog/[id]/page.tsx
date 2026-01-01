@@ -135,41 +135,41 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ id:
           </div>
 
           {/* Content Overlay - Centered */}
-          <div className="absolute inset-0 flex items-center justify-center py-24">
-            <div className="container-premium text-center space-y-6 px-4 max-w-6xl">
+          <div className="absolute inset-0 flex items-center justify-center py-20 px-4">
+            <div className="container max-w-5xl text-center space-y-4">
               {blog.category && (
-                <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full shadow-lg shadow-primary-500/30 backdrop-blur-sm">
-                  <Tag className="h-4 w-4 text-white" />
-                  <span className="text-white font-bold text-sm tracking-wide uppercase">{blog.category}</span>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full shadow-lg">
+                  <Tag className="h-3.5 w-3.5 text-white" />
+                  <span className="text-white font-bold text-xs tracking-wide uppercase">{blog.category}</span>
                 </div>
               )}
               
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white leading-[1.1] max-w-6xl mx-auto drop-shadow-2xl tracking-tight">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white leading-tight max-w-4xl mx-auto drop-shadow-2xl">
                 {blog.title}
               </h1>
               
               {blog.excerpt && (
-                <p className="text-lg md:text-xl lg:text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed font-medium drop-shadow-lg">
+                <p className="text-base md:text-lg lg:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium drop-shadow-lg">
                   {blog.excerpt}
                 </p>
               )}
 
               {/* Meta Info - Premium Glass Card */}
-              <div className="inline-flex flex-wrap items-center justify-center gap-6 px-8 py-4 glass-card rounded-2xl text-white/90 backdrop-blur-md border border-white/10">
+              <div className="inline-flex flex-wrap items-center justify-center gap-4 px-6 py-3 glass-card rounded-2xl text-white/90 text-sm">
                 {blog.author && (
                   <div className="flex items-center gap-2">
-                    <User className="h-5 w-5 text-primary-400" />
+                    <User className="h-4 w-4 text-primary-400" />
                     <span className="font-semibold">{blog.author}</span>
                   </div>
                 )}
                 {blog.date && (
                   <div className="flex items-center gap-2">
-                    <Calendar className="h-5 w-5 text-primary-400" />
+                    <Calendar className="h-4 w-4 text-primary-400" />
                     <span className="font-medium">{blog.date}</span>
                   </div>
                 )}
                 <div className="flex items-center gap-2">
-                  <Clock className="h-5 w-5 text-primary-400" />
+                  <Clock className="h-4 w-4 text-primary-400" />
                   <span className="font-medium">5 min read</span>
                 </div>
               </div>
