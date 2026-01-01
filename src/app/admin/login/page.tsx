@@ -178,16 +178,7 @@ export default function AdminLogin() {
             </Button>
           </form>
 
-          {/* Footer */}
-          <div className="mt-4 pt-4 border-t border-gray-200">
-            <div className="text-center text-xs text-gray-500">
-              <p className="mb-1.5">Default credentials for testing:</p>
-              <div className="bg-gray-50 rounded-lg p-2 font-mono text-xs">
-                <p className="text-gray-700">📧 admin@riseforimpact.org</p>
-                <p className="text-gray-700">🔑 admin123</p>
-              </div>
-            </div>
-          </div>
+          {/* Footer - Removed default credentials section */}
         </div>
 
         {/* Bottom Text */}

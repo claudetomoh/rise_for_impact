@@ -229,7 +229,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-dark-800">
+        <div className="pt-8 border-t border-dark-800">        
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-dark-400 text-sm">
               © {new Date().getFullYear()} Rise for Impact. All rights reserved.
@@ -243,9 +243,6 @@ export function Footer() {
               </Link>
               <Link href="/cookies" className="text-dark-400 hover:text-primary-400 transition-colors text-sm">
                 Cookie Policy
-              </Link>
-              <Link href="/admin/login" className="text-dark-400 hover:text-emerald-400 transition-colors text-sm">
-                Admin
               </Link>
             </div>
           </div>
