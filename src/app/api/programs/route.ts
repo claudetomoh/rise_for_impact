@@ -6,13 +6,11 @@ export async function GET() {
     const programs = await prisma.program.findMany({
       orderBy: { createdAt: 'desc' },
     })
-    return NextResponse.json(programs)
+    return NextResponse.json(programs || [])
   } catch (error) {
     console.error('Error fetching programs:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch programs' },
-      { status: 500 }
-    )
+    // Return empty array instead of error to prevent UI crashes
+    return NextResponse.json([])
   }
 }
 

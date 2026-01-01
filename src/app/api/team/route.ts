@@ -6,13 +6,11 @@ export async function GET() {
     const team = await prisma.teamMember.findMany({
       orderBy: { createdAt: 'desc' },
     })
-    return NextResponse.json(team)
+    return NextResponse.json(team || [])
   } catch (error) {
     console.error('Error fetching team members:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch team members' },
-      { status: 500 }
-    )
+    // Return empty array instead of error to prevent UI crashes
+    return NextResponse.json([])
   }
 }
 

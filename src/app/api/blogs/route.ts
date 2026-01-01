@@ -7,13 +7,11 @@ export async function GET() {
     const blogs = await prisma.blogPost.findMany({
       orderBy: { date: 'desc' },
     })
-    return NextResponse.json(blogs)
+    return NextResponse.json(blogs || [])
   } catch (error) {
     console.error('Error fetching blog posts:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch blog posts' },
-      { status: 500 }
-    )
+    // Return empty array instead of error to prevent UI crashes
+    return NextResponse.json([])
   }
 }
 
