@@ -39,6 +39,22 @@ interface VolunteerFormData {
   additionalInfo: string;
 }
 
+interface TeamApplicationFormData {
+  fullName: string
+  email: string
+  phone: string
+  country: string
+  city: string
+  role: string
+  skills: string
+  experience: string
+  availability: string
+  portfolio: string
+  linkedin: string
+  motivation: string
+  whatCanOffer: string
+}
+
 export default function GetInvolvedPage() {
   const [selectedTrack, setSelectedTrack] = useState<FormTrack>(null);
   const [formData, setFormData] = useState<ApplicationFormData>({
@@ -69,6 +85,21 @@ export default function GetInvolvedPage() {
     heardFrom: '',
     additionalInfo: '',
   });
+  const [teamFormData, setTeamFormData] = useState<TeamApplicationFormData>({
+    fullName: '',
+    email: '',
+    phone: '',
+    country: '',
+    city: '',
+    role: '',
+    skills: '',
+    experience: '',
+    availability: '',
+    portfolio: '',
+    linkedin: '',
+    motivation: '',
+    whatCanOffer: '',
+  })
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
@@ -76,10 +107,12 @@ export default function GetInvolvedPage() {
     {
       id: 'program' as FormTrack,
       icon: GraduationCap,
-      title: 'Apply for program',
+      title: 'Apply for Programs',
       subtitle: 'SCHOLARSHIPS & FELLOWSHIPS',
-      description: 'Scholarships, fellowships, and residencies.',
+      description: 'Browse our opportunities and apply for programs that match your goals.',
       color: 'from-primary-500 to-primary-600',
+      isExternal: true,
+      link: '/opportunities',
     },
     {
       id: 'volunteer' as FormTrack,
@@ -92,9 +125,9 @@ export default function GetInvolvedPage() {
     {
       id: 'team' as FormTrack,
       icon: Briefcase,
-      title: 'Join the Rise team',
-      subtitle: 'RISE STAFF OPENINGS',
-      description: 'Bring your operations or growth expertise.',
+      title: 'Join the Rise for Impact Team',
+      subtitle: 'TEAM OPPORTUNITIES',
+      description: 'Bring your skills and expertise to our growing team.',
       color: 'from-secondary-500 to-secondary-600',
     },
   ];
@@ -152,6 +185,12 @@ export default function GetInvolvedPage() {
       [e.target.name]: e.target.value,
     }));
   };
+  const handleTeamInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setTeamFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }))
+  }
   return (
     <>
       <Navbar />
@@ -200,47 +239,95 @@ export default function GetInvolvedPage() {
 
             {!selectedTrack ? (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {tracks.map((track, index) => (
-                  <motion.button
-                    key={track.id}
-                    onClick={() => setSelectedTrack(track.id)}
-                    className="group p-6 rounded-3xl border border-dark-700 bg-dark-900/60 hover:border-primary-500/40 hover:bg-dark-800/80 transition-all duration-300 text-left shadow-lg relative overflow-hidden"
-                    whileHover={{ y: -4 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {/* Shimmer Effect */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                    </div>
-                    
-                    {/* Gradient Overlay */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${track.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                {tracks.map((track, index) => {
+                  // If track is external (Apply for Programs), render as Link
+                  if (track.isExternal && track.link) {
+                    return (
+                      <Link key={track.id} href={track.link}>
+                        <motion.div
+                          className="group p-6 rounded-3xl border border-dark-700 bg-dark-900/60 hover:border-primary-500/40 hover:bg-dark-800/80 transition-all duration-300 text-left shadow-lg relative overflow-hidden cursor-pointer h-full"
+                          whileHover={{ y: -4 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          {/* Shimmer Effect */}
+                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                          </div>
+                          
+                          {/* Gradient Overlay */}
+                          <div className={`absolute inset-0 bg-gradient-to-br ${track.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
 
-                    <div className="relative z-10">
-                      <motion.div
-                        whileHover={{ rotate: 360, scale: 1.1 }}
-                        transition={{ duration: 0.6, type: "spring" }}
-                        className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${track.color} flex items-center justify-center mb-6 shadow-lg`}
-                      >
-                        <track.icon className="w-8 h-8 text-white" />
-                      </motion.div>
+                          <div className="relative z-10">
+                            <motion.div
+                              whileHover={{ rotate: 360, scale: 1.1 }}
+                              transition={{ duration: 0.6, type: "spring" }}
+                              className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${track.color} flex items-center justify-center mb-6 shadow-lg`}
+                            >
+                              <track.icon className="w-8 h-8 text-white" />
+                            </motion.div>
 
-                      <p className="text-primary-400 text-xs uppercase tracking-wider font-semibold mb-2">
-                        {track.subtitle}
-                      </p>
-                      <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors duration-300">
-                        {track.title}
-                      </h3>
+                            <p className="text-primary-400 text-xs uppercase tracking-wider font-semibold mb-2">
+                              {track.subtitle}
+                            </p>
+                            <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors duration-300">
+                              {track.title}
+                            </h3>
 
-                      <p className="text-dark-300 mb-6 leading-relaxed">{track.description}</p>
+                            <p className="text-dark-300 mb-6 leading-relaxed">{track.description}</p>
 
-                      <div className="flex items-center text-primary-400 font-semibold group-hover:gap-3 gap-2 transition-all duration-300">
-                        Get started
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+                            <div className="flex items-center text-primary-400 font-semibold group-hover:gap-3 gap-2 transition-all duration-300">
+                              Browse opportunities
+                              <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+                            </div>
+                          </div>
+                        </motion.div>
+                      </Link>
+                    )
+                  }
+
+                  // For internal forms (Volunteer and Team)
+                  return (
+                    <motion.button
+                      key={track.id}
+                      onClick={() => setSelectedTrack(track.id)}
+                      className="group p-6 rounded-3xl border border-dark-700 bg-dark-900/60 hover:border-primary-500/40 hover:bg-dark-800/80 transition-all duration-300 text-left shadow-lg relative overflow-hidden"
+                      whileHover={{ y: -4 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {/* Shimmer Effect */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                       </div>
-                    </div>
-                  </motion.button>
-                ))}
+                      
+                      {/* Gradient Overlay */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${track.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+
+                      <div className="relative z-10">
+                        <motion.div
+                          whileHover={{ rotate: 360, scale: 1.1 }}
+                          transition={{ duration: 0.6, type: "spring" }}
+                          className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${track.color} flex items-center justify-center mb-6 shadow-lg`}
+                        >
+                          <track.icon className="w-8 h-8 text-white" />
+                        </motion.div>
+
+                        <p className="text-primary-400 text-xs uppercase tracking-wider font-semibold mb-2">
+                          {track.subtitle}
+                        </p>
+                        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors duration-300">
+                          {track.title}
+                        </h3>
+
+                        <p className="text-dark-300 mb-6 leading-relaxed">{track.description}</p>
+
+                        <div className="flex items-center text-primary-400 font-semibold group-hover:gap-3 gap-2 transition-all duration-300">
+                          Get started
+                          <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+                        </div>
+                      </div>
+                    </motion.button>
+                  )
+                })}
               </div>
             ) : submitted ? (
             /* Success Message */
@@ -610,6 +697,243 @@ export default function GetInvolvedPage() {
                         </div>
                       </div>
                     </>    
+                  ) : selectedTrack === 'team' ? (
+                    /* Team Application Form */
+                    <>
+                      {/* Basic Information */}
+                      <div className="space-y-6">
+                        <h3 className="text-xl font-semibold text-white border-b border-dark-700 pb-2">Basic Information</h3>
+                        
+                        <div>
+                          <label htmlFor="fullName" className="block text-sm font-medium text-dark-200 mb-2">
+                            Full Name <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            value={teamFormData.fullName}
+                            onChange={handleTeamInputChange}
+                            placeholder="First + last name"
+                            required
+                            className="w-full px-4 py-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 focus:bg-dark-800/70 transition-all duration-300"
+                          />
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div>
+                            <label htmlFor="email" className="block text-sm font-medium text-dark-200 mb-2">
+                              Email <span className="text-red-500">*</span>
+                            </label>
+                            <input
+                              type="email"
+                              id="email"
+                              name="email"
+                              value={teamFormData.email}
+                              onChange={handleTeamInputChange}
+                              placeholder="you@example.com"
+                              required
+                              className="w-full px-4 py-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 focus:bg-dark-800/70 transition-all duration-300"
+                            />
+                          </div>
+
+                          <div>
+                            <label htmlFor="phone" className="block text-sm font-medium text-dark-200 mb-2">
+                              Phone Number
+                            </label>
+                            <input
+                              type="tel"
+                              id="phone"
+                              name="phone"
+                              value={teamFormData.phone}
+                              onChange={handleTeamInputChange}
+                              placeholder="+1 (555) 123-4567"
+                              className="w-full px-4 py-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 focus:bg-dark-800/70 transition-all duration-300"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div>
+                            <label htmlFor="country" className="block text-sm font-medium text-dark-200 mb-2">
+                              Country <span className="text-red-500">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              id="country"
+                              name="country"
+                              value={teamFormData.country}
+                              onChange={handleTeamInputChange}
+                              placeholder="Your country"
+                              required
+                              className="w-full px-4 py-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 focus:bg-dark-800/70 transition-all duration-300"
+                            />
+                          </div>
+
+                          <div>
+                            <label htmlFor="city" className="block text-sm font-medium text-dark-200 mb-2">
+                              City
+                            </label>
+                            <input
+                              type="text"
+                              id="city"
+                              name="city"
+                              value={teamFormData.city}
+                              onChange={handleTeamInputChange}
+                              placeholder="Your city"
+                              className="w-full px-4 py-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 focus:bg-dark-800/70 transition-all duration-300"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Role & Experience */}
+                      <div className="space-y-6">
+                        <h3 className="text-xl font-semibold text-white border-b border-dark-700 pb-2">Role & Experience</h3>
+                        
+                        <div>
+                          <label htmlFor="role" className="block text-sm font-medium text-dark-200 mb-2">
+                            What role are you interested in? <span className="text-red-500">*</span>
+                          </label>
+                          <select
+                            id="role"
+                            name="role"
+                            value={teamFormData.role}
+                            onChange={handleTeamInputChange}
+                            required
+                            className="w-full px-4 py-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 focus:bg-dark-800/70 transition-all duration-300"
+                          >
+                            <option value="">Select a role</option>
+                            <option value="Operations">Operations</option>
+                            <option value="Growth">Growth</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Design">Design</option>
+                            <option value="Development">Development</option>
+                            <option value="Other">Other</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label htmlFor="experience" className="block text-sm font-medium text-dark-200 mb-2">
+                            Years of experience or level <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            id="experience"
+                            name="experience"
+                            value={teamFormData.experience}
+                            onChange={handleTeamInputChange}
+                            placeholder="e.g., 2 years or Intermediate"
+                            required
+                            className="w-full px-4 py-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 focus:bg-dark-800/70 transition-all duration-300"
+                          />
+                        </div>
+
+                        <div>
+                          <label htmlFor="skills" className="block text-sm font-medium text-dark-200 mb-2">
+                            Relevant Skills <span className="text-red-500">*</span>
+                          </label>
+                          <textarea
+                            id="skills"
+                            name="skills"
+                            value={teamFormData.skills}
+                            onChange={handleTeamInputChange}
+                            placeholder="List your relevant skills (e.g., Project Management, Data Analysis, SEO, etc.)"
+                            required
+                            rows={3}
+                            className="w-full px-4 py-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 focus:bg-dark-800/70 transition-all duration-300 resize-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label htmlFor="availability" className="block text-sm font-medium text-dark-200 mb-2">
+                            Weekly Availability <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            id="availability"
+                            name="availability"
+                            value={teamFormData.availability}
+                            onChange={handleTeamInputChange}
+                            placeholder="e.g., 5-10 hours per week"
+                            required
+                            className="w-full px-4 py-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 focus:bg-dark-800/70 transition-all duration-300"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Portfolio & Links */}
+                      <div className="space-y-6">
+                        <h3 className="text-xl font-semibold text-white border-b border-dark-700 pb-2">Portfolio & Links</h3>
+                        
+                        <div>
+                          <label htmlFor="portfolio" className="block text-sm font-medium text-dark-200 mb-2">
+                            Portfolio / Work Samples URL
+                          </label>
+                          <input
+                            type="url"
+                            id="portfolio"
+                            name="portfolio"
+                            value={teamFormData.portfolio}
+                            onChange={handleTeamInputChange}
+                            placeholder="https://yourportfolio.com or Behance/Dribbble link"
+                            className="w-full px-4 py-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 focus:bg-dark-800/70 transition-all duration-300"
+                          />
+                        </div>
+
+                        <div>
+                          <label htmlFor="linkedin" className="block text-sm font-medium text-dark-200 mb-2">
+                            LinkedIn Profile
+                          </label>
+                          <input
+                            type="url"
+                            id="linkedin"
+                            name="linkedin"
+                            value={teamFormData.linkedin}
+                            onChange={handleTeamInputChange}
+                            placeholder="https://linkedin.com/in/yourprofile"
+                            className="w-full px-4 py-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 focus:bg-dark-800/70 transition-all duration-300"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Motivation & Background */}
+                      <div className="space-y-6">
+                        <h3 className="text-xl font-semibold text-white border-b border-dark-700 pb-2">Motivation & Background</h3>
+                        
+                        <div>
+                          <label htmlFor="motivation" className="block text-sm font-medium text-dark-200 mb-2">
+                            Why do you want to join the Rise team? <span className="text-red-500">*</span>
+                          </label>
+                          <textarea
+                            id="motivation"
+                            name="motivation"
+                            value={teamFormData.motivation}
+                            onChange={handleTeamInputChange}
+                            placeholder="Share your motivation and what draws you to our team..."
+                            required
+                            rows={4}
+                            className="w-full px-4 py-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 focus:bg-dark-800/70 transition-all duration-300 resize-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label htmlFor="whatCanOffer" className="block text-sm font-medium text-dark-200 mb-2">
+                            What can you offer to our team? <span className="text-red-500">*</span>
+                          </label>
+                          <textarea
+                            id="whatCanOffer"
+                            name="whatCanOffer"
+                            value={teamFormData.whatCanOffer}
+                            onChange={handleTeamInputChange}
+                            placeholder="Describe your unique skills, perspectives, or contributions..."
+                            required
+                            rows={4}
+                            className="w-full px-4 py-3 bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-xl text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 focus:bg-dark-800/70 transition-all duration-300 resize-none"
+                          />
+                        </div>
+                      </div>
+                    </>
                   ) : (
                     /* General Application Form */
                     <>
