@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { prisma } from '@/lib/prisma';
 import { ArrowLeft, Calendar, User, Share2, Facebook, Twitter, Linkedin, Clock, Tag } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { BlogLikeButton } from './blog-client';
 
 // Type definition for blog post
 interface BlogPost {
@@ -17,6 +18,7 @@ interface BlogPost {
   author: string | null;
   date: string | null;
   mediaGallery: string | null;
+  likes?: number; // Add likes field
 }
 
 // Generate static params for all blog posts
@@ -182,7 +184,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ id:
         {/* Main Content */}
         <div className="container-premium py-16 md:py-24">
           <div className="max-w-4xl mx-auto">
-            {/* Share Buttons - Sticky */}
+            {/* Share Buttons + Like Button */}
             <div className="flex items-center justify-center gap-4 mb-12 pb-8 border-b border-dark-700">
               <span className="text-dark-300 font-medium flex items-center gap-2">
                 <Share2 className="h-5 w-5" />
@@ -215,6 +217,9 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ id:
               >
                 <Linkedin className="h-5 w-5 text-white" />
               </a>
+
+              {/* Like Button Component */}
+              <BlogLikeButton blogId={blog.id} initialLikes={blog.likes || 0} />
             </div>
 
             {/* Blog Content - Premium Typography */}

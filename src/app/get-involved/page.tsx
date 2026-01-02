@@ -9,11 +9,15 @@ import Link from 'next/link';
 
 type FormTrack = 'program' | 'volunteer' | 'team' | null;
 
-interface FormData {
+interface ApplicationFormData {
   fullName: string;
   email: string;
+  phone: string;
   country: string;
-  message: string;
+  region: string;
+  motivation: string;
+  experience: string;
+  message: string; // added
 }
 
 interface VolunteerFormData {
@@ -37,11 +41,15 @@ interface VolunteerFormData {
 
 export default function GetInvolvedPage() {
   const [selectedTrack, setSelectedTrack] = useState<FormTrack>(null);
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<ApplicationFormData>({
     fullName: '',
     email: '',
+    phone: '',
     country: '',
-    message: '',
+    region: '',
+    motivation: '',
+    experience: '',
+    message: '', // added
   });
   const [volunteerFormData, setVolunteerFormData] = useState<VolunteerFormData>({
     fullName: '',
@@ -62,7 +70,8 @@ export default function GetInvolvedPage() {
     additionalInfo: '',
   });
   const [submitted, setSubmitted] = useState(false);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
   const tracks = [
     {
       id: 'program' as FormTrack,
@@ -89,99 +98,60 @@ export default function GetInvolvedPage() {
       color: 'from-secondary-500 to-secondary-600',
     },
   ];
-
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitMessage('')
+
     try {
-      if (selectedTrack === 'volunteer') {
-        // Handle volunteer application
-        const response = await fetch('/api/volunteers', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(volunteerFormData),
-        });
+      // First, subscribe to newsletter
+      await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: formData.email, source: 'application_form' }),
+      })
+      // Continue with application submission
+      const response = await fetch('/api/apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+      const data = await response.json()
 
-        if (response.ok) {
-          setSubmitted(true);
-          
-          // Reset after 5 seconds
-          setTimeout(() => {
-            setSubmitted(false);
-            setSelectedTrack(null);
-            setVolunteerFormData({
-              fullName: '',
-              email: '',
-              phone: '',
-              country: '',
-              city: '',
-              role: '',
-              experience: '',
-              skills: '',
-              availability: '',
-              portfolio: '',
-              linkedin: '',
-              whyVolunteer: '',
-              whatCanOffer: '',
-              previousWork: '',
-              heardFrom: '',
-              additionalInfo: '',
-            });
-          }, 5000);
-        } else {
-          alert('Failed to submit volunteer application. Please try again.');
-        }
+      if (response.ok) {
+        setSubmitMessage('Application submitted successfully! You\'ve also been subscribed to our newsletter.')
+        // Reset form with correct field names
+        setFormData({
+          fullName: '',
+          email: '',
+          phone: '',
+          country: '',
+          region: '',
+          motivation: '',
+          experience: '',
+          message: '', // added
+        })
       } else {
-        // Handle general application
-        const response = await fetch('/api/apply', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: formData.fullName,
-            email: formData.email,
-            country: formData.country,
-            message: formData.message,
-            type: selectedTrack || 'general',
-          }),
-        });
-
-        if (response.ok) {
-          setSubmitted(true);
-          
-          // Reset after 5 seconds
-          setTimeout(() => {
-            setSubmitted(false);
-            setSelectedTrack(null);
-            setFormData({ fullName: '', email: '', country: '', message: '' });
-          }, 5000);
-        } else {
-          alert('Failed to submit application. Please try again.');
-        }
+        setSubmitMessage(data.error || 'Failed to submit application')
       }
     } catch (error) {
-      console.error('Error submitting application:', error);
-      alert('An error occurred. Please try again.');
+      setSubmitMessage('An error occurred. Please try again.')
+    } finally {
+      setIsSubmitting(false)
     }
   };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
-
   const handleVolunteerInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setVolunteerFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
-
   return (
     <>
       <Navbar />
@@ -200,90 +170,84 @@ export default function GetInvolvedPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(16,185,129,0.08),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(20,184,166,0.08),transparent_50%)]" />
 
-      {/* Content */}
-      <div className="relative z-10 pt-24 pb-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
+        {/* Content */}
+        <div className="relative z-10 pt-24 pb-20 px-6">
+          <div className="max-w-7xl mx-auto">
+            {/* Header */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-500/15 border border-emerald-500/30 mb-6 shadow-xl shadow-emerald-500/20"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
             >
-              <span className="text-sm font-bold text-emerald-300 uppercase tracking-widest">APPLY · VOLUNTEER · JOIN</span>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-500/15 border border-emerald-500/30 mb-6 shadow-xl shadow-emerald-500/20"
+              >
+                <span className="text-sm font-bold text-emerald-300 uppercase tracking-widest">APPLY · VOLUNTEER · JOIN</span>
+              </motion.div>
+              
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black mb-6 leading-tight">
+                <span className="text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">The Rise gateway is always open </span>
+                <span className="text-gradient drop-shadow-[0_0_30px_rgba(16,185,129,0.4)]">for changemakers.</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-emerald-50/80 max-w-3xl mx-auto leading-relaxed font-medium">
+                Pick a track below and tell us why you want to build with Rise for Impact.
+              </p>
             </motion.div>
-            
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black mb-6 leading-tight">
-              <span className="text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">The Rise gateway is always open </span>
-              <span className="text-gradient drop-shadow-[0_0_30px_rgba(16,185,129,0.4)]">for changemakers.</span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-emerald-50/80 max-w-3xl mx-auto leading-relaxed font-medium">
-              Pick a track below and tell us why you want to build with Rise for Impact.
-            </p>
-          </motion.div>
 
-          {!selectedTrack ? (
-            /* Track Selection */
-            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {tracks.map((track, index) => (
-                <motion.button
-                  key={track.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.15, type: "spring" }}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setSelectedTrack(track.id)}
-                  className="glass-card p-8 text-left group relative overflow-hidden border border-dark-700/50 hover:border-primary-500/30 transition-all duration-500"
-                >
-                  {/* Shimmer Effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                  </div>
-                  
-                  {/* Gradient Overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${track.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-                  
-                  <div className="relative z-10">
-                    <motion.div 
-                      whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.6, type: "spring" }}
-                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${track.color} flex items-center justify-center mb-6 shadow-lg`}
-                    >
-                      <track.icon className="w-8 h-8 text-white" />
-                    </motion.div>
-
-                    <p className="text-primary-400 text-xs uppercase tracking-wider font-semibold mb-2">
-                      {track.subtitle}
-                    </p>
-
-                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors duration-300">
-                      {track.title}
-                    </h3>
-
-                    <p className="text-dark-300 mb-6 leading-relaxed">{track.description}</p>
-
-                    <div className="flex items-center text-primary-400 font-semibold group-hover:gap-3 gap-2 transition-all duration-300">
-                      Get started
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+            {!selectedTrack ? (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {tracks.map((track, index) => (
+                  <motion.button
+                    key={track.id}
+                    onClick={() => setSelectedTrack(track.id)}
+                    className="group p-6 rounded-3xl border border-dark-700 bg-dark-900/60 hover:border-primary-500/40 hover:bg-dark-800/80 transition-all duration-300 text-left shadow-lg relative overflow-hidden"
+                    whileHover={{ y: -4 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {/* Shimmer Effect */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                     </div>
-                  </div>
-                </motion.button>
-              ))}
-            </div>
-          ) : submitted ? (
+                    
+                    {/* Gradient Overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${track.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+
+                    <div className="relative z-10">
+                      <motion.div
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6, type: "spring" }}
+                        className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${track.color} flex items-center justify-center mb-6 shadow-lg`}
+                      >
+                        <track.icon className="w-8 h-8 text-white" />
+                      </motion.div>
+
+                      <p className="text-primary-400 text-xs uppercase tracking-wider font-semibold mb-2">
+                        {track.subtitle}
+                      </p>
+                      <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors duration-300">
+                        {track.title}
+                      </h3>
+
+                      <p className="text-dark-300 mb-6 leading-relaxed">{track.description}</p>
+
+                      <div className="flex items-center text-primary-400 font-semibold group-hover:gap-3 gap-2 transition-all duration-300">
+                        Get started
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+                      </div>
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
+            ) : submitted ? (
             /* Success Message */
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, type: "spring" }}
+              transition={{ duration: 0.5, type: 'spring' }}
               className="max-w-2xl mx-auto glass-card p-12 text-center border border-green-500/20 relative overflow-hidden"
             >
               {/* Success Glow */}
@@ -645,7 +609,7 @@ export default function GetInvolvedPage() {
                           />
                         </div>
                       </div>
-                    </>
+                    </>    
                   ) : (
                     /* General Application Form */
                     <>
@@ -728,6 +692,12 @@ export default function GetInvolvedPage() {
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                   </motion.button>
+
+                  {submitMessage && (
+                    <p className="text-center text-sm text-white mt-4">
+                      {submitMessage}
+                    </p>
+                  )}
                 </form>
               </div>
             </motion.div>

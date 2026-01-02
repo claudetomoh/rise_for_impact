@@ -1,5 +1,3 @@
-// Prisma schema for Rise for Impact
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,40 +9,40 @@ datasource db {
 }
 
 model Program {
-  id                Int      @id @default(autoincrement())
-  title             String
-  shortDesc         String?  @map("short_desc")
-  longDesc          String?  @map("long_desc")
-  description       String?
-  location          String?
-  status            String?  @default("active")
-  applicationsOpen  Boolean  @default(false) @map("applications_open")
-  applicationUrl    String?  @map("application_url")
-  startDate         String?  @map("start_date")
-  endDate           String?  @map("end_date")
-  participants      Int?
-  focus             String?
-  duration          String?
-  image             String?
-  createdAt         DateTime @default(now()) @map("created_at")
+  id               Int      @id @default(autoincrement())
+  title            String
+  shortDesc        String?  @map("short_desc")
+  longDesc         String?  @map("long_desc")
+  description      String?
+  location         String?
+  status           String?  @default("active")
+  applicationsOpen Boolean  @default(false) @map("applications_open")
+  applicationUrl   String?  @map("application_url")
+  startDate        String?  @map("start_date")
+  endDate          String?  @map("end_date")
+  participants     Int?
+  focus            String?
+  duration         String?
+  image            String?
+  createdAt        DateTime @default(now()) @map("created_at")
 
   @@map("programs")
 }
 
 model TeamMember {
-  id        Int      @id @default(autoincrement())
-  name      String
-  role      String
-  category  String   @default("coordinators")
-  country   String?
-  countryFlag String? @map("country_flag")
-  focus     String?
-  image     String?
-  linkedin  String?
-  twitter   String?
-  email     String?
-  bio       String?
-  createdAt DateTime @default(now()) @map("created_at")
+  id          Int      @id @default(autoincrement())
+  name        String
+  role        String
+  category    String   @default("coordinators")
+  country     String?
+  countryFlag String?  @map("country_flag")
+  focus       String?
+  image       String?
+  linkedin    String?
+  twitter     String?
+  email       String?
+  bio         String?
+  createdAt   DateTime @default(now()) @map("created_at")
 
   @@map("team_members")
 }
@@ -60,7 +58,9 @@ model BlogPost {
   author       String?
   date         String?
   mediaGallery String?  @map("media_gallery")
+  likes        Int      @default(0)
   createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
 
   @@map("blog_posts")
 }
@@ -103,10 +103,10 @@ model Admin {
 }
 
 model NewsletterSubscriber {
-  id          Int      @id @default(autoincrement())
-  email       String   @unique
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
   subscribedAt DateTime @default(now()) @map("subscribed_at")
-  isActive    Boolean  @default(true) @map("is_active")
+  isActive     Boolean  @default(true) @map("is_active")
 
   @@map("newsletter_subscribers")
 }
@@ -118,18 +118,18 @@ model VolunteerApplication {
   phone          String?
   country        String?
   city           String?
-  role           String   // Role applying for (e.g., "Graphic Designer", "Content Writer")
-  experience     String?  // Years of experience or level
-  skills         String?  // Comma-separated list of skills
-  availability   String?  // Hours per week or availability description
-  portfolio      String?  // Portfolio URL or relevant links
-  linkedin       String?  // LinkedIn profile
-  whyVolunteer   String?  @map("why_volunteer") // Why they want to volunteer
-  whatCanOffer   String?  @map("what_can_offer") // What value they can bring
-  previousWork   String?  @map("previous_work") // Previous volunteer/work experience
-  heardFrom      String?  @map("heard_from") // How they heard about us
-  additionalInfo String?  @map("additional_info") // Any additional information
-  status         String   @default("pending") // pending, approved, rejected, contacted
+  role           String
+  experience     String?
+  skills         String?
+  availability   String?
+  portfolio      String?
+  linkedin       String?
+  whyVolunteer   String?  @map("why_volunteer")
+  whatCanOffer   String?  @map("what_can_offer")
+  previousWork   String?  @map("previous_work")
+  heardFrom      String?  @map("heard_from")
+  additionalInfo String?  @map("additional_info")
+  status         String   @default("pending")
   createdAt      DateTime @default(now()) @map("created_at")
 
   @@map("volunteer_applications")
@@ -137,20 +137,20 @@ model VolunteerApplication {
 
 model Opportunity {
   id           Int      @id @default(autoincrement())
-  title        String   // Opportunity title
-  description  String   // Full description/about the opportunity
-  organization String?  // Company/Organization offering
-  deadline     String?  // Application deadline
-  eligibility  String?  // Who can apply / requirements
-  benefits     String?  // What participants get
-  applyLink    String   @map("apply_link") // External application URL
-  image        String?  // Flyer/poster image
-  categories   String?  // JSON array of categories: ["Scholarship", "Internship"], etc.
-  location     String?  // Location (if relevant)
-  isPaid       Boolean  @default(false) @map("is_paid") // Whether it's a paid opportunity (ads)
-  isActive     Boolean  @default(true) @map("is_active") // Active/inactive status
-  isFeatured   Boolean  @default(false) @map("is_featured") // Featured on homepage
-  views        Int      @default(0) // Track clicks/views
+  title        String
+  description  String
+  organization String?
+  deadline     String?
+  eligibility  String?
+  benefits     String?
+  applyLink    String   @map("apply_link")
+  image        String?
+  categories   String?
+  location     String?
+  isPaid       Boolean  @default(false) @map("is_paid")
+  isActive     Boolean  @default(true) @map("is_active")
+  isFeatured   Boolean  @default(false) @map("is_featured")
+  views        Int      @default(0)
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
