@@ -144,33 +144,35 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ id:
                 </div>
               )}
               
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white leading-tight max-w-4xl mx-auto drop-shadow-2xl">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white leading-tight max-w-4xl mx-auto drop-shadow-2xl text-center">
                 {blog.title}
               </h1>
               
               {blog.excerpt && (
-                <p className="text-base md:text-lg lg:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium drop-shadow-lg">
+                <p className="text-base md:text-lg lg:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium drop-shadow-lg text-center">
                   {blog.excerpt}
                 </p>
               )}
 
-              {/* Meta Info - Premium Glass Card */}
-              <div className="inline-flex flex-wrap items-center justify-center gap-4 px-6 py-3 glass-card rounded-2xl text-white/90 text-sm">
-                {blog.author && (
+              {/* Meta Info - Premium Glass Card - Centered */}
+              <div className="flex justify-center">
+                <div className="inline-flex flex-wrap items-center justify-center gap-4 px-6 py-3 glass-card rounded-2xl text-white/90 text-sm">
+                  {blog.author && (
+                    <div className="flex items-center gap-2">
+                      <User className="h-4 w-4 text-primary-400" />
+                      <span className="font-semibold">{blog.author}</span>
+                    </div>
+                  )}
+                  {blog.date && (
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4 text-primary-400" />
+                      <span className="font-medium">{blog.date}</span>
+                    </div>
+                  )}
                   <div className="flex items-center gap-2">
-                    <User className="h-4 w-4 text-primary-400" />
-                    <span className="font-semibold">{blog.author}</span>
+                    <Clock className="h-4 w-4 text-primary-400" />
+                    <span className="font-medium">5 min read</span>
                   </div>
-                )}
-                {blog.date && (
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-primary-400" />
-                    <span className="font-medium">{blog.date}</span>
-                  </div>
-                )}
-                <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-primary-400" />
-                  <span className="font-medium">5 min read</span>
                 </div>
               </div>
             </div>

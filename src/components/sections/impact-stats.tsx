@@ -109,83 +109,37 @@ export function ImpactStats() {
           </p>
         </AnimatedSection>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        {/* Stats Grid - In Cards like Core Values */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
-            <TiltCard key={stat.label} intensity={8}>
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="relative group h-full"
-              >
-                {/* Card */}
-                <div className="relative overflow-hidden h-full rounded-2xl border border-dark-700/50 backdrop-blur-xl bg-gradient-to-br from-dark-800/90 via-dark-800/50 to-dark-900/90 shadow-2xl hover:shadow-primary-500/20 transition-all duration-500">
-                  {/* Animated Border */}
-                  <div className="absolute inset-0 rounded-2xl p-[1px]">
-                    <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-30 blur-sm transition-opacity duration-500`} />
-                  </div>
-                  
-                  {/* Gradient Overlay on Hover */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
-                  />
-                  
-                  {/* Shimmer Effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                  </div>
-
-                  {/* Content */}
-                  <div className="relative z-10 p-6 md:p-7 space-y-4">
-                    {/* Icon with animated ring */}
-                    <div className="relative">
-                      <motion.div
-                        whileHover={{ rotate: 360, scale: 1.1 }}
-                        transition={{ duration: 0.6, type: "spring" }}
-                        className={`relative w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-shadow duration-300`}
-                      >
-                      <stat.icon className="w-7 h-7 md:w-8 md:h-8 text-white" />
-                      {/* Pulse ring */}
-                      <motion.div
-                        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${stat.color} opacity-50`}
-                      />
-                    </motion.div>
-                  </div>
-
-                  {/* Number with gradient */}
-                  <div className="space-y-1">
-                    <div className="text-3xl md:text-4xl font-display font-bold flex items-baseline gap-1">
-                      <span className="bg-gradient-to-r from-white via-gray-200 to-gray-300 bg-clip-text text-transparent">
-                        <AnimatedCounter value={stat.value} />
-                      </span>
-                      <span className={`text-2xl bg-gradient-to-br ${stat.color} bg-clip-text text-transparent`}>{stat.suffix}</span>
-                    </div>
-                  </div>
-
-                  {/* Label */}
-                  <div className="space-y-2 pt-2 border-t border-dark-700/50">
-                    <div className="text-base md:text-lg font-semibold text-white group-hover:text-gray-100 transition-colors">
-                      {stat.label}
-                    </div>
-                    <div className="text-dark-400 text-xs md:text-sm leading-relaxed">
-                      {stat.description}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Decorative Elements */}
-                <div className={`absolute -bottom-12 -right-12 w-40 h-40 bg-gradient-to-br ${stat.color} rounded-full blur-3xl opacity-10 group-hover:opacity-20 transition-all duration-700`} />
-                <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${stat.color} rounded-bl-full opacity-5`} />
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="glass-card p-6 rounded-2xl text-center hover:scale-105 transition-all duration-300"
+            >
+              {/* Centered Icon */}
+              <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center shadow-lg`}>
+                <stat.icon className="w-8 h-8 text-white" />
               </div>
+              
+              {/* Number */}
+              <div className="text-3xl md:text-4xl font-bold text-white mb-2">
+                {stat.value}<span className="text-emerald-400">+</span>
+              </div>
+              
+              {/* Label */}
+              <h3 className="text-lg font-bold text-white mb-2">
+                {stat.label}
+              </h3>
+              
+              {/* Description */}
+              <p className="text-sm text-dark-400">
+                {stat.description}
+              </p>
             </motion.div>
-          </TiltCard>
           ))}
         </div>
 

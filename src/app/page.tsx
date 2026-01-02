@@ -47,7 +47,9 @@ export default function Home() {
         <MediaHub />
         <Blog />
         <ContactForm />
+        {/* CTA Section */}
         <CallToAction />
+        {/* Footer */}
         <Footer />
       </main>
       <ScrollToTop />

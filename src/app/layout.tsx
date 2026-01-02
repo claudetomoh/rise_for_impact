@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     url: 'https://www.riseforimpact.org',
     siteName: 'Rise for Impact',
     title: 'Rise for Impact | Empowering 10,000+ African Youth Leaders',
-    description: 'Pan-African youth-led movement empowering young leaders across 8+ countries through leadership development, climate action, and civic education.',
+    description: 'Pan-African movement of young changemakers building Africa\'s next generation of leaders through transformative programs, climate innovation, and community-driven impact across 8+ countries.',
     images: [
       {
         url: '/images/backgrounds/fellowship.jpeg',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Rise for Impact | Empowering African Youth Leaders',
-    description: 'Pan-African youth-led movement empowering young leaders across 8+ countries.',
+    description: 'Pan-African movement of young changemakers building Africa\'s next generation of leaders through transformative programs, climate innovation, and community-driven impact across 8+ countries.',
     images: ['/images/backgrounds/fellowship.jpeg'],
     creator: '@riseforimpact'
   },
