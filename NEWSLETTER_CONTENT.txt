@@ -1,0 +1,127 @@
+=============================================================
+RISE FOR IMPACT - FIRST NEWSLETTER
+=============================================================
+
+SUBJECT LINE:
+🌍 Rise for Impact is LIVE - Your Journey to Leadership Starts Now!
+
+PREVIEW TEXT:
+Exclusive opportunities, fellowships, and team roles await. Join 10,000+ African youth building the future.
+
+=============================================================
+HTML CONTENT (Copy everything below and paste into admin panel):
+=============================================================
+
+<h1 style="color: #10b981; margin-bottom: 20px;">🎉 WE ARE LIVE! 🚀</h1>
+
+<p style="font-size: 16px; line-height: 1.6; color: #1f2937; margin-bottom: 20px;">
+  Dear Changemaker,
+</p>
+
+<p style="font-size: 16px; line-height: 1.6; color: #1f2937; margin-bottom: 30px;">
+  After months of hard work and dedication, we're thrilled to announce that <strong>Rise for Impact</strong> is officially LIVE and ready to empower the next generation of African leaders!
+</p>
+
+<div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 12px; padding: 25px; margin-bottom: 30px;">
+  <h2 style="color: #92400e; font-size: 20px; margin: 0 0 15px 0;">💎 Amazing Opportunities</h2>
+  <p style="color: #78350f; font-size: 15px; line-height: 1.6; margin: 0 0 20px 0;">
+    Browse <strong>exclusive scholarships, fellowships, and programs</strong> designed to accelerate your leadership journey across Africa.
+  </p>
+  <a href="https://riseforimpact.org/opportunities" style="display: inline-block; background-color: #f59e0b; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 14px;">
+    Explore Opportunities →
+  </a>
+</div>
+
+<div style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-radius: 12px; padding: 25px; margin-bottom: 30px;">
+  <h2 style="color: #1e40af; font-size: 20px; margin: 0 0 15px 0;">🌟 Transformative Programs</h2>
+  <ul style="color: #1e3a8a; font-size: 15px; line-height: 1.8; margin: 0 0 20px 0;">
+    <li><strong>Rise Circles</strong>: Join peer learning groups across 8+ countries</li>
+    <li><strong>Impact Clinics</strong>: Turn your ideas into real community projects</li>
+    <li><strong>Rise for Climate</strong>: Lead environmental action in your community</li>
+    <li><strong>Civic Education</strong>: Become an informed and active citizen</li>
+  </ul>
+  <a href="https://riseforimpact.org/#programs" style="display: inline-block; background-color: #3b82f6; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 14px;">
+    View All Programs →
+  </a>
+</div>
+
+<div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border-radius: 12px; padding: 25px; margin-bottom: 30px;">
+  <h2 style="color: #15803d; font-size: 20px; margin: 0 0 15px 0;">🤝 Join Our Growing Team</h2>
+  <p style="color: #166534; font-size: 15px; line-height: 1.6; margin: 0 0 15px 0;">
+    We're building Africa's largest youth-led impact movement, and we want <strong>YOU</strong> on our team!
+  </p>
+  <p style="color: #166534; font-size: 14px; margin: 0 0 20px 0;">
+    <strong>Open roles:</strong> Country Coordinators, Program Coordinators, Communications, Content Creators, Tech Experts, and Volunteer Mentors
+  </p>
+  <a href="https://riseforimpact.org/get-involved" style="display: inline-block; background-color: #10b981; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 14px;">
+    Join the Team →
+  </a>
+</div>
+
+<div style="text-align: center; padding: 30px; background-color: #f9fafb; border-radius: 12px; margin: 30px 0;">
+  <h3 style="color: #1f2937; font-size: 20px; margin: 0 0 20px 0;">📊 By the Numbers</h3>
+  <table width="100%" style="max-width: 500px; margin: 0 auto;">
+    <tr>
+      <td style="text-align: center; padding: 10px;">
+        <div style="font-size: 32px; font-weight: bold; color: #10b981;">10K+</div>
+        <div style="font-size: 14px; color: #6b7280;">Youth Impacted</div>
+      </td>
+      <td style="text-align: center; padding: 10px;">
+        <div style="font-size: 32px; font-weight: bold; color: #3b82f6;">8+</div>
+        <div style="font-size: 14px; color: #6b7280;">Countries</div>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: center; padding: 10px;">
+        <div style="font-size: 32px; font-weight: bold; color: #f59e0b;">100+</div>
+        <div style="font-size: 14px; color: #6b7280;">Projects</div>
+      </td>
+      <td style="text-align: center; padding: 10px;">
+        <div style="font-size: 32px; font-weight: bold; color: #8b5cf6;">50+</div>
+        <div style="font-size: 14px; color: #6b7280;">Partners</div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div style="text-align: center; margin: 40px 0;">
+  <a href="https://riseforimpact.org" style="display: inline-block; background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%); color: #ffffff; padding: 16px 40px; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 18px; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);">
+    🚀 Visit Our Platform Now
+  </a>
+</div>
+
+<p style="font-size: 16px; line-height: 1.6; color: #1f2937; margin: 40px 0 20px 0;">
+  <strong>Together, we rise. Together, we impact.</strong>
+</p>
+
+<p style="font-size: 14px; color: #6b7280;">
+  The Rise for Impact Team<br>
+  📧 info@riseforimpact.org<br>
+  📱 +233 538 034 157 | +237 673 031 205
+</p>
+
+=============================================================
+INSTRUCTIONS:
+=============================================================
+
+1. Go to: https://riseforimpact.org/admin/newsletter
+2. Click "Compose Newsletter"
+3. Select Recipients: "Active Subscribers"
+4. Copy the SUBJECT LINE above
+5. Copy the entire HTML CONTENT above
+6. Paste into the "Newsletter Content" field
+7. Preview to make sure it looks good
+8. Click "Send"
+
+=============================================================
+TESTING (RECOMMENDED):
+=============================================================
+
+Before sending to all subscribers:
+1. Select "Custom Selection" instead
+2. Choose only your email address
+3. Send test email to yourself
+4. Check how it looks in your inbox
+5. Then send to all active subscribers
+
+=============================================================
