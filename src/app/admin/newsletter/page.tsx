@@ -26,6 +26,7 @@ export default function NewsletterPage() {
   const [recipientFilter, setRecipientFilter] = useState<'all' | 'active' | 'inactive' | 'custom'>('active')
   const [selectedEmails, setSelectedEmails] = useState<string[]>([])
   const [sending, setSending] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [sendingProgress, setSendingProgress] = useState(0)
 
   useEffect(() => {
@@ -117,21 +118,73 @@ export default function NewsletterPage() {
     const files = Array.from(e.target.files || [])
     if (files.length === 0) return
 
-    const newImages = files.map(file => ({
-      file,
-      preview: URL.createObjectURL(file),
-      id: Math.random().toString(36).substring(7)
-    }))
+    setUploading(true)
 
-    setUploadedImages(prev => [...prev, ...newImages])
+    try {
+      // Upload each file to the server
+      const uploadPromises = files.map(async (file) => {
+        const formData = new FormData()
+        formData.append('file', file)
+
+        console.log('Uploading file:', file.name, file.type, file.size)
+
+        try {
+          const response = await fetch('/api/upload', {
+            method: 'POST',
+            body: formData,
+          })
+
+          let data
+          const contentType = response.headers.get('content-type')
+          
+          if (contentType && contentType.includes('application/json')) {
+            data = await response.json()
+          } else {
+            const text = await response.text()
+            console.error('Non-JSON response:', text)
+            throw new Error(`Server returned non-JSON response: ${text.substring(0, 100)}`)
+          }
+
+          if (!response.ok) {
+            console.error('Upload failed:', response.status, data)
+            throw new Error(data.error || `Failed to upload ${file.name} (Status: ${response.status})`)
+          }
+
+          console.log('Upload success:', data)
+          
+          if (!data.url) {
+            throw new Error('Server did not return a URL for the uploaded file')
+          }
+          
+          // Convert relative URL to absolute URL for emails
+          const absoluteUrl = `${window.location.origin}${data.url}`
+          
+          return {
+            file,
+            preview: absoluteUrl,
+            id: Math.random().toString(36).substring(7)
+          }
+        } catch (err) {
+          console.error(`Failed to upload ${file.name}:`, err)
+          throw err
+        }
+      })
+
+      const newImages = await Promise.all(uploadPromises)
+      setUploadedImages(prev => [...prev, ...newImages])
+      
+      alert(`Successfully uploaded ${files.length} image(s)`)
+    } catch (error) {
+      console.error('Upload error:', error)
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+      alert(`Failed to upload images: ${errorMessage}`)
+    } finally {
+      setUploading(false)
+    }
   }
 
   const removeImage = (id: string) => {
-    setUploadedImages(prev => {
-      const image = prev.find(img => img.id === id)
-      if (image) URL.revokeObjectURL(image.preview)
-      return prev.filter(img => img.id !== id)
-    })
+    setUploadedImages(prev => prev.filter(img => img.id !== id))
   }
 
   const insertImageToContent = (imageUrl: string) => {
@@ -170,24 +223,8 @@ export default function NewsletterPage() {
     setSendingProgress(0)
 
     try {
-      // Convert uploaded images to base64
-      const imagePromises = uploadedImages.map(async (img) => {
-        return new Promise<{ id: string; data: string }>((resolve) => {
-          const reader = new FileReader()
-          reader.onloadend = () => {
-            resolve({ id: img.id, data: reader.result as string })
-          }
-          reader.readAsDataURL(img.file)
-        })
-      })
-
-      const base64Images = await Promise.all(imagePromises)
-      
-      // Replace preview URLs with base64 in content
-      let finalContent = newsletterContent
-      uploadedImages.forEach((img, index) => {
-        finalContent = finalContent.replace(img.preview, base64Images[index].data)
-      })
+      // Images are already uploaded with permanent URLs, no need to convert
+      const finalContent = newsletterContent
 
       const response = await fetch('/api/newsletter/send', {
         method: 'POST',
@@ -208,7 +245,12 @@ export default function NewsletterPage() {
         setUploadedImages([])
       } else {
         const error = await response.json()
-        alert(`Failed to send newsletter: ${error.error}`)
+        console.error('Newsletter send error:', error)
+        // Show detailed error including which batches failed
+        const errorDetails = error.errors ? 
+          `\n\nDetails:\n${error.errors.map((e: any) => `Batch ${e.batch}: ${e.error}`).join('\n')}` : 
+          ''
+        alert(`Failed to send newsletter: ${error.error}${errorDetails}`)
       }
     } catch (error) {
       console.error('Error sending newsletter:', error)
@@ -282,7 +324,7 @@ export default function NewsletterPage() {
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                   <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 01-2-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
                 <div>
