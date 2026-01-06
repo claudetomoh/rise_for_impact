@@ -4,3 +4,7 @@ node_modules
 
 .next
 /src/generated/prisma
+
+# Development documentation (not for production)
+COMMON_PITFALLS_SAFEGUARDS.md
+verify-safeguards.js
