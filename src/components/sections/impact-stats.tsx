@@ -27,7 +27,7 @@ const stats = [
   },
   {
     icon: Target,
-    value: 100,
+    value: 10,
     suffix: '+',
     label: 'Impact Projects',
     description: 'Community-driven initiatives',
@@ -127,7 +127,7 @@ export function ImpactStats() {
               
               {/* Number */}
               <div className="text-3xl md:text-4xl font-bold text-white mb-2">
-                {stat.value}<span className="text-emerald-400">+</span>
+                <AnimatedCounter value={stat.value} /><span className="text-emerald-400">+</span>
               </div>
               
               {/* Label */}

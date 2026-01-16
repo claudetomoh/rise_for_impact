@@ -173,6 +173,19 @@ export default function OpportunitiesPage() {
       return
     }
 
+    // Validate URL format
+    try {
+      new URL(formData.applyLink)
+    } catch {
+      toast.error('Please enter a valid URL for the application link')
+      return
+    }
+
+    // Show loading toast
+    const loadingToast = toast.loading(
+      editingOpportunity ? 'Updating opportunity...' : 'Creating opportunity...'
+    )
+
     try {
       const url = editingOpportunity
         ? `/api/opportunities/${editingOpportunity.id}`
@@ -186,20 +199,24 @@ export default function OpportunitiesPage() {
         body: JSON.stringify(formData),
       })
 
+      const data = await response.json()
+
       if (response.ok) {
         toast.success(
           editingOpportunity
             ? 'Opportunity updated successfully'
-            : 'Opportunity created successfully! Email notifications sent.'
+            : 'Opportunity created successfully! Email notifications sent.',
+          { id: loadingToast }
         )
-        fetchOpportunities()
+        await fetchOpportunities()
         handleCloseModal()
       } else {
-        toast.error('Failed to save opportunity')
+        toast.error(data.error || 'Failed to save opportunity', { id: loadingToast })
+        console.error('Server error:', data)
       }
     } catch (error) {
       console.error('Error saving opportunity:', error)
-      toast.error('Error saving opportunity')
+      toast.error('Network error: Could not save opportunity', { id: loadingToast })
     }
   }
 

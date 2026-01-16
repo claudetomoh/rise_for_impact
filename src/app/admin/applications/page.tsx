@@ -3,7 +3,6 @@
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState, useMemo } from 'react'
-import AdminNav from '@/components/layout/admin-nav'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 
@@ -43,12 +42,19 @@ export default function ApplicationsPage() {
 
   const fetchApplications = () => {
     fetch('/api/apply')
-      .then((res) => res.json())
+      .then(async (res) => {
+        if (!res.ok) throw new Error('Failed to fetch applications')
+        return res.json()
+      })
       .then((data) => {
+        console.log('Fetched applications:', data.length, 'records')
         setApplications(data)
         setIsLoading(false)
       })
-      .catch(() => setIsLoading(false))
+      .catch((error) => {
+        console.error('Error fetching applications:', error)
+        setIsLoading(false)
+      })
   }
 
   // Filtered applications
@@ -334,7 +340,6 @@ export default function ApplicationsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-emerald-100 to-teal-50">
-      <AdminNav />
       <div className="p-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-8 flex items-center justify-between">

@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import AdminNav from '@/components/layout/admin-nav'
 import ImageUpload from '@/components/ui/image-upload'
 
 interface MediaItem {
@@ -64,12 +63,18 @@ export default function BlogsManagementPage() {
 
   const fetchBlogs = () => {
     fetch('/api/blogs')
-      .then((res) => res.json())
+      .then(async (res) => {
+        if (!res.ok) throw new Error('Failed to fetch blogs')
+        return res.json()
+      })
       .then((data) => {
         setBlogs(data)
         setIsLoading(false)
       })
-      .catch(() => setIsLoading(false))
+      .catch((error) => {
+        console.error('Error fetching blogs:', error)
+        setIsLoading(false)
+      })
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -153,7 +158,6 @@ export default function BlogsManagementPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-emerald-100 to-teal-50">
-      <AdminNav />
       <div className="p-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-8 flex items-center justify-between">

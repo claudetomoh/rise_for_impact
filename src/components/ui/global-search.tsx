@@ -50,10 +50,12 @@ export function GlobalSearch() {
         setIsLoading(true)
         try {
           const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`)
+          if (!response.ok) throw new Error('Search failed')
           const data = await response.json()
           setResults(data)
         } catch (error) {
           console.error('Search error:', error)
+          setResults(null)
         } finally {
           setIsLoading(false)
         }

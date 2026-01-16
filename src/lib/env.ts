@@ -20,6 +20,7 @@ const envSchema = z.object({
   
   // Email Service - Required
   RESEND_API_KEY: z.string().regex(/^re_/, 'RESEND_API_KEY must start with "re_"'),
+  RESEND_FROM_EMAIL: z.string().email('RESEND_FROM_EMAIL must be a valid email').optional().default('admin@riseforimpact.org'),
   CONTACT_EMAIL: z.string().email('CONTACT_EMAIL must be a valid email'),
   
   // Node Environment

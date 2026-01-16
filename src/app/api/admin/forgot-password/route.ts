@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { env } from '@/lib/env'
 import crypto from 'crypto'
 
 export async function POST(request: NextRequest) {
@@ -41,11 +42,11 @@ export async function POST(request: NextRequest) {
     })
 
     // Create reset URL
-    const resetUrl = `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/admin/reset-password?token=${resetToken}`
+    const resetUrl = `${env.NEXTAUTH_URL}/admin/reset-password?token=${resetToken}`
 
     // Send email using Resend (or your email service)
     // For now, we'll log the URL (in production, send actual email)
-    if (process.env.NODE_ENV === 'development') {
+    if (env.NODE_ENV === 'development') {
       console.log('Password Reset URL:', resetUrl)
       console.log('This link expires in 1 hour')
     }
@@ -53,7 +54,8 @@ export async function POST(request: NextRequest) {
     // TODO: Send actual email in production
     // Example with Resend:
     /*
-    const resend = new Resend(process.env.RESEND_API_KEY)
+    const { Resend } = require('resend')
+    const resend = new Resend(env.RESEND_API_KEY)
     await resend.emails.send({
       from: 'Rise for Impact <noreply@riseforimpact.org>',
       to: email,
@@ -77,7 +79,7 @@ export async function POST(request: NextRequest) {
       success: true,
       message: 'Password reset email sent',
       // Remove in production:
-      ...(process.env.NODE_ENV === 'development' && { resetUrl })
+      ...(env.NODE_ENV === 'development' && { resetUrl })
     })
 
   } catch (error) {

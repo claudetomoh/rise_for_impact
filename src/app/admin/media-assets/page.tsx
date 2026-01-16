@@ -3,7 +3,6 @@
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import AdminNav from '@/components/layout/admin-nav'
 import Image from 'next/image'
 
 interface MediaAsset {
@@ -146,7 +145,6 @@ export default function MediaAssetsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <AdminNav />
       <div className="p-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}

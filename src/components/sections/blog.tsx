@@ -101,12 +101,18 @@ export function Blog() {
   useEffect(() => {
     // Fetch blog posts from the database
     fetch('/api/blogs')
-      .then((res) => res.json())
+      .then(async (res) => {
+        if (!res.ok) throw new Error('Failed to fetch blogs')
+        return res.json()
+      })
       .then((data) => {
         setDbPosts(data)
         setIsLoading(false)
       })
-      .catch(() => setIsLoading(false))
+      .catch((error) => {
+        console.error('Error fetching blogs:', error)
+        setIsLoading(false)
+      })
   }, [])
 
   // Combine database posts with featured posts

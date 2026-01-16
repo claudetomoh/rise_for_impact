@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { z } from 'zod'
+import { env } from '@/lib/env'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,8 +13,9 @@ const contactSchema = z.object({
   message: z.string().min(20),
 })
 
+const resend = new Resend(env.RESEND_API_KEY)
+
 export async function POST(request: Request) {
-  const resend = new Resend(process.env.RESEND_API_KEY)
   
   try {
     const body = await request.json()
@@ -22,7 +24,7 @@ export async function POST(request: Request) {
     // Send email using Resend
     await resend.emails.send({
       from: 'Rise for Impact <noreply@riseforimpact.org>',
-      to: process.env.CONTACT_EMAIL || 'info@riseforimpact.org',
+      to: env.CONTACT_EMAIL,
       replyTo: validatedData.email,
       subject: `Contact Form: ${validatedData.subject}`,
       html: `

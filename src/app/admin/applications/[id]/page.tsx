@@ -4,7 +4,6 @@ import { useSession } from 'next-auth/react'
 import { useRouter, useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
-import AdminNav from '@/components/layout/admin-nav'
 
 interface Application {
   id: number
@@ -34,12 +33,18 @@ export default function ApplicationDetailPage() {
   useEffect(() => {
     if (authStatus === 'authenticated' && params.id) {
       fetch(`/api/applications/${params.id}`)
-        .then((res) => res.json())
+        .then(async (res) => {
+          if (!res.ok) throw new Error('Failed to fetch application')
+          return res.json()
+        })
         .then((data) => {
           setApplication(data)
           setIsLoading(false)
         })
-        .catch(() => setIsLoading(false))
+        .catch((error) => {
+          console.error('Error fetching application:', error)
+          setIsLoading(false)
+        })
     }
   }, [authStatus, params.id])
 
@@ -169,7 +174,6 @@ export default function ApplicationDetailPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-emerald-100 to-teal-50">
-      <AdminNav />
       <div className="p-8">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8 flex items-center justify-between">

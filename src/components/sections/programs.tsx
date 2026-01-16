@@ -174,12 +174,18 @@ export function Programs() {
   useEffect(() => {
     // Fetch programs from the database
     fetch('/api/programs')
-      .then((res) => res.json())
+      .then(async (res) => {
+        if (!res.ok) throw new Error('Failed to fetch programs')
+        return res.json()
+      })
       .then((data) => {
         setDbPrograms(data)
         setIsLoading(false)
       })
-      .catch(() => setIsLoading(false))
+      .catch((error) => {
+        console.error('Error fetching programs:', error)
+        setIsLoading(false)
+      })
   }, [])
 
   // Merge static programs with database programs (filter out duplicates by title)
@@ -528,6 +534,7 @@ export function Programs() {
                 onClick={async () => {
                   try {
                     const response = await fetch('/api/download-all-programs')
+                    if (!response.ok) throw new Error('Failed to fetch programs')
                     const data = await response.json()
                     
                     if (data.success && data.programs) {

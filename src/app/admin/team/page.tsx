@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import AdminNav from '@/components/layout/admin-nav'
 
 interface TeamMember {
   id: number
@@ -59,12 +58,18 @@ export default function TeamManagementPage() {
 
   const fetchTeam = () => {
     fetch('/api/team')
-      .then((res) => res.json())
+      .then(async (res) => {
+        if (!res.ok) throw new Error('Failed to fetch team')
+        return res.json()
+      })
       .then((data) => {
         setTeam(data)
         setIsLoading(false)
       })
-      .catch(() => setIsLoading(false))
+      .catch((error) => {
+        console.error('Error fetching team:', error)
+        setIsLoading(false)
+      })
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -202,7 +207,6 @@ export default function TeamManagementPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-emerald-100 to-teal-50">
-      <AdminNav />
       <div className="p-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-8 flex items-center justify-between">

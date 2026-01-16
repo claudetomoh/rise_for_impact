@@ -3,7 +3,6 @@
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import AdminNav from '@/components/layout/admin-nav'
 import AnalyticsCharts from '@/components/sections/analytics-charts'
 
 interface Application {
@@ -50,36 +49,55 @@ export default function AdminDashboard() {
     if (status === 'authenticated') {
       // Fetch statistics and recent data
       Promise.all([
-        fetch('/api/apply').then((res) => res.json()),
-        fetch('/api/programs').then((res) => res.json()),
-        fetch('/api/team').then((res) => res.json()),
-        fetch('/api/blogs').then((res) => res.json()),
-        fetch('/api/volunteers').then((res) => res.json()),
-      ]).then(([applications, programs, team, blogs, volunteers]) => {
-        const pending = applications.filter((app: Application) => app.status === 'pending').length
-        const approved = applications.filter((app: Application) => app.status === 'approved').length
-        const volunteersPending = volunteers.filter((vol: any) => vol.status === 'pending').length
-        
-        setStats({
-          applications: applications.length || 0,
-          programs: programs.length || 0,
-          team: team.length || 0,
-          blogs: blogs.length || 0,
-          volunteers: volunteers.length || 0,
-          pending,
-          approved,
-          volunteersPending,
+        fetch('/api/apply').then(async (res) => {
+          if (!res.ok) throw new Error('Failed to fetch applications')
+          return res.json()
+        }),
+        fetch('/api/programs').then(async (res) => {
+          if (!res.ok) throw new Error('Failed to fetch programs')
+          return res.json()
+        }),
+        fetch('/api/team').then(async (res) => {
+          if (!res.ok) throw new Error('Failed to fetch team')
+          return res.json()
+        }),
+        fetch('/api/blogs').then(async (res) => {
+          if (!res.ok) throw new Error('Failed to fetch blogs')
+          return res.json()
+        }),
+        fetch('/api/volunteers').then(async (res) => {
+          if (!res.ok) throw new Error('Failed to fetch volunteers')
+          return res.json()
+        }),
+      ])
+        .then(([applications, programs, team, blogs, volunteers]) => {
+          const pending = applications.filter((app: Application) => app.status === 'pending').length
+          const approved = applications.filter((app: Application) => app.status === 'approved').length
+          const volunteersPending = volunteers.filter((vol: any) => vol.status === 'pending').length
+          
+          setStats({
+            applications: applications.length || 0,
+            programs: programs.length || 0,
+            team: team.length || 0,
+            blogs: blogs.length || 0,
+            volunteers: volunteers.length || 0,
+            pending,
+            approved,
+            volunteersPending,
+          })
+          
+          // Get 5 most recent applications
+          setRecentApplications(applications.slice(0, 5))
+          
+          // Store all applications for analytics
+          setAllApplications(applications)
+          
+          // Get 3 most recent blogs
+          setRecentBlogs(blogs.slice(0, 3))
         })
-        
-        // Get 5 most recent applications
-        setRecentApplications(applications.slice(0, 5))
-        
-        // Store all applications for analytics
-        setAllApplications(applications)
-        
-        // Get 3 most recent blogs
-        setRecentBlogs(blogs.slice(0, 3))
-      })
+        .catch((error) => {
+          console.error('Error fetching dashboard data:', error)
+        })
     }
   }, [status])
 
@@ -97,7 +115,6 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <AdminNav />
       <div className="p-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}

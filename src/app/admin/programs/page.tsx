@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import AdminNav from '@/components/layout/admin-nav'
 
 interface Program {
   id: number
@@ -57,12 +56,18 @@ export default function ProgramManagementPage() {
 
   const fetchPrograms = () => {
     fetch('/api/programs')
-      .then((res) => res.json())
+      .then(async (res) => {
+        if (!res.ok) throw new Error('Failed to fetch programs')
+        return res.json()
+      })
       .then((data) => {
         setPrograms(data)
         setIsLoading(false)
       })
-      .catch(() => setIsLoading(false))
+      .catch((error) => {
+        console.error('Error fetching programs:', error)
+        setIsLoading(false)
+      })
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -223,7 +228,6 @@ export default function ProgramManagementPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-emerald-100 to-teal-50">
-      <AdminNav />
       <div className="p-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-8 flex items-center justify-between">

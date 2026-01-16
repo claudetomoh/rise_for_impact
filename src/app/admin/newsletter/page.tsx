@@ -3,7 +3,24 @@
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import AdminNav from '@/components/layout/admin-nav'
+import { 
+  Mail, 
+  Users, 
+  UserCheck, 
+  UserX, 
+  Search, 
+  Download, 
+  Send, 
+  X, 
+  Upload, 
+  Image as ImageIcon, 
+  Eye, 
+  Trash2,
+  CheckCircle,
+  AlertCircle,
+  Edit3
+} from 'lucide-react'
+import { toast } from 'sonner'
 
 interface Subscriber {
   id: number
@@ -63,12 +80,13 @@ export default function NewsletterPage() {
 
       if (response.ok) {
         fetchSubscribers()
+        toast.success(`Subscriber ${!currentStatus ? 'activated' : 'deactivated'} successfully`)
       } else {
-        alert('Failed to update subscriber status')
+        toast.error('Failed to update subscriber status')
       }
     } catch (error) {
       console.error('Error updating subscriber:', error)
-      alert('Error updating subscriber status')
+      toast.error('Error updating subscriber status')
     }
   }
 
@@ -82,13 +100,13 @@ export default function NewsletterPage() {
 
       if (response.ok) {
         fetchSubscribers()
-        alert('Subscriber deleted successfully!')
+        toast.success('Subscriber deleted successfully!')
       } else {
-        alert('Failed to delete subscriber')
+        toast.error('Failed to delete subscriber')
       }
     } catch (error) {
       console.error('Error deleting subscriber:', error)
-      alert('Error deleting subscriber')
+      toast.error('Error deleting subscriber')
     }
   }
 
@@ -173,11 +191,11 @@ export default function NewsletterPage() {
       const newImages = await Promise.all(uploadPromises)
       setUploadedImages(prev => [...prev, ...newImages])
       
-      alert(`Successfully uploaded ${files.length} image(s)`)
+      toast.success(`Successfully uploaded ${files.length} image(s)`)
     } catch (error) {
       console.error('Upload error:', error)
       const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
-      alert(`Failed to upload images: ${errorMessage}`)
+      toast.error(`Failed to upload images: ${errorMessage}`)
     } finally {
       setUploading(false)
     }
@@ -211,7 +229,7 @@ export default function NewsletterPage() {
     }
 
     if (targetRecipients.length === 0) {
-      alert('No recipients selected. Please select at least one recipient.')
+      toast.error('No recipients selected. Please select at least one recipient.')
       return
     }
 
@@ -238,7 +256,7 @@ export default function NewsletterPage() {
 
       if (response.ok) {
         const result = await response.json()
-        alert(`Newsletter sent successfully to ${result.sent} subscribers!`)
+        toast.success(`Newsletter sent successfully to ${result.sent} subscribers!`)
         setShowComposeModal(false)
         setNewsletterSubject('')
         setNewsletterContent('')
@@ -246,15 +264,11 @@ export default function NewsletterPage() {
       } else {
         const error = await response.json()
         console.error('Newsletter send error:', error)
-        // Show detailed error including which batches failed
-        const errorDetails = error.errors ? 
-          `\n\nDetails:\n${error.errors.map((e: any) => `Batch ${e.batch}: ${e.error}`).join('\n')}` : 
-          ''
-        alert(`Failed to send newsletter: ${error.error}${errorDetails}`)
+        toast.error(`Failed to send newsletter: ${error.error}`)
       }
     } catch (error) {
       console.error('Error sending newsletter:', error)
-      alert('Error sending newsletter')
+      toast.error('Error sending newsletter')
     } finally {
       setSending(false)
       setSendingProgress(0)
@@ -287,77 +301,71 @@ export default function NewsletterPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <AdminNav />
-      <div className="p-8">
+      <div className="p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Newsletter Subscribers</h1>
-              <p className="text-gray-600">Manage email subscriptions and send newsletters</p>
-            </div>
-            <div className="flex gap-3">
-              <button
-                onClick={() => setShowComposeModal(true)}
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors flex items-center gap-2"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-                Compose Newsletter
-              </button>
-              <button
-                onClick={exportToCSV}
-                className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold transition-colors flex items-center gap-2"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Export CSV
-              </button>
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2 flex items-center gap-3">
+                  <Mail className="w-8 h-8 text-emerald-600" />
+                  Newsletter Management
+                </h1>
+                <p className="text-gray-600">Manage email subscriptions and send campaigns</p>
+              </div>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowComposeModal(true)}
+                  className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white rounded-lg font-semibold transition-all shadow-lg shadow-emerald-600/30 flex items-center gap-2"
+                >
+                  <Send className="w-5 h-5" />
+                  <span className="hidden sm:inline">Compose Newsletter</span>
+                </button>
+                <button
+                  onClick={exportToCSV}
+                  className="px-6 py-3 bg-white border-2 border-gray-200 hover:border-emerald-600 text-gray-700 hover:text-emerald-700 rounded-lg font-semibold transition-all flex items-center gap-2"
+                >
+                  <Download className="w-5 h-5" />
+                  <span className="hidden sm:inline">Export</span>
+                </button>
+              </div>
             </div>
           </div>
 
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 01-2-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl shadow-sm border border-blue-200">
+              <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-500 text-sm font-medium">Total Subscribers</p>
-                  <p className="text-3xl font-bold text-gray-900">{stats.total}</p>
+                  <p className="text-blue-700 text-sm font-semibold mb-1">Total Subscribers</p>
+                  <p className="text-4xl font-bold text-blue-900">{stats.total}</p>
+                </div>
+                <div className="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <Users className="w-7 h-7 text-white" />
                 </div>
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
+            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl shadow-sm border border-green-200">
+              <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-500 text-sm font-medium">Active</p>
-                  <p className="text-3xl font-bold text-gray-900">{stats.active}</p>
+                  <p className="text-green-700 text-sm font-semibold mb-1">Active</p>
+                  <p className="text-4xl font-bold text-green-900">{stats.active}</p>
+                </div>
+                <div className="w-14 h-14 bg-green-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <UserCheck className="w-7 h-7 text-white" />
                 </div>
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                  <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                  </svg>
-                </div>
+            <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl shadow-sm border border-red-200">
+              <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-500 text-sm font-medium">Inactive</p>
-                  <p className="text-3xl font-bold text-gray-900">{stats.inactive}</p>
+                  <p className="text-red-700 text-sm font-semibold mb-1">Inactive</p>
+                  <p className="text-4xl font-bold text-red-900">{stats.inactive}</p>
+                </div>
+                <div className="w-14 h-14 bg-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <UserX className="w-7 h-7 text-white" />
                 </div>
               </div>
             </div>
@@ -367,30 +375,34 @@ export default function NewsletterPage() {
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                  <Search className="w-4 h-4" />
                   Search
                 </label>
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search by email..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-gray-900 bg-white"
-                />
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search by email address..."
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-gray-900 bg-white"
+                  />
+                </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Filter by Status
                 </label>
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-gray-900 bg-white"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-gray-900 bg-white"
                 >
                   <option value="all">All Statuses</option>
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
+                  <option value="active">Active Only</option>
+                  <option value="inactive">Inactive Only</option>
                 </select>
               </div>
             </div>
@@ -403,10 +415,10 @@ export default function NewsletterPage() {
                 <thead className="bg-gray-50 border-b border-gray-200">
                   <tr>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                      Email
+                      Subscriber
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                      Subscribed At
+                      Subscribed Date
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                       Status
@@ -419,11 +431,14 @@ export default function NewsletterPage() {
                 <tbody className="divide-y divide-gray-200">
                   {filteredSubscribers.length === 0 ? (
                     <tr>
-                      <td colSpan={4} className="px-6 py-12 text-center">
-                        <svg className="w-12 h-12 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                        <p className="text-gray-500">No subscribers found</p>
+                      <td colSpan={4} className="px-6 py-16 text-center">
+                        <Mail className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                        <p className="text-gray-500 text-lg font-medium">No subscribers found</p>
+                        <p className="text-gray-400 text-sm mt-2">
+                          {searchQuery || statusFilter !== 'all'
+                            ? 'Try adjusting your filters'
+                            : 'Subscribers will appear here when they join your newsletter'}
+                        </p>
                       </td>
                     </tr>
                   ) : (
@@ -431,35 +446,58 @@ export default function NewsletterPage() {
                       <tr key={subscriber.id} className="hover:bg-gray-50 transition-colors">
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
-                              <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                              </svg>
+                            <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center">
+                              <Mail className="w-5 h-5 text-white" />
                             </div>
-                            <span className="text-sm font-medium text-gray-900">{subscriber.email}</span>
+                            <div>
+                              <p className="text-sm font-semibold text-gray-900">{subscriber.email}</p>
+                              <p className="text-xs text-gray-500">ID: {subscriber.id}</p>
+                            </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-600">
-                          {new Date(subscriber.subscribedAt).toLocaleDateString()} at{' '}
-                          {new Date(subscriber.subscribedAt).toLocaleTimeString()}
+                        <td className="px-6 py-4">
+                          <p className="text-sm text-gray-700">
+                            {new Date(subscriber.subscribedAt).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'short',
+                              day: 'numeric'
+                            })}
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            {new Date(subscriber.subscribedAt).toLocaleTimeString('en-US', {
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </p>
                         </td>
                         <td className="px-6 py-4">
                           <button
                             onClick={() => handleToggleStatus(subscriber.id, subscriber.isActive)}
-                            className={`px-3 py-1 text-xs font-semibold rounded-full transition-colors ${
+                            className={`px-3 py-1.5 text-xs font-bold rounded-full transition-all flex items-center gap-1.5 ${
                               subscriber.isActive
                                 ? 'bg-green-100 text-green-700 hover:bg-green-200'
                                 : 'bg-red-100 text-red-700 hover:bg-red-200'
                             }`}
                           >
-                            {subscriber.isActive ? 'Active' : 'Inactive'}
+                            {subscriber.isActive ? (
+                              <>
+                                <CheckCircle className="w-3 h-3" />
+                                Active
+                              </>
+                            ) : (
+                              <>
+                                <AlertCircle className="w-3 h-3" />
+                                Inactive
+                              </>
+                            )}
                           </button>
                         </td>
                         <td className="px-6 py-4 text-right">
                           <button
                             onClick={() => handleDelete(subscriber.id)}
-                            className="text-red-600 hover:text-red-700 font-medium text-sm transition-colors"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg font-medium text-sm transition-all"
                           >
+                            <Trash2 className="w-4 h-4" />
                             Delete
                           </button>
                         </td>
@@ -472,8 +510,9 @@ export default function NewsletterPage() {
           </div>
 
           {/* Results Count */}
-          <div className="mt-4 text-sm text-gray-600 text-center">
-            Showing {filteredSubscribers.length} of {subscribers.length} subscribers
+          <div className="mt-4 text-sm text-gray-600 text-center py-2">
+            Showing <span className="font-semibold text-gray-900">{filteredSubscribers.length}</span> of{' '}
+            <span className="font-semibold text-gray-900">{subscribers.length}</span> subscribers
           </div>
         </div>
       </div>
