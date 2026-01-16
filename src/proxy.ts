@@ -45,7 +45,7 @@ setInterval(() => {
   }
 }, 5 * 60 * 1000) // Clean every 5 minutes
 
-export function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   // Skip rate limiting for static assets
   if (
     request.nextUrl.pathname.startsWith('/_next') ||
