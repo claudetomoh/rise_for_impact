@@ -24,6 +24,14 @@ function checkRateLimit(key: string): boolean {
       count: 1,
       resetTime: now + RATE_LIMIT_WINDOW,
     })
+    // Clean up expired entries inline (setInterval not supported in Edge Runtime)
+    if (rateLimit.size > 1000) {
+      for (const [k, r] of rateLimit.entries()) {
+        if (now > r.resetTime) {
+          rateLimit.delete(k)
+        }
+      }
+    }
     return true
   }
 
@@ -34,16 +42,6 @@ function checkRateLimit(key: string): boolean {
   record.count++
   return true
 }
-
-// Clean up old entries periodically
-setInterval(() => {
-  const now = Date.now()
-  for (const [key, record] of rateLimit.entries()) {
-    if (now > record.resetTime) {
-      rateLimit.delete(key)
-    }
-  }
-}, 5 * 60 * 1000) // Clean every 5 minutes
 
 export default function proxy(request: NextRequest) {
   // Skip rate limiting for static assets
