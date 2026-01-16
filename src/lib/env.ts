@@ -34,11 +34,18 @@ export type Env = z.infer<typeof envSchema>
  * Call this once at application startup
  */
 export function validateEnv(): Env {
+  console.log('🔍 Validating environment variables...')
+  console.log('NODE_ENV:', process.env.NODE_ENV)
+  console.log('DATABASE_URL exists:', !!process.env.DATABASE_URL)
+  console.log('NEXTAUTH_SECRET exists:', !!process.env.NEXTAUTH_SECRET)
+  console.log('NEXTAUTH_URL:', process.env.NEXTAUTH_URL)
+  
   const parsed = envSchema.safeParse(process.env)
   
   if (!parsed.success) {
     console.error('❌ Environment variable validation failed:')
-    console.error(parsed.error.flatten().fieldErrors)
+    console.error('Full error:', JSON.stringify(parsed.error.format(), null, 2))
+    console.error('Field errors:', parsed.error.flatten().fieldErrors)
     
     throw new Error(
       `Missing or invalid environment variables:\n${
@@ -49,6 +56,7 @@ export function validateEnv(): Env {
     )
   }
   
+  console.log('✅ Environment variables validated successfully')
   return parsed.data
 }
 
