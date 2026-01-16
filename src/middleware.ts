@@ -24,7 +24,7 @@ function checkRateLimit(key: string): boolean {
       count: 1,
       resetTime: now + RATE_LIMIT_WINDOW,
     })
-    // Clean up expired entries inline (setInterval not supported in Edge Runtime)
+    // Clean up expired entries inline
     if (rateLimit.size > 1000) {
       for (const [k, r] of rateLimit.entries()) {
         if (now > r.resetTime) {
@@ -43,7 +43,7 @@ function checkRateLimit(key: string): boolean {
   return true
 }
 
-export default function proxy(request: NextRequest) {
+export function middleware(request: NextRequest) {
   // Skip rate limiting for static assets
   if (
     request.nextUrl.pathname.startsWith('/_next') ||
