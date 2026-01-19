@@ -23,6 +23,7 @@ interface Blog {
 
 export default function AdminDashboard() {
   const { data: session, status } = useSession()
+  const router = useRouter()
   const [stats, setStats] = useState({
     applications: 0,
     programs: 0,
