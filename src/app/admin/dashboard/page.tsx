@@ -23,7 +23,6 @@ interface Blog {
 
 export default function AdminDashboard() {
   const { data: session, status } = useSession()
-  const router = useRouter()
   const [stats, setStats] = useState({
     applications: 0,
     programs: 0,
@@ -38,12 +37,6 @@ export default function AdminDashboard() {
   const [allApplications, setAllApplications] = useState<Application[]>([])
   const [recentBlogs, setRecentBlogs] = useState<Blog[]>([])
   const [showAnalytics, setShowAnalytics] = useState(false)
-
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/admin/login')
-    }
-  }, [status, router])
 
   useEffect(() => {
     if (status === 'authenticated') {

@@ -4,6 +4,22 @@ const nextConfig = {
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',
     },
+    // Rewrites for auth pages to maintain /admin/login URLs
+    async rewrites() {
+        return [{
+                source: '/admin/login',
+                destination: '/login',
+            },
+            {
+                source: '/admin/forgot-password',
+                destination: '/forgot-password',
+            },
+            {
+                source: '/admin/reset-password',
+                destination: '/reset-password',
+            },
+        ]
+    },
     images: {
         remotePatterns: [{
                 protocol: 'https',

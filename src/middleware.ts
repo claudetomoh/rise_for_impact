@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { getToken } from 'next-auth/jwt'
 
 // Simple in-memory rate limiting (use Redis in production)
 const rateLimit = new Map<string, { count: number; resetTime: number }>()
@@ -43,7 +44,30 @@ function checkRateLimit(key: string): boolean {
   return true
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
+  // Protect admin routes (except login, forgot-password, reset-password)
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    const isAuthPage = 
+      request.nextUrl.pathname === '/admin/login' ||
+      request.nextUrl.pathname === '/admin/forgot-password' ||
+      request.nextUrl.pathname.startsWith('/admin/reset-password')
+
+    if (!isAuthPage) {
+      // Check if user is authenticated
+      const token = await getToken({
+        req: request,
+        secret: process.env.NEXTAUTH_SECRET,
+      })
+
+      if (!token) {
+        // Redirect to login page with callback URL
+        const loginUrl = new URL('/admin/login', request.url)
+        loginUrl.searchParams.set('callbackUrl', request.nextUrl.pathname)
+        return NextResponse.redirect(loginUrl)
+      }
+    }
+  }
+
   // Skip rate limiting for static assets
   if (
     request.nextUrl.pathname.startsWith('/_next') ||

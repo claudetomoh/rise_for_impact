@@ -1,18 +1,30 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { signIn, useSession, SessionProvider } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function AdminLogin() {
+function LoginPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const { status } = useSession()
+  const callbackUrl = searchParams.get('callbackUrl') || '/admin/dashboard'
+  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.push(callbackUrl)
+    }
+  }, [status, router, callbackUrl])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -20,28 +32,32 @@ export default function AdminLogin() {
     setIsLoading(true)
 
     try {
-      const response = await fetch('/api/admin/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
       })
 
-      const data = await response.json()
-
-      if (!response.ok) {
-        setError(data.error || 'Invalid email or password')
-      } else {
-        // Store user data in sessionStorage
-        sessionStorage.setItem('admin-user', JSON.stringify(data.user))
-        router.push('/admin/dashboard')
+      if (result?.error) {
+        setError('Invalid email or password')
+      } else if (result?.ok) {
+        router.push(callbackUrl)
+        router.refresh()
       }
     } catch (error) {
       setError('An error occurred. Please try again.')
     } finally {
       setIsLoading(false)
     }
+  }
+
+  // Show loading while checking auth status
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-900">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    )
   }
 
   return (
@@ -189,5 +205,13 @@ export default function AdminLogin() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function AdminLoginWithProvider() {
+  return (
+    <SessionProvider basePath="/api/auth">
+      <LoginPage />
+    </SessionProvider>
   )
 }
