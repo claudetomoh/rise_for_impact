@@ -174,12 +174,12 @@ export default function NewsletterPage() {
             throw new Error('Server did not return a URL for the uploaded file')
           }
           
-          // Convert relative URL to absolute URL for emails
-          const absoluteUrl = `${window.location.origin}${data.url}`
+          // Use URL as-is (Vercel Blob returns full URL, local returns relative)
+          const imageUrl = data.url.startsWith('http') ? data.url : `${window.location.origin}${data.url}`
           
           return {
             file,
-            preview: absoluteUrl,
+            preview: imageUrl,
             id: Math.random().toString(36).substring(7)
           }
         } catch (err) {
