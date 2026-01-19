@@ -23,6 +23,9 @@ const envSchema = z.object({
   RESEND_FROM_EMAIL: z.string().email('RESEND_FROM_EMAIL must be a valid email').optional().default('admin@riseforimpact.org'),
   CONTACT_EMAIL: z.string().email('CONTACT_EMAIL must be a valid email'),
   
+  // Vercel Blob Storage - Optional (only needed in production)
+  BLOB_READ_WRITE_TOKEN: z.string().optional(),
+  
   // Node Environment
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
 })

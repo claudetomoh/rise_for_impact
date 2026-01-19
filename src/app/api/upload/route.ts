@@ -2,7 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { writeFile, mkdir } from 'fs/promises'
 import { join } from 'path'
 import { existsSync } from 'fs'
+import { put } from '@vercel/blob'
 import { validateFile, generateSafeFilename, formatFileSize } from '@/lib/file-validation'
+
+const isProduction = process.env.NODE_ENV === 'production'
 
 export async function POST(request: NextRequest) {
   try {
@@ -39,31 +42,48 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
-
-    // Create uploads directory if it doesn't exist
-    const uploadsDir = join(process.cwd(), 'public', 'uploads')
-    console.log('Uploads directory:', uploadsDir)
-    
-    if (!existsSync(uploadsDir)) {
-      console.log('Creating uploads directory...')
-      await mkdir(uploadsDir, { recursive: true })
-    }
-
     // Generate safe filename with centralized utility
     const filename = generateSafeFilename(file.name)
-    const filepath = join(uploadsDir, filename)
 
-    console.log('Writing file to:', filepath)
+    let url: string
 
-    // Write file
-    await writeFile(filepath, buffer)
+    if (isProduction) {
+      // Use Vercel Blob Storage in production
+      console.log('Using Vercel Blob Storage for upload')
+      
+      const blob = await put(filename, file, {
+        access: 'public',
+        addRandomSuffix: false,
+      })
+      
+      url = blob.url
+      console.log('File uploaded to Vercel Blob:', url)
+    } else {
+      // Use local file system in development
+      console.log('Using local file system for upload')
+      
+      const bytes = await file.arrayBuffer()
+      const buffer = Buffer.from(bytes)
 
-    console.log('File uploaded successfully:', filename)
+      // Create uploads directory if it doesn't exist
+      const uploadsDir = join(process.cwd(), 'public', 'uploads')
+      console.log('Uploads directory:', uploadsDir)
+      
+      if (!existsSync(uploadsDir)) {
+        console.log('Creating uploads directory...')
+        await mkdir(uploadsDir, { recursive: true })
+      }
 
-    // Return public URL
-    const url = `/uploads/${filename}`
+      const filepath = join(uploadsDir, filename)
+      console.log('Writing file to:', filepath)
+
+      // Write file
+      await writeFile(filepath, buffer)
+      console.log('File uploaded successfully:', filename)
+
+      // Return public URL
+      url = `/uploads/${filename}`
+    }
 
     return NextResponse.json({
       success: true,
@@ -77,6 +97,7 @@ export async function POST(request: NextRequest) {
       { error: `Failed to upload file: ${errorMessage}` },
       { status: 500 }
     )
+  }
   }
 }
 
