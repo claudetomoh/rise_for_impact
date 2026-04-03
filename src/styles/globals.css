@@ -70,15 +70,41 @@
     .light .text-white {
         color: rgb(15 23 42) !important;
     }
+    /* Pale emerald/green/teal — replace with deep readable versions on light bg */
     .light .text-emerald-50,
     .light .text-emerald-100,
     .light .text-emerald-200,
     .light .text-emerald-300 {
-        color: rgb(30 41 59) !important;
+        color: rgb(4 120 87) !important;
+        /* emerald-700 */
     }
+    /* emerald-400 (#34d399) and emerald-500 (#10b981) — still too light on white/near-white */
+    .light .text-emerald-400,
+    .light .text-emerald-500 {
+        color: rgb(4 120 87) !important;
+        /* emerald-700 */
+    }
+    /* green-* — light variants invisible on white */
+    .light .text-green-50,
+    .light .text-green-300,
+    .light .text-green-400 {
+        color: rgb(21 128 61) !important;
+        /* green-700 */
+    }
+    /* teal — light variants invisible on white */
     .light .text-teal-100,
-    .light .text-teal-200 {
-        color: rgb(30 41 59) !important;
+    .light .text-teal-200,
+    .light .text-teal-400 {
+        color: rgb(15 118 110) !important;
+        /* teal-700 */
+    }
+    /* primary-* (warm amber/brown) — light shades invisible on white */
+    .light .text-primary-50,
+    .light .text-primary-200,
+    .light .text-primary-300,
+    .light .text-primary-400 {
+        color: rgb(146 64 14) !important;
+        /* amber-800 — warm & readable */
     }
     .light .text-dark-100 {
         color: rgb(100 116 139) !important;
