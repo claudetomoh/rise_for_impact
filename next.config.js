@@ -4,6 +4,15 @@ const nextConfig = {
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',
     },
+    async redirects() {
+        return [
+            {
+                source: '/fellowship',
+                destination: '/programs/fellowship',
+                permanent: true,
+            },
+        ]
+    },
     // Rewrites for auth pages to maintain /admin/login URLs
     async rewrites() {
         return [{
