@@ -386,7 +386,7 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+    <div className="min-h-screen bg-dark-950">
       <Navbar />
       
       {/* Hero Section with Image */}
@@ -438,200 +438,203 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
       </div>
 
       {/* Content Section */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-8">
-              {/* Program Details Cards */}
-              <div className="grid md:grid-cols-2 gap-6">
+      <div className="bg-gradient-to-b from-dark-950 via-dark-900 to-dark-950">
+        <div className="container mx-auto px-4 py-16">
+          <div className="max-w-5xl mx-auto">
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Main Content */}
+              <div className="lg:col-span-2 space-y-8">
+                {/* Program Details Cards */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="glass-card rounded-2xl p-8 hover:scale-[1.02] transition-all duration-300"
+                  >
+                    <div className="bg-primary-500/20 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                      <Calendar className="w-7 h-7 text-primary-400" />
+                    </div>
+                    <h3 className="font-bold text-white mb-2 text-lg">Duration</h3>
+                    <p className="text-dark-300 text-base">{program.duration}</p>
+                  </motion.div>
+                  
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="glass-card rounded-2xl p-8 hover:scale-[1.02] transition-all duration-300"
+                  >
+                    <div className="bg-primary-500/20 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                      <Clock className="w-7 h-7 text-primary-400" />
+                    </div>
+                    <h3 className="font-bold text-white mb-2 text-lg">Frequency</h3>
+                    <p className="text-dark-300 text-base">{program.frequency}</p>
+                  </motion.div>
+                  
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="glass-card rounded-2xl p-8 hover:scale-[1.02] transition-all duration-300"
+                  >
+                    <div className="bg-blue-500/20 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                      <MapPin className="w-7 h-7 text-blue-400" />
+                    </div>
+                    <h3 className="font-bold text-white mb-2 text-lg">Locations</h3>
+                    <p className="text-dark-300 text-base">{program.locations}</p>
+                  </motion.div>
+                  
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="glass-card rounded-2xl p-8 hover:scale-[1.02] transition-all duration-300"
+                  >
+                    <div className="bg-accent-500/20 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                      <Target className="w-7 h-7 text-accent-400" />
+                    </div>
+                    <h3 className="font-bold text-white mb-2 text-lg">Impact</h3>
+                    <p className="text-dark-300 text-base">{program.impact}</p>
+                  </motion.div>
+                </div>
+
+                {/* About Section */}
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl border border-gray-100 transition-all duration-300 hover:-translate-y-1"
+                  transition={{ delay: 0.5 }}
+                  className="glass-card rounded-2xl p-10 border border-primary-500/10"
                 >
-                  <div className="bg-primary-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
-                    <Calendar className="w-7 h-7 text-primary-600" />
+                  <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+                    <div className="bg-primary-500/20 w-12 h-12 rounded-xl flex items-center justify-center">
+                      <Sparkles className="w-6 h-6 text-primary-400" />
+                    </div>
+                    About This Program
+                  </h2>
+                  <div>
+                    {program.longDescription.split('\n').map((paragraph, idx) => (
+                      <p key={idx} className="text-dark-200 leading-relaxed mb-6 text-lg">
+                        {paragraph}
+                      </p>
+                    ))}
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-2 text-lg">Duration</h3>
-                  <p className="text-gray-600 text-base">{program.duration}</p>
                 </motion.div>
-                
+
+                {/* Key Features */}
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl border border-gray-100 transition-all duration-300 hover:-translate-y-1"
+                  transition={{ delay: 0.6 }}
+                  className="glass-card rounded-2xl p-10"
                 >
-                  <div className="bg-primary-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
-                    <Clock className="w-7 h-7 text-primary-600" />
+                  <h2 className="text-3xl font-bold text-white mb-8">Key Features</h2>
+                  <div className="grid gap-4">
+                    {program.features.map((feature, idx) => (
+                      <motion.div 
+                        key={idx} 
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.7 + idx * 0.08 }}
+                        className="flex items-start gap-4 p-4 bg-primary-500/8 rounded-xl border border-primary-500/15 hover:border-primary-500/30 transition-all duration-300"
+                      >
+                        <div className="bg-primary-500/20 w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <CheckCircle2 className="w-5 h-5 text-primary-400" />
+                        </div>
+                        <p className="text-dark-200 text-base leading-relaxed">{feature}</p>
+                      </motion.div>
+                    ))}
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-2 text-lg">Frequency</h3>
-                  <p className="text-gray-600 text-base">{program.frequency}</p>
-                </motion.div>
-                
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl border border-gray-100 transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div className="bg-primary-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
-                    <MapPin className="w-7 h-7 text-primary-600" />
-                  </div>
-                  <h3 className="font-bold text-gray-900 mb-2 text-lg">Locations</h3>
-                  <p className="text-gray-600 text-base">{program.locations}</p>
-                </motion.div>
-                
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl border border-gray-100 transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div className="bg-primary-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
-                    <Target className="w-7 h-7 text-primary-600" />
-                  </div>
-                  <h3 className="font-bold text-gray-900 mb-2 text-lg">Impact</h3>
-                  <p className="text-gray-600 text-base">{program.impact}</p>
                 </motion.div>
               </div>
 
-              {/* About Section */}
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="bg-gradient-to-br from-white to-primary-50/30 rounded-2xl p-10 shadow-md border border-primary-100"
-              >
-                <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-                  <div className="bg-primary-100 w-12 h-12 rounded-xl flex items-center justify-center">
-                    <Sparkles className="w-6 h-6 text-primary-600" />
-                  </div>
-                  About This Program
-                </h2>
-                <div className="prose prose-lg prose-gray max-w-none">
-                  {program.longDescription.split('\n').map((paragraph, idx) => (
-                    <p key={idx} className="text-gray-700 leading-relaxed mb-6 text-lg">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* Key Features */}
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="bg-white rounded-2xl p-10 shadow-md border border-gray-100"
-              >
-                <h2 className="text-3xl font-bold text-gray-900 mb-8">Key Features</h2>
-                <div className="grid gap-5">
-                  {program.features.map((feature, idx) => (
-                    <motion.div 
-                      key={idx} 
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.7 + idx * 0.1 }}
-                      className="flex items-start gap-4 p-5 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-100 hover:shadow-md transition-all duration-300 hover:border-green-200"
-                    >
-                      <div className="bg-green-100 w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <CheckCircle2 className="w-5 h-5 text-green-600" />
-                      </div>
-                      <p className="text-gray-700 text-base leading-relaxed">{feature}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Sidebar */}
-            <div className="space-y-6">
-              {/* Download Guide */}
-              <motion.div 
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="bg-gradient-to-br from-primary-600 via-primary-500 to-emerald-500 rounded-2xl p-8 text-white shadow-2xl sticky top-4 border border-primary-400"
-              >
-                <div className="bg-white/20 w-12 h-12 rounded-xl flex items-center justify-center mb-4 backdrop-blur-sm">
-                  <Download className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-3">Program Guide</h3>
-                <p className="text-primary-50 mb-6 text-base leading-relaxed">
-                  Download the complete program guide with all details, requirements, and application information.
-                </p>
-                <Button
-                  onClick={downloadProgramGuide}
-                  disabled={isDownloading}
-                  className="w-full bg-white text-primary-600 hover:bg-gray-50 shadow-lg hover:shadow-xl transition-all duration-300 font-semibold py-6 text-base"
+              {/* Sidebar */}
+              <div className="space-y-6">
+                {/* Download Guide */}
+                <motion.div 
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="glass-card rounded-2xl p-8 border border-primary-500/20 sticky top-4"
                 >
-                  <Download className="w-5 h-5 mr-2" />
-                  {isDownloading ? 'Generating PDF...' : 'Download Program Guide'}
-                </Button>
-              </motion.div>
-
-              {/* Application Status */}
-              <motion.div 
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-                className="bg-white rounded-2xl p-8 shadow-md border border-gray-100"
-              >
-                <h3 className="text-xl font-bold text-gray-900 mb-6">Application Status</h3>
-                {program.applicationsOpen ? (
-                  <div>
-                    <div className="flex items-center gap-3 text-green-600 mb-6 bg-green-50 p-4 rounded-xl border border-green-100">
-                      <div className="bg-green-100 w-10 h-10 rounded-lg flex items-center justify-center">
-                        <CheckCircle2 className="w-6 h-6" />
-                      </div>
-                      <span className="font-bold text-base">{program.status}</span>
-                    </div>
-                    <Link href={`/apply?program=${program.id}`}>
-                      <Button className="w-full py-6 text-base font-semibold shadow-lg hover:shadow-xl transition-all">
-                        Apply Now
-                        <ExternalLink className="w-5 h-5 ml-2" />
-                      </Button>
-                    </Link>
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${program.color} flex items-center justify-center mb-4 shadow-lg`}>
+                    <Download className="w-6 h-6 text-white" />
                   </div>
-                ) : (
-                  <div>
-                    <div className="flex items-center gap-3 text-amber-600 mb-6 bg-amber-50 p-4 rounded-xl border border-amber-100">
-                      <div className="bg-amber-100 w-10 h-10 rounded-lg flex items-center justify-center">
-                        <AlertCircle className="w-6 h-6" />
-                      </div>
-                      <span className="font-bold text-base">{program.status}</span>
-                    </div>
-                    <p className="text-gray-600 text-base mb-6 leading-relaxed">
-                      Applications for this program will open soon. Subscribe to our newsletter to get notified!
-                    </p>
-                    <Link href="/#newsletter">
-                      <Button variant="outline" className="w-full py-6 text-base font-semibold border-2 hover:bg-primary-50 hover:border-primary-600 transition-all">
-                        Get Notified
-                      </Button>
-                    </Link>
-                  </div>
-                )}
-              </motion.div>
+                  <h3 className="text-xl font-bold text-white mb-3">Program Guide</h3>
+                  <p className="text-dark-300 mb-6 text-sm leading-relaxed">
+                    Download the complete program guide with all details, requirements, and application information.
+                  </p>
+                  <Button
+                    onClick={downloadProgramGuide}
+                    disabled={isDownloading}
+                    variant="primary"
+                    className="w-full py-3 font-semibold"
+                  >
+                    <Download className="w-5 h-5 mr-2" />
+                    {isDownloading ? 'Generating PDF...' : 'Download Guide'}
+                  </Button>
+                </motion.div>
 
-              {/* Contact */}
-              <motion.div 
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-                className="bg-gradient-to-br from-gray-50 to-primary-50/30 rounded-2xl p-8 border border-gray-200 shadow-sm"
-              >
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Questions?</h3>
-                <p className="text-gray-600 text-base mb-5 leading-relaxed">
-                  Have questions about this program? We're here to help!
-                </p>
-                <a href="mailto:info@riseforimpact.org" className="text-primary-600 hover:text-primary-700 font-bold text-base inline-flex items-center gap-2 hover:gap-3 transition-all">
-                  info@riseforimpact.org
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              </motion.div>
+                {/* Application Status */}
+                <motion.div 
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="glass-card rounded-2xl p-8"
+                >
+                  <h3 className="text-xl font-bold text-white mb-6">Application Status</h3>
+                  {program.applicationsOpen ? (
+                    <div>
+                      <div className="flex items-center gap-3 text-emerald-400 mb-6 bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/20">
+                        <div className="bg-emerald-500/20 w-10 h-10 rounded-lg flex items-center justify-center">
+                          <CheckCircle2 className="w-6 h-6" />
+                        </div>
+                        <span className="font-bold text-base">{program.status}</span>
+                      </div>
+                      <Link href={`/apply?program=${program.id}`}>
+                        <Button variant="primary" className="w-full py-3 font-semibold">
+                          Apply Now
+                          <ExternalLink className="w-5 h-5 ml-2" />
+                        </Button>
+                      </Link>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="flex items-center gap-3 text-amber-400 mb-6 bg-amber-500/10 p-4 rounded-xl border border-amber-500/20">
+                        <div className="bg-amber-500/20 w-10 h-10 rounded-lg flex items-center justify-center">
+                          <AlertCircle className="w-6 h-6" />
+                        </div>
+                        <span className="font-bold text-base">{program.status}</span>
+                      </div>
+                      <p className="text-dark-300 text-sm mb-6 leading-relaxed">
+                        Applications for this program will open soon. Subscribe to our newsletter to get notified!
+                      </p>
+                      <Link href="/#newsletter">
+                        <Button variant="outline" className="w-full py-3 font-semibold">
+                          Get Notified
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
+                </motion.div>
+
+                {/* Contact */}
+                <motion.div 
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="glass-card rounded-2xl p-8"
+                >
+                  <h3 className="text-xl font-bold text-white mb-4">Questions?</h3>
+                  <p className="text-dark-300 text-sm mb-5 leading-relaxed">
+                    Have questions about this program? We're here to help!
+                  </p>
+                  <a href="mailto:info@riseforimpact.org" className="text-primary-400 hover:text-primary-300 font-bold text-sm inline-flex items-center gap-2 hover:gap-3 transition-all">
+                    info@riseforimpact.org
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </motion.div>
+              </div>
             </div>
           </div>
         </div>

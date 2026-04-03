@@ -107,28 +107,20 @@ export default function GetInvolvedPage() {
     {
       id: 'program' as FormTrack,
       icon: GraduationCap,
-      title: 'Apply for Programs',
-      subtitle: 'SCHOLARSHIPS & FELLOWSHIPS',
-      description: 'Browse our opportunities and apply for programs that match your goals.',
+      title: 'Explore Opportunities',
+      subtitle: 'SCHOLARSHIPS · FELLOWSHIPS · GRANTS',
+      description: 'Browse our curated opportunities — scholarships, fellowships, internships and grants — and find the one that matches your goals.',
       color: 'from-primary-500 to-primary-600',
       isExternal: true,
       link: '/opportunities',
     },
     {
-      id: 'volunteer' as FormTrack,
-      icon: Users,
-      title: 'Volunteer or mentor',
-      subtitle: 'VOLUNTEER & MENTORS',
-      description: 'Support our cohorts & community labs.',
-      color: 'from-accent-500 to-accent-600',
-    },
-    {
       id: 'team' as FormTrack,
       icon: Briefcase,
-      title: 'Join the Rise for Impact Team',
-      subtitle: 'TEAM OPPORTUNITIES',
-      description: 'Bring your skills and expertise to our growing team.',
-      color: 'from-secondary-500 to-secondary-600',
+      title: 'Volunteer, Mentor & Join Our Team',
+      subtitle: 'VOLUNTEER · MENTOR · TEAM',
+      description: 'Whether you want to volunteer, become a mentor to young leaders, or bring your skills to our growing team — there\'s a place for you at Rise for Impact.',
+      color: 'from-accent-500 to-accent-600',
     },
   ];
   const handleSubmit = async (e: React.FormEvent) => {
@@ -238,7 +230,7 @@ export default function GetInvolvedPage() {
             </motion.div>
 
             {!selectedTrack ? (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 {tracks.map((track, index) => {
                   // If track is external (Apply for Programs), render as Link
                   if (track.isExternal && track.link) {

@@ -394,7 +394,7 @@ export default function OpportunitiesPage() {
       </section>
 
       {/* Premium Search & Filter Section with Glassmorphism */}
-      <section className="bg-white/80 backdrop-blur-xl py-8 sticky top-16 z-40 shadow-2xl border-b border-gray-200/50">
+      <section className="bg-dark-900/95 backdrop-blur-xl py-8 sticky top-16 z-40 shadow-2xl border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-4 items-center">
             {/* Premium Search with Icon Animation - ENLARGED */}
@@ -407,7 +407,7 @@ export default function OpportunitiesPage() {
                   placeholder="🔍 Search by title, organization, category, location, or keywords..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-16 pr-16 py-8 text-lg border-2 border-gray-200 focus:border-emerald-500 rounded-2xl shadow-xl hover:shadow-2xl focus:shadow-2xl transition-all bg-white font-semibold group-focus-within:scale-[1.01] w-full"
+                  className="pl-16 pr-16 py-8 text-lg border-2 border-white/10 focus:border-emerald-500 rounded-2xl shadow-xl hover:shadow-2xl focus:shadow-2xl transition-all bg-dark-800 text-white placeholder-dark-400 font-semibold group-focus-within:scale-[1.01] w-full"
                 />
                 {searchQuery && (
                   <motion.button
@@ -430,7 +430,7 @@ export default function OpportunitiesPage() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as SortOption)}
-                  className="w-full lg:w-auto appearance-none pl-4 pr-10 py-3.5 rounded-xl border-2 border-gray-200 hover:border-emerald-400 focus:border-emerald-500 bg-white shadow-lg hover:shadow-xl transition-all cursor-pointer font-semibold text-gray-700"
+                  className="w-full lg:w-auto appearance-none pl-4 pr-10 py-3.5 rounded-xl border-2 border-white/10 hover:border-emerald-400 focus:border-emerald-500 bg-dark-800 text-white shadow-lg hover:shadow-xl transition-all cursor-pointer font-semibold"
                 >
                   <option value="newest">🆕 Newest First</option>
                   <option value="popular">🔥 Most Popular</option>
@@ -446,7 +446,7 @@ export default function OpportunitiesPage() {
                 className={`whitespace-nowrap px-6 py-3.5 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all ${
                   showFeaturedOnly
                     ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white border-0'
-                    : 'border-2 border-gray-200 hover:border-emerald-400 bg-white'
+                    : 'border-2 border-white/10 hover:border-emerald-400 bg-dark-800 text-dark-200'
                 }`}
               >
                 <Star className={`w-4 h-4 mr-2 ${showFeaturedOnly ? 'fill-white' : ''}`} />
@@ -462,7 +462,7 @@ export default function OpportunitiesPage() {
                   }
                 }}
                 variant="outline"
-                className="whitespace-nowrap px-6 py-3.5 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all border-2 border-gray-200 hover:border-emerald-400 bg-white"
+                className="whitespace-nowrap px-6 py-3.5 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all border-2 border-white/10 hover:border-emerald-400 bg-dark-800 text-dark-200"
               >
                 <Bookmark className="w-4 h-4 mr-2" />
                 <span className="hidden sm:inline">Saved</span>
@@ -481,7 +481,7 @@ export default function OpportunitiesPage() {
                 className={`whitespace-nowrap px-6 py-3.5 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all ${
                   showAdvancedFilters || activeFiltersCount > 2
                     ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white'
-                    : 'border-2 border-gray-200 hover:border-emerald-400 bg-white text-gray-700'
+                    : 'border-2 border-white/10 hover:border-emerald-400 bg-dark-800 text-dark-200'
                 }`}
               >
                 <span className="flex items-center gap-2">
@@ -511,10 +511,10 @@ export default function OpportunitiesPage() {
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                 className="overflow-hidden"
               >
-                <div className="bg-gradient-to-br from-emerald-50/80 to-teal-50/80 rounded-2xl p-6 border-2 border-emerald-200/50 shadow-inner backdrop-blur-sm">
+                <div className="glass-card rounded-2xl p-6 border border-emerald-500/20">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-black text-gray-900 flex items-center gap-2">
-                      <SlidersHorizontal className="w-5 h-5 text-emerald-600" />
+                    <h3 className="text-lg font-black text-white flex items-center gap-2">
+                      <SlidersHorizontal className="w-5 h-5 text-emerald-400" />
                       Advanced Filters
                     </h3>
                     <motion.button
@@ -576,7 +576,7 @@ export default function OpportunitiesPage() {
                           className={`flex-1 py-3 rounded-xl font-bold transition-all ${
                             viewMode === 'grid'
                               ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg'
-                              : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-emerald-400'
+                              : 'bg-dark-800 border border-white/10 text-dark-200 hover:border-emerald-400'
                           }`}
                         >
                           👁️ Grid
@@ -588,7 +588,7 @@ export default function OpportunitiesPage() {
                           className={`flex-1 py-3 rounded-xl font-bold transition-all ${
                             viewMode === 'list'
                               ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg'
-                              : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-emerald-400'
+                              : 'bg-dark-800 border border-white/10 text-dark-200 hover:border-emerald-400'
                           }`}
                         >
                           📋 List
@@ -623,7 +623,7 @@ export default function OpportunitiesPage() {
                   className={`relative px-6 py-3 rounded-2xl font-bold transition-all flex items-center gap-2.5 shadow-lg hover:shadow-xl overflow-hidden ${
                     isSelected
                       ? `bg-gradient-to-r from-emerald-500 to-teal-600 text-white`
-                      : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-emerald-400'
+                      : 'bg-dark-800 border border-white/10 text-dark-200 hover:border-emerald-400'
                   }`}
                 >
                   {isSelected && (
@@ -694,7 +694,7 @@ export default function OpportunitiesPage() {
       </section>
 
       {/* Premium Opportunities Grid with Advanced Features */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 via-white to-teal-50 min-h-screen">
+      <section className="py-20 bg-dark-950 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {loading ? (
             <div className="text-center py-32">
@@ -705,7 +705,7 @@ export default function OpportunitiesPage() {
               >
                 <div className="w-20 h-20 border-4 border-orange-200 border-t-orange-600 rounded-full"></div>
               </motion.div>
-              <p className="text-gray-600 text-xl font-semibold mt-6">Discovering opportunities...</p>
+              <p className="text-dark-300 text-xl font-semibold mt-6">Discovering opportunities...</p>
             </div>
           ) : filteredAndSortedOpportunities.length === 0 ? (
             <motion.div
@@ -719,8 +719,8 @@ export default function OpportunitiesPage() {
               >
                 <Target className="w-32 h-32 text-gray-300 mx-auto mb-8" />
               </motion.div>
-              <h3 className="text-3xl font-black text-gray-900 mb-4">No opportunities found</h3>
-              <p className="text-gray-600 text-lg mb-10 max-w-md mx-auto">
+              <h3 className="text-3xl font-black text-white mb-4">No opportunities found</h3>
+              <p className="text-dark-300 text-lg mb-10 max-w-md mx-auto">
                 We couldn't find any matches. Try adjusting your filters or search query.
               </p>
               <Button
@@ -764,7 +764,7 @@ export default function OpportunitiesPage() {
                       className="group relative"
                     >
                       {/* Premium Card with Glassmorphism */}
-                      <div className="relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden h-full flex flex-col border-2 border-gray-100 hover:border-orange-300">
+                      <div className="relative glass-card rounded-3xl transition-all duration-500 overflow-hidden h-full flex flex-col border border-white/10 hover:border-emerald-500/40">
                         {/* Gradient Overlay on Hover */}
                         <div className={`absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500 bg-gradient-to-br ${categoryColors[firstCategory]}`}></div>
 
@@ -895,7 +895,7 @@ export default function OpportunitiesPage() {
                               initial={{ opacity: 0, x: -20 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: 0.3 }}
-                              className="flex items-center gap-2 text-gray-600 text-sm mb-3"
+                              className="flex items-center gap-2 text-dark-300 text-sm mb-3"
                             >
                               <Building2 className="w-4 h-4 text-emerald-500" />
                               <span className="font-bold">{opportunity.organization}</span>
@@ -907,13 +907,13 @@ export default function OpportunitiesPage() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.4 }}
-                            className="text-xl font-black text-gray-900 mb-3 line-clamp-2 group-hover:bg-gradient-to-r group-hover:from-emerald-600 group-hover:to-teal-600 group-hover:bg-clip-text group-hover:text-transparent transition-all"
+                            className="text-xl font-black text-white mb-3 line-clamp-2 group-hover:bg-gradient-to-r group-hover:from-emerald-400 group-hover:to-teal-400 group-hover:bg-clip-text group-hover:text-transparent transition-all"
                           >
                             {opportunity.title}
                           </motion.h3>
 
                           {/* Description with Better Typography */}
-                          <p className="text-gray-600 text-sm mb-5 line-clamp-3 flex-1 leading-relaxed">
+                          <p className="text-dark-300 text-sm mb-5 line-clamp-3 flex-1 leading-relaxed">
                             {opportunity.description}
                           </p>
 
@@ -925,8 +925,8 @@ export default function OpportunitiesPage() {
                                   <Clock className={`w-4 h-4 ${daysLeft && daysLeft <= 7 ? 'text-red-600' : 'text-orange-600'}`} />
                                 </div>
                                 <div>
-                                  <div className="text-xs text-gray-500 font-semibold">Deadline</div>
-                                  <div className={`font-black ${daysLeft && daysLeft <= 7 ? 'text-red-600' : 'text-gray-900'}`}>
+                                  <div className="text-xs text-dark-400 font-semibold">Deadline</div>
+                                  <div className={`font-black ${daysLeft && daysLeft <= 7 ? 'text-red-400' : 'text-white'}`}>
                                     {new Date(opportunity.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                                     {daysLeft && daysLeft > 0 && (
                                       <span className="ml-2 text-xs">({daysLeft} days left)</span>
@@ -938,12 +938,12 @@ export default function OpportunitiesPage() {
 
                             {opportunity.location && (
                               <div className="flex items-center gap-2 text-sm">
-                                <div className="p-2 bg-blue-100 rounded-lg">
-                                  <MapPin className="w-4 h-4 text-blue-600" />
+                                <div className="p-2 bg-blue-500/20 rounded-lg">
+                                  <MapPin className="w-4 h-4 text-blue-400" />
                                 </div>
                                 <div>
-                                  <div className="text-xs text-gray-500 font-semibold">Location</div>
-                                  <div className="font-black text-gray-900">{opportunity.location}</div>
+                                  <div className="text-xs text-dark-400 font-semibold">Location</div>
+                                  <div className="font-black text-white">{opportunity.location}</div>
                                 </div>
                               </div>
                             )}
@@ -951,12 +951,12 @@ export default function OpportunitiesPage() {
                             {/* Views Counter with Animation */}
                             {opportunity.views && opportunity.views > 0 && (
                               <div className="flex items-center gap-2 text-sm">
-                                <div className="p-2 bg-purple-100 rounded-lg">
-                                  <Users className="w-4 h-4 text-purple-600" />
+                                <div className="p-2 bg-purple-500/20 rounded-lg">
+                                  <Users className="w-4 h-4 text-purple-400" />
                                 </div>
                                 <div>
-                                  <div className="text-xs text-gray-500 font-semibold">Interest</div>
-                                  <div className="font-black text-gray-900">
+                                  <div className="text-xs text-dark-400 font-semibold">Interest</div>
+                                  <div className="font-black text-white">
                                     {opportunity.views.toLocaleString()} views
                                   </div>
                                 </div>
@@ -965,14 +965,14 @@ export default function OpportunitiesPage() {
                           </div>
 
                           {/* Premium Action Buttons */}
-                          <div className="flex gap-2 mt-auto pt-4 border-t border-gray-100">
+                          <div className="flex gap-2 mt-auto pt-4 border-t border-white/10">
                             <Button
                               onClick={() => opportunity.applyLink && window.open(opportunity.applyLink, '_blank')}
                               disabled={!opportunity.applyLink}
                               className={`flex-1 font-bold py-6 rounded-xl transition-all shadow-lg hover:shadow-xl ${
                                 opportunity.applyLink
                                   ? `bg-gradient-to-r ${categoryColors[firstCategory]} text-white border-0`
-                                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                  : 'bg-dark-700 text-dark-400 cursor-not-allowed'
                               }`}
                             >
                               Apply Now
@@ -991,7 +991,7 @@ export default function OpportunitiesPage() {
                                   // Could add toast notification here
                                 }
                               }}
-                              className="p-4 border-2 border-gray-200 hover:border-orange-400 rounded-xl hover:bg-orange-50 transition-all text-gray-700"
+                              className="p-4 border border-white/10 hover:border-emerald-400 rounded-xl hover:bg-emerald-500/10 transition-all text-dark-300 hover:text-white"
                               title="Share opportunity"
                             >
                               <Share2 className="w-5 h-5" />

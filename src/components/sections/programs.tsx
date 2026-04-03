@@ -13,6 +13,7 @@ const programs = [
     title: 'Rise Circles',
     icon: Users,
     color: 'from-primary-500 to-primary-600',
+    image: '/images/backgrounds/ClubMeeting.jpeg',
     summary: 'Peer learning circles where young leaders develop skills, collaborate on community challenges, and build lasting networks.',
   },
   {
@@ -20,6 +21,7 @@ const programs = [
     title: 'Impact Clinics',
     icon: Sprout,
     color: 'from-accent-500 to-accent-600',
+    image: '/images/backgrounds/impact_clinic.jpeg',
     summary: 'Youth-led clinics that identify community needs, design targeted solutions, and deliver measurable on-the-ground impact.',
   },
   {
@@ -27,6 +29,7 @@ const programs = [
     title: 'Rise for Climate',
     icon: Globe,
     color: 'from-blue-500 to-blue-600',
+    image: '/images/backgrounds/impact2.jpeg',
     summary: 'Environmental education, tree planting campaigns, and youth advocacy empowering Africa\'s next generation of climate actors.',
   },
   {
@@ -34,6 +37,7 @@ const programs = [
     title: 'Rise for Impact Fellowship',
     icon: Award,
     color: 'from-yellow-500 to-yellow-600',
+    image: '/images/backgrounds/fellowship.jpeg',
     summary: 'An annual intensive program building leadership, grant writing, storytelling, and public speaking skills for exceptional young changemakers.',
   },
   {
@@ -41,6 +45,7 @@ const programs = [
     title: 'Campus Ambassadors',
     icon: Megaphone,
     color: 'from-indigo-500 to-indigo-600',
+    image: '/images/backgrounds/club-hero.jpeg',
     summary: 'Student leaders trained and resourced to launch Rise for Impact chapters at their universities and grow campus communities.',
   },
   {
@@ -48,6 +53,7 @@ const programs = [
     title: 'Opportunity Plug',
     icon: Briefcase,
     color: 'from-orange-500 to-orange-600',
+    image: '/images/backgrounds/youthLead.jpeg',
     summary: 'Curated fellowships, scholarships, and grants — delivered with application guidance so no opportunity goes unseen.',
   }
 ]
@@ -93,20 +99,31 @@ export function Programs() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.07, duration: 0.4 }}
-                className="group glass-card rounded-2xl p-6 flex flex-col gap-4 hover:scale-[1.02] transition-all duration-300"
+                className="group glass-card rounded-2xl flex flex-col hover:scale-[1.02] transition-all duration-300 overflow-hidden"
               >
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${program.color} flex items-center justify-center shadow-lg flex-shrink-0`}>
-                  <Icon className="w-6 h-6 text-white" />
+                {/* Program image */}
+                <div className="relative h-44 overflow-hidden flex-shrink-0">
+                  <img
+                    src={program.image}
+                    alt={program.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-dark-900/20 to-transparent" />
+                  {/* Icon badge over image */}
+                  <div className={`absolute bottom-3 left-4 w-10 h-10 rounded-xl bg-gradient-to-br ${program.color} flex items-center justify-center shadow-lg`}>
+                    <Icon className="w-5 h-5 text-white" />
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-display font-bold text-white mb-2">{program.title}</h3>
-                  <p className="text-sm text-dark-300 leading-relaxed">{program.summary}</p>
+                {/* Card body */}
+                <div className="p-5 flex flex-col gap-3 flex-1">
+                  <h3 className="text-base font-display font-bold text-white leading-snug">{program.title}</h3>
+                  <p className="text-sm text-dark-300 leading-relaxed flex-1">{program.summary}</p>
+                  <Link href="/programs" className="mt-auto">
+                    <Button variant="ghost" size="sm" className="w-full group-hover:bg-white/5 flex items-center justify-center gap-1">
+                      Learn More <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </Link>
                 </div>
-                <Link href="/programs" className="mt-auto">
-                  <Button variant="ghost" size="sm" className="w-full group-hover:bg-white/5 flex items-center justify-center gap-1">
-                    Learn More <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
               </motion.div>
             )
           })}
