@@ -29,7 +29,7 @@ const programs = [
     title: 'Rise for Climate',
     icon: Globe,
     color: 'from-blue-500 to-blue-600',
-    image: '/images/backgrounds/impact2.jpeg',
+    image: '/images/backgrounds/Togetherness.jpg',
     summary: 'Environmental education, tree planting campaigns, and youth advocacy empowering Africa\'s next generation of climate actors.',
   },
   {
@@ -53,7 +53,7 @@ const programs = [
     title: 'Opportunity Plug',
     icon: Briefcase,
     color: 'from-orange-500 to-orange-600',
-    image: '/images/backgrounds/youthLead.jpeg',
+    image: '/images/backgrounds/getinvolved.jpeg',
     summary: 'Curated fellowships, scholarships, and grants — delivered with application guidance so no opportunity goes unseen.',
   }
 ]

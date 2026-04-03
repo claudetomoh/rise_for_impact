@@ -188,7 +188,7 @@ Every day, we scan hundreds of sources to curate the most relevant opportunities
     duration: 'Ongoing service',
     frequency: 'Daily opportunity updates',
     locations: 'Pan-African & Global opportunities',
-    image: '/images/backgrounds/club-team.jpeg',
+    image: '/images/backgrounds/getinvolved.jpeg',
     color: 'from-orange-500 to-orange-600',
     applicationsOpen: true,
     status: 'Browse opportunities now!'

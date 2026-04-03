@@ -13,7 +13,7 @@ const regions = [
     code: 'CM',
     description: 'Our founding and most active country, with chapters in the Northwest and Southwest regions driving leadership development, community projects, and youth engagement.',
     color: 'from-primary-500 to-primary-600',
-    coordinator: 'Nawal',
+    coordinator: 'Nawal Chefton',
     highlights: [
       'Northwest & Southwest regional chapters',
       'Rise Circles leadership training',
