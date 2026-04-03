@@ -267,27 +267,62 @@ export function AccessibilityWidget() {
           className={`
             relative w-14 h-14 rounded-full
             flex items-center justify-center
-            border-[3px] border-white
-            shadow-[0_0_0_4px_rgba(255,255,255,0.15),0_8px_24px_rgba(0,0,0,0.5)]
+            shadow-[0_4px_20px_rgba(0,0,0,0.45)]
             transition-all duration-300
             focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white
             ${open
-              ? 'bg-emerald-400 scale-105 rotate-12 border-white'
-              : 'bg-emerald-600 hover:bg-emerald-500 hover:scale-105 hover:shadow-[0_0_0_6px_rgba(255,255,255,0.2),0_8px_32px_rgba(0,0,0,0.6)]'
+              ? 'scale-105 rotate-12'
+              : 'hover:scale-105'
             }
             ${isModified ? 'ring-2 ring-yellow-400 ring-offset-2 ring-offset-transparent' : ''}
           `}
+          style={{ background: open ? '#1a56ff' : '#0047CC' }}
         >
-          {/* Universal access icon */}
+          {/* Accessibility icon — blue circle with dynamic white figure (matches ISA standard) */}
           <svg
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-7 h-7 text-white"
+            viewBox="0 0 100 100"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-10 h-10"
             aria-hidden="true"
           >
-            <circle cx="12" cy="4" r="1.5" />
-            <path d="M9 8.5c0-.83.67-1.5 1.5-1.5h3c.83 0 1.5.67 1.5 1.5V13h2.5a1 1 0 0 1 0 2H15v1.5a4.5 4.5 0 1 1-6.93-3.79L7.5 10.5H9V8.5z" />
+            {/* Blue circle background */}
+            <circle cx="50" cy="50" r="50" fill={open ? '#1a56ff' : '#0047CC'} />
+            {/* Head */}
+            <circle cx="50" cy="22" r="8" fill="white" />
+            {/* Body leaning forward */}
+            <path
+              d="M50 32 L44 55 L32 70 M50 32 L58 50 L72 48"
+              stroke="white"
+              strokeWidth="7"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            />
+            {/* Arm raised forward */}
+            <path
+              d="M56 40 L70 32"
+              stroke="white"
+              strokeWidth="6"
+              strokeLinecap="round"
+              fill="none"
+            />
+            {/* Leg forward */}
+            <path
+              d="M44 55 L36 72 L46 78"
+              stroke="white"
+              strokeWidth="7"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            />
+            {/* Wheelchair wheel */}
+            <circle cx="62" cy="74" r="13" stroke="white" strokeWidth="5" fill="none" />
+            {/* Wheel spokes */}
+            <line x1="62" y1="61" x2="62" y2="87" stroke="white" strokeWidth="3" />
+            <line x1="49" y1="74" x2="75" y2="74" stroke="white" strokeWidth="3" />
           </svg>
+
           {isModified && (
             <span
               className="absolute top-0.5 right-0.5 w-3 h-3 rounded-full bg-yellow-400 border-2 border-white"
