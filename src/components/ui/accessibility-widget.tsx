@@ -121,7 +121,7 @@ export function AccessibilityWidget() {
         aria-modal="true"
         aria-label="Accessibility settings"
         className={`
-          fixed bottom-20 left-4 z-[9999] w-72
+          fixed bottom-24 left-5 z-[9999] w-72
           rounded-2xl border border-white/10
           bg-dark-900/95 backdrop-blur-xl
           shadow-2xl shadow-black/40
@@ -251,43 +251,51 @@ export function AccessibilityWidget() {
       </div>
 
       {/* Floating trigger button */}
-      <button
-        onClick={() => setOpen(o => !o)}
-        aria-label="Open accessibility menu"
-        aria-expanded={open}
-        aria-haspopup="dialog"
-        title="Accessibility options"
-        className={`
-          fixed bottom-4 left-4 z-[9999]
-          w-12 h-12 rounded-full
-          flex items-center justify-center
-          shadow-lg shadow-black/30
-          transition-all duration-300
-          focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400
-          ${open
-            ? 'bg-emerald-500 scale-110 rotate-12'
-            : 'bg-emerald-600 hover:bg-emerald-500 hover:scale-110'
-          }
-          ${isModified ? 'ring-2 ring-emerald-300 ring-offset-2 ring-offset-dark-950' : ''}
-        `}
-      >
-        {/* Wheelchair / universal access icon */}
-        <svg
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className="w-6 h-6 text-white"
-          aria-hidden="true"
-        >
-          <circle cx="12" cy="4" r="1.5" />
-          <path d="M9 8.5c0-.83.67-1.5 1.5-1.5h3c.83 0 1.5.67 1.5 1.5V13h2.5a1 1 0 0 1 0 2H15v1.5a4.5 4.5 0 1 1-6.93-3.79L7.5 10.5H9V8.5z" />
-        </svg>
-        {isModified && (
-          <span
-            className="absolute top-0.5 right-0.5 w-2.5 h-2.5 rounded-full bg-yellow-400 border border-dark-900"
-            aria-label="Accessibility settings active"
-          />
+      <div className="fixed bottom-5 left-5 z-[9999] flex flex-col items-center gap-1">
+        {/* Label tag */}
+        {!open && (
+          <span className="text-[10px] font-semibold tracking-widest uppercase text-white bg-dark-800/90 px-2 py-0.5 rounded-full border border-white/20 select-none">
+            Accessibility
+          </span>
         )}
-      </button>
+        <button
+          onClick={() => setOpen(o => !o)}
+          aria-label="Open accessibility menu"
+          aria-expanded={open}
+          aria-haspopup="dialog"
+          title="Accessibility options"
+          className={`
+            relative w-14 h-14 rounded-full
+            flex items-center justify-center
+            border-[3px] border-white
+            shadow-[0_0_0_4px_rgba(255,255,255,0.15),0_8px_24px_rgba(0,0,0,0.5)]
+            transition-all duration-300
+            focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white
+            ${open
+              ? 'bg-emerald-400 scale-105 rotate-12 border-white'
+              : 'bg-emerald-600 hover:bg-emerald-500 hover:scale-105 hover:shadow-[0_0_0_6px_rgba(255,255,255,0.2),0_8px_32px_rgba(0,0,0,0.6)]'
+            }
+            ${isModified ? 'ring-2 ring-yellow-400 ring-offset-2 ring-offset-transparent' : ''}
+          `}
+        >
+          {/* Universal access icon */}
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-7 h-7 text-white"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="4" r="1.5" />
+            <path d="M9 8.5c0-.83.67-1.5 1.5-1.5h3c.83 0 1.5.67 1.5 1.5V13h2.5a1 1 0 0 1 0 2H15v1.5a4.5 4.5 0 1 1-6.93-3.79L7.5 10.5H9V8.5z" />
+          </svg>
+          {isModified && (
+            <span
+              className="absolute top-0.5 right-0.5 w-3 h-3 rounded-full bg-yellow-400 border-2 border-white"
+              aria-label="Accessibility settings active"
+            />
+          )}
+        </button>
+      </div>
     </>
   )
 }
