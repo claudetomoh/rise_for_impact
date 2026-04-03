@@ -60,21 +60,29 @@ export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-dark-950 pt-24 pb-20">
+      <main className="min-h-screen bg-dark-950 pb-20">
 
         {/* Hero */}
-        <section className="container-premium py-16">
-          <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-500/10 border border-primary-500/20 mb-6">
-              <span className="text-xs font-medium text-primary-400 tracking-wide uppercase">Who We Are</span>
+        <section className="relative pt-24 pb-16 overflow-hidden">
+          <div className="absolute inset-0">
+            <img src="/images/backgrounds/Togetherness.jpg" alt="" className="w-full h-full object-cover object-center" />
+            <div className="absolute inset-0 bg-gradient-to-b from-dark-950/80 via-dark-950/75 to-dark-950" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(251,146,60,0.10),transparent_55%)]" />
+          </div>
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:3rem_3rem]" />
+          <div className="container-premium relative z-10 py-8">
+            <div className="max-w-4xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-500/15 border border-primary-500/25 mb-6">
+                <span className="text-xs font-semibold text-primary-400 tracking-widest uppercase">Who We Are</span>
+              </div>
+              <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-5 leading-tight">
+                About <span className="text-gradient">Rise for Impact</span>
+              </h1>
+              <p className="text-xl text-dark-200 leading-relaxed max-w-2xl">
+                A youth-focused social initiative connecting young Africans to real opportunities,
+                practical skills, and leadership pathways.
+              </p>
             </div>
-            <h1 className="text-4xl md:text-6xl font-display font-bold text-white mb-6 leading-tight">
-              About <span className="text-gradient">Rise for Impact</span>
-            </h1>
-            <p className="text-xl text-dark-200 leading-relaxed max-w-2xl">
-              A youth-focused social initiative connecting young Africans to real opportunities, 
-              practical skills, and leadership pathways.
-            </p>
           </div>
         </section>
 

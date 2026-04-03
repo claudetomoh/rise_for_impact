@@ -1,70 +1,90 @@
-import { PageWithNav } from '@/components/layout/page-with-nav'
-import { FileText, ArrowLeft } from 'lucide-react'
+import type { Metadata } from 'next'
 import Link from 'next/link'
+import { FileText, ArrowRight, Calendar, BarChart2, BookOpen } from 'lucide-react'
+import { Navbar } from '@/components/layout/navbar'
+import { Footer } from '@/components/sections/footer'
+
+export const metadata: Metadata = {
+  title: 'Annual Reports | Rise for Impact',
+  description: 'Transparency and accountability in our impact journey. Rise for Impact annual reports document our delivery, finances, and lessons learned.',
+}
 
 export default function ReportsPage() {
   return (
-    <PageWithNav>
-      <main className="min-h-screen bg-gradient-to-b from-dark-950 via-dark-900 to-dark-950 py-24">
-        <div className="container max-w-5xl mx-auto px-4">
-          {/* Back Button */}
-          <div className="mb-8">
-            <Link href="/" className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 transition-colors">
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to Home</span>
-            </Link>
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-dark-950">
+
+        {/* Hero */}
+        <section className="relative pt-24 pb-16 overflow-hidden">
+          <div className="absolute inset-0">
+            <img src="/images/backgrounds/impact.jpeg" alt="" className="w-full h-full object-cover object-center" />
+            <div className="absolute inset-0 bg-gradient-to-b from-dark-950/85 via-dark-950/80 to-dark-950" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(139,92,246,0.10),transparent_55%)]" />
           </div>
-
-          {/* Centered Content */}
-          <div className="flex flex-col items-center justify-center text-center">
-            {/* Icon */}
-            <div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-sm mb-8 shadow-lg shadow-purple-500/20">
-              <FileText className="w-12 h-12 text-purple-400" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:3rem_3rem]" />
+          <div className="container-premium relative z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-500/15 border border-purple-500/25 mb-6">
+              <FileText className="w-3.5 h-3.5 text-purple-400" />
+              <span className="text-xs font-semibold text-purple-400 tracking-widest uppercase">Annual Reports</span>
             </div>
-
-            {/* Header */}
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4 max-w-3xl">
-              Annual Reports
+            <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-5 leading-tight">
+              Transparent,<br />
+              <span className="text-gradient">accountable.</span>
             </h1>
-            <p className="text-lg text-dark-300 max-w-2xl mb-12">
-              Transparency and accountability in our impact journey
+            <p className="text-xl text-dark-200 max-w-2xl leading-relaxed">
+              Our annual reports document what we delivered, what we spent, and what we learned — without inflation.
             </p>
+          </div>
+        </section>
 
-            {/* Content Card - Centered */}
-            <div className="w-full max-w-3xl glass-card p-10 md:p-16 rounded-3xl">
-              <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
-                <FileText className="w-10 h-10 text-purple-400" />
+        {/* Content */}
+        <section className="container-premium py-20">
+          <div className="max-w-3xl mx-auto">
+            <div className="rounded-3xl bg-dark-900/60 border border-purple-500/15 p-10 md:p-14 text-center space-y-8">
+              <div className="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mx-auto">
+                <BookOpen className="w-7 h-7 text-purple-400" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">First Report Coming in 2026</h2>
-              <p className="text-lg text-dark-200 leading-relaxed mb-8">
-                Our inaugural annual report will be published in 2026, documenting our impact, financials, key achievements, and lessons learned from our first full year of operations.
-              </p>
-              
-              {/* Info Grid */}
-              <div className="grid md:grid-cols-2 gap-4 mt-8 pt-8 border-t border-dark-700">
-                <div className="p-4 rounded-xl bg-dark-800/50 border border-dark-700">
-                  <div className="text-2xl font-bold text-purple-400 mb-2">2026</div>
-                  <div className="text-sm text-dark-300">First Report</div>
-                </div>
-                <div className="p-4 rounded-xl bg-dark-800/50 border border-dark-700">
-                  <div className="text-2xl font-bold text-emerald-400 mb-2">Annual</div>
-                  <div className="text-sm text-dark-300">Publication</div>
-                </div>
-              </div>
-
-              {/* Subscribe CTA */}
-              <div className="mt-8 pt-8 border-t border-dark-700">
-                <p className="text-dark-300 text-sm mb-4">
-                  Subscribe to our newsletter to be notified when reports are available
+              <div>
+                <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-3">First Report Coming in 2026</h2>
+                <p className="text-dark-300 leading-relaxed max-w-lg mx-auto">
+                  Our inaugural annual report will be published in 2026, documenting our impact, financials, key achievements, and lessons learned from our first full year of operations.
                 </p>
-                <Link href="/#newsletter" className="inline-flex items-center gap-2 px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-xl transition-all">
-                  Subscribe to Updates
-                </Link>
+              </div>
+              <div className="grid sm:grid-cols-3 gap-5 text-left">
+                {[
+                  { icon: Calendar, label: 'Publication', value: '2026', sub: 'First annual report' },
+                  { icon: BarChart2, label: 'Coverage', value: '2025', sub: 'Full year of operations' },
+                  { icon: FileText, label: 'Format', value: 'PDF + Web', sub: 'Downloadable & readable online' },
+                ].map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <div key={item.label} className="p-5 rounded-2xl bg-dark-800/60 border border-white/6 space-y-2">
+                      <Icon className="w-5 h-5 text-purple-400" />
+                      <div className="text-white text-xl font-display font-bold">{item.value}</div>
+                      <div className="text-dark-300 text-xs font-semibold">{item.label}</div>
+                      <div className="text-dark-500 text-xs">{item.sub}</div>
+                    </div>
+                  )
+                })}
+              </div>
+              <div className="pt-6 border-t border-white/6 space-y-4">
+                <p className="text-dark-400 text-sm">Subscribe to our newsletter to be notified when reports become available.</p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Link href="/#newsletter" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-semibold transition-all text-sm shadow-lg shadow-purple-500/25">
+                    Subscribe to Updates <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <Link href="/impact" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-white/15 hover:bg-white/5 text-white font-semibold transition-all text-sm">
+                    View 2025 Impact Data
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
+
       </main>
-    </PageWithNav>
+      <Footer />
+    </>
   )
 }

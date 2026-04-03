@@ -33,10 +33,10 @@ const footerLinks = {
     { name: 'All Programs', href: '/programs' },
   ],
   regions: [
-    { name: 'Cameroon Northwest', href: '/regions#northwest' },
-    { name: 'Cameroon Southwest', href: '/regions#southwest' },
-    { name: 'University Clubs', href: '/regions' },
-    { name: 'All Regions', href: '/regions' },
+    { name: 'Cameroon', href: '/regions#cameroon' },
+    { name: 'Ghana', href: '/regions#ghana' },
+    { name: 'Nigeria', href: '/regions#nigeria' },
+    { name: 'Rwanda', href: '/regions#rwanda' },
   ],
   resources: [
     { name: 'Blog', href: '/blog' },
