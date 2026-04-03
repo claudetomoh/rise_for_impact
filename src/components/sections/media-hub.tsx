@@ -55,7 +55,7 @@ const galleryImages = [
   {
     src: '/images/backgrounds/Togetherness.jpg',
     title: 'Pan-African Unity',
-    description: 'Bringing together young leaders from across 8+ African countries for collective impact.',
+    description: 'Bringing together young leaders from Cameroon, Ghana, Nigeria, and Rwanda for collective impact.',
     location: 'Africa',
     date: '2024',
     category: 'Events'
@@ -327,7 +327,7 @@ export function MediaHub() {
               <div className="text-dark-400 text-sm">Photos</div>
             </div>
             <div className="glass-card p-6 rounded-2xl text-center">
-              <div className="text-4xl font-bold text-accent-400 mb-2">3</div>
+              <div className="text-4xl font-bold text-accent-400 mb-2">4</div>
               <div className="text-dark-400 text-sm">Countries</div>
             </div>
             <div className="glass-card p-6 rounded-2xl text-center">
@@ -356,7 +356,7 @@ export function MediaHub() {
                   }}
                   transition={{
                     duration: 4,
-                    repeat: Infinity,
+                    repeat: 0,
                     ease: 'easeInOut'
                   }}
                   className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500 to-pink-500 flex items-center justify-center shadow-glow"

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { FileText, Calendar, User, ArrowRight, Tag, TrendingUp } from 'lucide-react'
+import { FileText, Calendar, User, ArrowRight, TrendingUp } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -23,118 +23,53 @@ interface BlogPost {
   createdAt: string
 }
 
-const categories = [
-  { name: 'Impact Stories', count: 'Coming Soon', color: 'from-primary-500 to-primary-600' },
-  { name: 'Leadership', count: 'Coming Soon', color: 'from-accent-500 to-accent-600' },
-  { name: 'Climate Action', count: 'Coming Soon', color: 'from-blue-500 to-blue-600' },
-  { name: 'Youth Voices', count: 'Coming Soon', color: 'from-purple-500 to-purple-600' }
-]
-
-const featuredPosts = [
-  {
-    title: 'Rise for Impact: Our First 7 Months',
-    excerpt: 'Reflecting on our journey since May 2025, the young leaders we\'ve empowered, and the incredible growth we\'re experiencing together.',
-    author: 'Claude Tomoh',
-    date: 'Dec 15, 2025',
-    readTime: '8 min read',
-    category: 'Impact Stories',
-    image: '/images/backgrounds/bg.jpeg',
-    featured: true,
-    url: '#'
-  },
-  {
-    title: 'How Youth Are Leading Climate Action in Africa',
-    excerpt: 'Meet the young environmental champions driving sustainable practices and addressing climate challenges across the continent.',
-    author: 'Emmanuel',
-    date: 'Dec 10, 2025',
-    readTime: '6 min read',
-    category: 'Climate Action',
-    image: '/images/backgrounds/Togetherness.jpg',
-    url: '#'
-  },
-  {
-    title: 'Launching University Clubs Across Africa',
-    excerpt: 'The journey of establishing Rise for Impact chapters at Ashesi, University of Buea, and expanding to more campuses.',
-    author: 'Kareen',
-    date: 'Dec 5, 2025',
-    readTime: '5 min read',
-    category: 'Impact Stories',
-    image: '/images/backgrounds/club-team.jpeg',
-    url: '#'
-  },
-  {
-    title: 'Building Leadership Skills Through Rise Circles',
-    excerpt: 'Inside our peer learning program where young leaders develop skills, share experiences, and collaborate on solutions.',
-    author: 'Emmanuel',
-    date: 'Nov 28, 2025',
-    readTime: '7 min read',
-    category: 'Leadership',
-    image: '/images/backgrounds/ClubMeeting.jpeg',
-    url: '#'
-  },
-  {
-    title: 'Introducing the Rise for Impact Fellowship',
-    excerpt: 'Our new year-round fellowship program offering training in leadership, grant writing, and public speaking. Applications opening soon!',
-    author: 'Claude Tomoh',
-    date: 'Nov 20, 2025',
-    readTime: '6 min read',
-    category: 'Youth Voices',
-    image: '/images/backgrounds/club-impact.jpeg',
-    url: '#'
-  },
-  {
-    title: 'Impact Clinics: Designing Community Solutions',
-    excerpt: 'A deep dive into our methodology for identifying needs, designing interventions, and measuring sustainable impact.',
-    author: 'Emmanuel',
-    date: 'Nov 15, 2025',
-    readTime: '9 min read',
-    category: 'Leadership',
-    image: '/images/backgrounds/impact1.jpeg',
-    url: '#'
-  }
-]
+interface NormalizedPost {
+  id: number
+  title: string
+  excerpt: string
+  author: string
+  date: string
+  readTime: string
+  category: string
+  image: string
+  url: string
+}
 
 export function Blog() {
-  const [dbPosts, setDbPosts] = useState<BlogPost[]>([])
+  const [posts, setPosts] = useState<NormalizedPost[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Fetch blog posts from the database
     fetch('/api/blogs')
       .then(async (res) => {
         if (!res.ok) throw new Error('Failed to fetch blogs')
         return res.json()
       })
-      .then((data) => {
-        setDbPosts(data)
+      .then((data: BlogPost[]) => {
+        const normalized: NormalizedPost[] = data.map((post) => ({
+          id: post.id,
+          title: post.title,
+          excerpt: post.excerpt || 'Read more about this topic...',
+          author: post.author || 'Rise for Impact Team',
+          date: post.date || new Date(post.createdAt).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          }),
+          readTime: '5 min read',
+          category: post.category || 'Updates',
+          image: post.image || '/images/backgrounds/bg.jpeg',
+          url: `/blog/${post.id}`,
+        }))
+        setPosts(normalized)
         setIsLoading(false)
       })
-      .catch((error) => {
-        console.error('Error fetching blogs:', error)
+      .catch(() => {
         setIsLoading(false)
       })
   }, [])
 
-  // Combine database posts with featured posts
-  const allPosts = [
-    ...dbPosts.map((post) => ({
-      id: post.id,
-      title: post.title,
-      excerpt: post.excerpt || 'Read more about this topic...',
-      author: post.author || 'Rise for Impact Team',
-      date: post.date || new Date(post.createdAt).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      }),
-      readTime: '5 min read',
-      category: post.category || 'Updates',
-      image: post.image || '/images/backgrounds/bg.jpeg',
-      featured: false,
-      url: `/blog/${post.id}`,
-    })),
-    ...featuredPosts,
-  ]
+  const allPosts = posts
 
   return (
     <section id="blog" className="py-12 md:py-16 relative overflow-hidden">
@@ -170,29 +105,30 @@ export function Blog() {
           </p>
         </AnimatedSection>
 
-        {/* Categories */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-          {categories.map((category, index) => (
-            <motion.div
-              key={category.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -4 }}
-              className="glass-card p-6 rounded-2xl text-center cursor-pointer group"
-            >
-              <div className={`w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                <Tag className="w-6 h-6 text-white" />
-              </div>
-              <div className="text-lg font-semibold text-white mb-1">{category.name}</div>
-              <div className="text-dark-400 text-sm">{category.count} articles</div>
-            </motion.div>
-          ))}
-        </div>
+        {/* Loading skeleton */}
+        {isLoading && (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-[400px] rounded-3xl bg-white/5 animate-pulse" />
+            ))}
+          </div>
+        )}
+
+        {/* Empty state */}
+        {!isLoading && allPosts.length === 0 && (
+          <AnimatedSection className="text-center py-20">
+            <div className="glass-card p-12 rounded-3xl max-w-lg mx-auto space-y-4">
+              <FileText className="w-12 h-12 text-dark-500 mx-auto" />
+              <h3 className="text-xl font-semibold text-white">No posts yet</h3>
+              <p className="text-dark-400">
+                We're working on our first stories. Check back soon.
+              </p>
+            </div>
+          </AnimatedSection>
+        )}
 
         {/* Featured Post */}
-        {allPosts[0] && (
+        {!isLoading && allPosts[0] && (
           <AnimatedSection className="mb-16">
             <Card className="group overflow-hidden hover:scale-[1.01] transition-all duration-500">
               <div className="grid md:grid-cols-2 gap-0">
@@ -281,16 +217,7 @@ export function Blog() {
         )}
 
         {/* Blog Grid */}
-        {isLoading ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div
-                key={i}
-                className="h-[400px] rounded-3xl bg-white/5 animate-pulse"
-              />
-            ))}
-          </div>
-        ) : (
+        {!isLoading && allPosts.length > 1 && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {allPosts.slice(1).map((post, index) => (
               <motion.div
@@ -378,11 +305,15 @@ export function Blog() {
         )}
 
         {/* View All CTA */}
-        <AnimatedSection className="text-center">
-          <Button variant="outline" size="lg" rightIcon={<ArrowRight />}>
-            View All Articles
-          </Button>
-        </AnimatedSection>
+        {!isLoading && allPosts.length > 0 && (
+          <AnimatedSection className="text-center">
+            <Link href="/blog">
+              <Button variant="outline" size="lg" rightIcon={<ArrowRight />}>
+                View All Articles
+              </Button>
+            </Link>
+          </AnimatedSection>
+        )}
       </div>
     </section>
   )

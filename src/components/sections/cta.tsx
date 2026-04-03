@@ -15,7 +15,7 @@ const ctaOptions = [
 		title: 'Join a Program',
 		description: 'Apply to one of our leadership development programs',
 		cta: 'Apply Now',
-		href: '/#programs',
+		href: '/programs',
 		color: 'from-primary-500 to-primary-600',
 	},
 	{
@@ -93,7 +93,7 @@ export function CallToAction() {
 					repeat: Infinity,
 					ease: 'easeInOut',
 				}}
-				className="absolute top-20 left-10 w-96 h-96 rounded-full blur-3xl"
+				className="absolute top-20 left-10 w-96 h-96 rounded-full blur-3xl hidden md:block"
 				style={{
 					background:
 						'radial-gradient(circle, rgba(34,197,94,0.3) 0%, transparent 70%)',
@@ -110,7 +110,7 @@ export function CallToAction() {
 					ease: 'easeInOut',
 					delay: 2,
 				}}
-				className="absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl"
+				className="absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl hidden md:block"
 				style={{
 					background:
 						'radial-gradient(circle, rgba(245,158,11,0.25) 0%, transparent 70%)',
