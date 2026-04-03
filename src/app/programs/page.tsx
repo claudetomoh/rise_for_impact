@@ -81,7 +81,6 @@ const programs = [
     isOpen: true,
     image: '/images/backgrounds/fellowship.jpeg',
     highlights: ['In-person kick-off session', '4-month mentorship journey', 'Real-world impact project', 'Multiplier community action'],
-    detailHref: '/fellowship',
   },
   {
     id: 'campus-ambassadors',
@@ -198,11 +197,10 @@ export default function ProgramsPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {programs.map((program) => {
               const Icon = program.icon
-              const href = (program as any).detailHref ?? `/programs/${program.id}`
               return (
                 <Link
                   key={program.id}
-                  href={href}
+                  href={`/programs/${program.id}`}
                   className="group flex flex-col rounded-2xl border border-white/8 bg-dark-900/70 hover:bg-dark-800/90 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-white/15 overflow-hidden"
                 >
                   {/* Image */}

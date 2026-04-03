@@ -27,7 +27,7 @@ const footerLinks = {
     { name: 'Annual Reports', href: '/reports' },
   ],
   programs: [
-    { name: 'Fellowship', href: '/fellowship' },
+    { name: 'Fellowship', href: '/programs/fellowship' },
     { name: 'Rise Circles', href: '/programs/rise-circles' },
     { name: 'Impact Clinics', href: '/programs/impact-clinics' },
     { name: 'Rise for Climate', href: '/programs/rise-for-climate' },
