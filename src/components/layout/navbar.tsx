@@ -19,6 +19,10 @@ const navigation = [
     name: 'Programs',
     href: '/programs',
     scroll: false,
+    dropdown: [
+      { name: 'All Programs', href: '/programs', icon: Sparkles, description: 'Overview of all programs' },
+      { name: 'Fellowship', href: '/fellowship', icon: BookOpen, description: 'Leadership development program' },
+    ],
   },
   {
     name: 'Opportunities',

@@ -67,20 +67,21 @@ const programs = [
   {
     id: 'fellowship',
     title: 'Rise for Impact Fellowship',
-    tagline: 'Intensive leadership & skills training',
-    description: 'Our flagship programme equipping exceptional young leaders with practical skills in grant writing, storytelling, public speaking, and leadership development.',
+    tagline: 'Leadership & impact development',
+    description: 'A structured program combining in-person sessions, four months of mentorship, and real-world impact application — designed to move participants from potential to accountable leadership.',
     icon: Award,
     color: 'from-yellow-500 to-yellow-600',
     bgColor: 'bg-yellow-500/10',
     borderColor: 'border-yellow-500/20',
     iconColor: 'text-yellow-400',
-    duration: '3–6 months',
-    frequency: 'Quarterly cohorts',
-    locations: 'Open to Africa-based applicants',
-    status: 'Applications open February 2026',
-    isOpen: false,
+    duration: '~5 months',
+    frequency: 'Cohort-based',
+    locations: 'Cameroon (Cohort 1)',
+    status: 'Applications open April 15, 2026',
+    isOpen: true,
     image: '/images/backgrounds/fellowship.jpeg',
-    highlights: ['Grant writing workshops', 'Storytelling masterclasses', 'Public speaking training', 'Mentorship & coaching'],
+    highlights: ['In-person kick-off session', '4-month mentorship journey', 'Real-world impact project', 'Multiplier community action'],
+    detailHref: '/fellowship',
   },
   {
     id: 'campus-ambassadors',
@@ -197,10 +198,11 @@ export default function ProgramsPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {programs.map((program) => {
               const Icon = program.icon
+              const href = (program as any).detailHref ?? `/programs/${program.id}`
               return (
                 <Link
                   key={program.id}
-                  href={`/programs/${program.id}`}
+                  href={href}
                   className="group flex flex-col rounded-2xl border border-white/8 bg-dark-900/70 hover:bg-dark-800/90 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-white/15 overflow-hidden"
                 >
                   {/* Image */}

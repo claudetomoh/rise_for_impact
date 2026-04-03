@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 
 interface A11ySettings {
   fontSize: number        // multiplier steps: -2 to +4
@@ -45,6 +45,8 @@ export function AccessibilityWidget() {
   const [open, setOpen] = useState(false)
   const [settings, setSettings] = useState<A11ySettings>(DEFAULT_SETTINGS)
   const [mounted, setMounted] = useState(false)
+  const panelRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -72,14 +74,29 @@ export function AccessibilityWidget() {
     }
   }, [settings, mounted])
 
-  // Close on Escape
+  // Close on Escape or click outside
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setOpen(false)
     }
+    const onClickOutside = (e: MouseEvent) => {
+      if (
+        open &&
+        panelRef.current &&
+        !panelRef.current.contains(e.target as Node) &&
+        triggerRef.current &&
+        !triggerRef.current.contains(e.target as Node)
+      ) {
+        setOpen(false)
+      }
+    }
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [])
+    document.addEventListener('mousedown', onClickOutside)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.removeEventListener('mousedown', onClickOutside)
+    }
+  }, [open])
 
   const toggle = useCallback(<K extends keyof A11ySettings>(key: K) => {
     setSettings(prev => ({ ...prev, [key]: !prev[key] }))
@@ -106,25 +123,18 @@ export function AccessibilityWidget() {
 
   return (
     <>
-      {/* Overlay */}
-      {open && (
-        <div
-          className="fixed inset-0 z-[9998]"
-          onClick={() => setOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-
       {/* Panel */}
       <div
         role="dialog"
-        aria-modal="true"
+        aria-modal="false"
         aria-label="Accessibility settings"
+        ref={panelRef}
         className={`
           fixed bottom-24 left-5 z-[9999] w-72
+          max-h-[min(520px,calc(100vh-120px))] flex flex-col
           rounded-2xl border border-white/10
-          bg-dark-900/95 backdrop-blur-xl
-          shadow-2xl shadow-black/40
+          bg-dark-900/97 backdrop-blur-xl
+          shadow-2xl shadow-black/50
           transition-all duration-300 ease-out
           ${open
             ? 'opacity-100 translate-y-0 pointer-events-auto'
@@ -132,8 +142,8 @@ export function AccessibilityWidget() {
           }
         `}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-white/8">
+        {/* Header — always visible */}
+        <div className="flex-shrink-0 flex items-center justify-between px-5 py-4 border-b border-white/10">
           <div className="flex items-center gap-2">
             <span className="text-lg" aria-hidden="true">♿</span>
             <span className="font-semibold text-white text-sm tracking-wide">
@@ -147,12 +157,12 @@ export function AccessibilityWidget() {
                 className="text-xs text-emerald-400 hover:text-emerald-300 underline underline-offset-2 transition-colors"
                 aria-label="Reset all accessibility settings"
               >
-                Reset all
+                Reset
               </button>
             )}
             <button
               onClick={() => setOpen(false)}
-              className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white/10 text-dark-300 hover:text-white transition-colors"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors text-sm font-bold"
               aria-label="Close accessibility menu"
             >
               ✕
@@ -160,93 +170,96 @@ export function AccessibilityWidget() {
           </div>
         </div>
 
-        {/* Font size */}
-        <div className="px-5 py-4 border-b border-white/8">
-          <p className="text-xs font-medium text-dark-300 uppercase tracking-widest mb-3">
-            Text Size
-          </p>
-          <div className="flex items-center justify-between gap-2">
-            <button
-              onClick={() => setSettings(p => ({ ...p, fontSize: Math.max(-2, p.fontSize - 1) }))}
-              disabled={settings.fontSize <= -2}
-              className="w-9 h-9 rounded-xl border border-white/10 flex items-center justify-center text-lg font-bold text-dark-200 hover:bg-white/10 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-              aria-label="Decrease text size"
-            >
-              A<span className="text-xs align-top">−</span>
-            </button>
+        {/* Scrollable body */}
+        <div className="flex-1 overflow-y-auto overscroll-contain">
+          {/* Font size */}
+          <div className="px-5 py-4 border-b border-white/8">
+            <p className="text-xs font-medium text-dark-300 uppercase tracking-widest mb-3">
+              Text Size
+            </p>
+            <div className="flex items-center justify-between gap-2">
+              <button
+                onClick={() => setSettings(p => ({ ...p, fontSize: Math.max(-2, p.fontSize - 1) }))}
+                disabled={settings.fontSize <= -2}
+                className="w-9 h-9 rounded-xl border border-white/10 flex items-center justify-center text-lg font-bold text-dark-200 hover:bg-white/10 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                aria-label="Decrease text size"
+              >
+                A<span className="text-xs align-top">−</span>
+              </button>
 
-            {/* Steps indicator */}
-            <div className="flex gap-1">
-              {[-2, -1, 0, 1, 2, 3, 4].map(step => (
-                <button
-                  key={step}
-                  onClick={() => setSettings(p => ({ ...p, fontSize: step }))}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    settings.fontSize === step
-                      ? 'bg-emerald-400'
-                      : 'bg-white/20 hover:bg-white/40'
-                  }`}
-                  aria-label={`Text size ${step > 0 ? '+' : ''}${step * 2}px`}
-                />
-              ))}
+              {/* Steps indicator */}
+              <div className="flex gap-1">
+                {[-2, -1, 0, 1, 2, 3, 4].map(step => (
+                  <button
+                    key={step}
+                    onClick={() => setSettings(p => ({ ...p, fontSize: step }))}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      settings.fontSize === step
+                        ? 'bg-emerald-400'
+                        : 'bg-white/20 hover:bg-white/40'
+                    }`}
+                    aria-label={`Text size ${step > 0 ? '+' : ''}${step * 2}px`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={() => setSettings(p => ({ ...p, fontSize: Math.min(4, p.fontSize + 1) }))}
+                disabled={settings.fontSize >= 4}
+                className="w-9 h-9 rounded-xl border border-white/10 flex items-center justify-center text-lg font-bold text-dark-200 hover:bg-white/10 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                aria-label="Increase text size"
+              >
+                A<span className="text-sm align-top">+</span>
+              </button>
             </div>
-
-            <button
-              onClick={() => setSettings(p => ({ ...p, fontSize: Math.min(4, p.fontSize + 1) }))}
-              disabled={settings.fontSize >= 4}
-              className="w-9 h-9 rounded-xl border border-white/10 flex items-center justify-center text-lg font-bold text-dark-200 hover:bg-white/10 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-              aria-label="Increase text size"
-            >
-              A<span className="text-sm align-top">+</span>
-            </button>
           </div>
-        </div>
 
-        {/* Toggle options */}
-        <div className="px-5 py-3 grid grid-cols-2 gap-2">
-          <ToggleCard
-            icon="🔆"
-            label="High Contrast"
-            active={settings.highContrast}
-            onClick={() => toggle('highContrast')}
-          />
-          <ToggleCard
-            icon="🔤"
-            label="Dyslexia Font"
-            active={settings.dyslexiaFont}
-            onClick={() => toggle('dyslexiaFont')}
-          />
-          <ToggleCard
-            icon="↔"
-            label="Text Spacing"
-            active={settings.textSpacing}
-            onClick={() => toggle('textSpacing')}
-          />
-          <ToggleCard
-            icon="⏸"
-            label="Stop Animations"
-            active={settings.reduceMotion}
-            onClick={() => toggle('reduceMotion')}
-          />
-          <ToggleCard
-            icon="🔗"
-            label="Highlight Links"
-            active={settings.highlightLinks}
-            onClick={() => toggle('highlightLinks')}
-          />
-          <ToggleCard
-            icon="🖱"
-            label="Big Cursor"
-            active={settings.bigCursor}
-            onClick={() => toggle('bigCursor')}
-          />
-        </div>
+          {/* Toggle options */}
+          <div className="px-5 py-3 grid grid-cols-2 gap-2">
+            <ToggleCard
+              icon="🔆"
+              label="High Contrast"
+              active={settings.highContrast}
+              onClick={() => toggle('highContrast')}
+            />
+            <ToggleCard
+              icon="🔤"
+              label="Dyslexia Font"
+              active={settings.dyslexiaFont}
+              onClick={() => toggle('dyslexiaFont')}
+            />
+            <ToggleCard
+              icon="↔"
+              label="Text Spacing"
+              active={settings.textSpacing}
+              onClick={() => toggle('textSpacing')}
+            />
+            <ToggleCard
+              icon="⏸"
+              label="Stop Animations"
+              active={settings.reduceMotion}
+              onClick={() => toggle('reduceMotion')}
+            />
+            <ToggleCard
+              icon="🔗"
+              label="Highlight Links"
+              active={settings.highlightLinks}
+              onClick={() => toggle('highlightLinks')}
+            />
+            <ToggleCard
+              icon="🖱"
+              label="Big Cursor"
+              active={settings.bigCursor}
+              onClick={() => toggle('bigCursor')}
+            />
+          </div>
 
-        {/* Footer */}
-        <div className="px-5 py-3 border-t border-white/8">
-          <p className="text-xs text-dark-400 text-center">
-            Settings saved automatically
-          </p>
+          {/* Footer */}
+          <div className="px-5 py-3 border-t border-white/8">
+            <p className="text-xs text-dark-400 text-center">
+              Settings saved automatically
+            </p>
+          </div>
         </div>
       </div>
 
@@ -262,6 +275,7 @@ export function AccessibilityWidget() {
           onClick={() => setOpen(o => !o)}
           aria-label="Open accessibility menu"
           aria-expanded={open}
+          ref={triggerRef}
           aria-haspopup="dialog"
           title="Accessibility options"
           className={`
