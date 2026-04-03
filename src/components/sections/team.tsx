@@ -47,8 +47,11 @@ export function Team() {
     }
   }
 
+  const activeChapterCountries = ['Cameroon', 'Ghana', 'Nigeria', 'Rwanda']
   const executiveTeam = teamMembers.filter(m => m.category === 'executive')
   const teamAndCountryCoordinators = teamMembers.filter(m => m.category === 'coordinators')
+  const activeCoordinators = teamAndCountryCoordinators.filter(m => activeChapterCountries.includes(m.country || ''))
+  const countryRepresentatives = teamAndCountryCoordinators.filter(m => !activeChapterCountries.includes(m.country || ''))
   const regionalCoordinators = teamMembers.filter(m => m.category === 'regional')
 
   if (isLoading) {
@@ -92,7 +95,7 @@ export function Team() {
           </h2>
 
           <p className="text-lg text-dark-300 max-w-3xl mx-auto leading-relaxed">
-            Executive board, program team, and country coordinators — each accountable for real outcomes in their region.
+            Executive board, program coordinators, and country representatives — each contributing to real outcomes across Africa.
           </p>
         </AnimatedSection>
 
@@ -101,7 +104,7 @@ export function Team() {
           <div className="flex flex-wrap justify-center gap-4">
             {[
               { id: 'executive' as const, label: 'Executive Board & Leadership', icon: Users },
-              { id: 'coordinators' as const, label: 'Team & Country Coordinators', icon: Globe },
+              { id: 'coordinators' as const, label: 'Coordinators & Representatives', icon: Globe },
               { id: 'regional' as const, label: 'Regional Coordinators', icon: Globe }
             ].map((tab) => (
               <motion.button
@@ -215,14 +218,57 @@ export function Team() {
               exit={{ opacity: 0, y: -20 }}
             >
               <div className="text-center mb-12">
-                <h3 className="text-3xl font-bold text-white mb-4">TEAM & COUNTRY COORDINATORS</h3>
+                <h3 className="text-3xl font-bold text-white mb-4">COORDINATORS & REPRESENTATIVES</h3>
                 <p className="text-lg text-dark-300 max-w-2xl mx-auto">
-                  Leadership, operations, and boots-on-the-ground coordinators.
+                  Country coordinators leading active chapters, and representatives building presence in their regions.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {teamAndCountryCoordinators.map((coordinator, index) => (
+              {/* Active chapter coordinators */}
+              {activeCoordinators.length > 0 && (
+                <div className="mb-12">
+                  <h4 className="text-lg font-semibold text-primary-400 uppercase tracking-widest mb-6 text-center">Country Coordinators</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {activeCoordinators.map((coordinator, index) => (
+                      <motion.div
+                        key={coordinator.name}
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        <Card className="group hover:scale-105 transition-all duration-500 overflow-hidden h-full border-2 border-accent-500/20 hover:border-accent-500/50">
+                          <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-accent-100 via-orange-50 to-amber-100">
+                            <div className="absolute inset-0 p-4">
+                              <div className="w-full h-full rounded-2xl overflow-hidden border-4 border-white/50 shadow-2xl">
+                                <img src={coordinator.image} alt={coordinator.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                              </div>
+                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent" />
+                            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-accent-500/30 to-transparent rounded-bl-full" />
+                          </div>
+                          <div className="p-6 space-y-3 bg-gradient-to-b from-dark-800/50 to-dark-900">
+                            <h3 className="text-lg font-bold text-white group-hover:text-accent-300 transition-colors">{coordinator.name}</h3>
+                            <Badge variant="warning" className="text-xs">{coordinator.role}</Badge>
+                            <div className="flex items-center gap-2 text-sm text-accent-400 pt-2 border-t border-dark-700">
+                              <MapPin className="w-4 h-4" />
+                              <span>{coordinator.country}</span>
+                            </div>
+                            {coordinator.focus && <p className="text-xs text-dark-200">Focus: {coordinator.focus}</p>}
+                          </div>
+                        </Card>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Country representatives */}
+              {countryRepresentatives.length > 0 && (
+                <div>
+                  <h4 className="text-lg font-semibold text-blue-400 uppercase tracking-widest mb-6 text-center">Country Representatives</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {countryRepresentatives.map((coordinator, index) => (
                   <motion.div
                     key={coordinator.name}
                     initial={{ opacity: 0, y: 50 }}
@@ -230,47 +276,31 @@ export function Team() {
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.05 }}
                   >
-                    <Card className="group hover:scale-105 transition-all duration-500 overflow-hidden h-full border-2 border-accent-500/20 hover:border-accent-500/50">
-                      {/* Premium Image Container */}
-                      <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-accent-100 via-orange-50 to-amber-100">
-                        {/* Image with proper framing */}
-                        <div className="absolute inset-0 p-4">
-                          <div className="w-full h-full rounded-2xl overflow-hidden border-4 border-white/50 shadow-2xl">
-                            <img 
-                              src={coordinator.image}
-                              alt={coordinator.name}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                            />
+                    <Card className="group hover:scale-105 transition-all duration-500 overflow-hidden h-full border-2 border-blue-500/20 hover:border-blue-500/50">
+                          <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-blue-100 via-sky-50 to-indigo-100">
+                            <div className="absolute inset-0 p-4">
+                              <div className="w-full h-full rounded-2xl overflow-hidden border-4 border-white/50 shadow-2xl">
+                                <img src={coordinator.image} alt={coordinator.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                              </div>
+                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent" />
+                            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-500/30 to-transparent rounded-bl-full" />
                           </div>
-                        </div>
-                        
-                        {/* Gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent" />
-                        
-                        {/* Decorative corner accent */}
-                        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-accent-500/30 to-transparent rounded-bl-full" />
-                      </div>
-
-                      {/* Content section */}
-                      <div className="p-6 space-y-3 bg-gradient-to-b from-dark-800/50 to-dark-900">
-                        <h3 className="text-lg font-bold text-white group-hover:text-accent-300 transition-colors">
-                          {coordinator.name}
-                        </h3>
-                        <div className="flex items-center gap-2">
-                          <Badge variant="warning" className="text-xs">{coordinator.role}</Badge>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-accent-400 pt-2 border-t border-dark-700">
-                          <MapPin className="w-4 h-4" />
-                          <span>{coordinator.country}</span>
-                        </div>
-                        {coordinator.focus && (
-                          <p className="text-xs text-dark-200">Focus: {coordinator.focus}</p>
-                        )}
-                      </div>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
+                          <div className="p-6 space-y-3 bg-gradient-to-b from-dark-800/50 to-dark-900">
+                            <h3 className="text-lg font-bold text-white group-hover:text-blue-300 transition-colors">{coordinator.name}</h3>
+                            <Badge className="text-xs bg-blue-500/20 text-blue-300 border border-blue-500/30">Country Representative</Badge>
+                            <div className="flex items-center gap-2 text-sm text-blue-400 pt-2 border-t border-dark-700">
+                              <MapPin className="w-4 h-4" />
+                              <span>{coordinator.country}</span>
+                            </div>
+                            {coordinator.focus && <p className="text-xs text-dark-200">Focus: {coordinator.focus}</p>}
+                          </div>
+                        </Card>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </motion.div>
           )}
 

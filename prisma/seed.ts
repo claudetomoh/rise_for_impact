@@ -152,7 +152,7 @@ async function main() {
     },
     {
       name: 'Jessica A. Morris',
-      role: 'Country Coordinator',
+      role: 'Country Representative',
       category: 'coordinators',
       country: 'Liberia',
       focus: 'Community Building',
@@ -170,7 +170,7 @@ async function main() {
     },
     {
       name: 'Tito Moses',
-      role: 'Country Coordinator',
+      role: 'Country Representative',
       category: 'coordinators',
       country: 'Uganda',
       focus: 'Peace & Civic Mobilization',
@@ -179,7 +179,7 @@ async function main() {
     },
     {
       name: 'Jacques Balolage',
-      role: 'Country Coordinator',
+      role: 'Country Representative',
       category: 'coordinators',
       country: 'DRC',
       focus: 'Disability Inclusion',
@@ -206,7 +206,7 @@ async function main() {
     },
     {
       name: 'Johnson Pendaeli',
-      role: 'Country Coordinator',
+      role: 'Country Representative',
       category: 'coordinators',
       country: 'Tanzania',
       focus: 'Mental Health & Well-being',
