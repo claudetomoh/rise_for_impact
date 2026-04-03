@@ -214,16 +214,6 @@ async function main() {
             linkedin: '#'
         },
         {
-            name: 'Johnson Pendaeli',
-            role: 'Country Coordinator',
-            category: 'coordinators',
-            country: 'Tanzania',
-            focus: 'Mental Health & Well-being',
-            image: '/images/team/Johnson.Maturo_headshot.jpg',
-            email: 'johnson@riseforimpact.org',
-            linkedin: '#'
-        },
-        {
             name: 'Chafor Ramson Njoyue',
             role: 'NorthWest Regional Coordinator',
             category: 'regional',
