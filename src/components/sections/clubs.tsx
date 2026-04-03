@@ -89,9 +89,9 @@ const clubs = [
 ]
 
 const stats = [
-  { label: 'University Clubs', value: '4+', icon: GraduationCap },
-  { label: 'Student Members', value: '1,000+', icon: Users },
-  { label: 'Campus Projects', value: '15+', icon: Award }
+  { label: 'University Clubs', value: '4', icon: GraduationCap },
+  { label: 'Documented Members', value: '600+', icon: Users },
+  { label: 'Countries', value: '2', icon: Award }
 ]
 
 export function Clubs() {

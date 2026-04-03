@@ -89,20 +89,16 @@ export function MissionVision() {
                   founded in 2025 to help young people access opportunities, strengthen their leadership and
                   professional skills, and grow within a supportive community.
                 </p>
-                
+
                 <p>
-                  Since its launch, the organization has combined digital engagement and in-person programming
-                  to connect youth to training, mentorship conversations, leadership development sessions, and
-                  curated opportunities for personal and professional growth. Its early work has included{' '}
-                  <span className="text-primary-400 font-semibold">flagship speaker sessions</span>,{' '}
-                  <span className="text-accent-400 font-semibold">community workshops</span>,{' '}
-                  <span className="text-blue-400 font-semibold">LinkedIn optimisation training</span>, opportunity
-                  sharing, and student engagement activities across Cameroon, Ghana, Nigeria, and Rwanda.
+                  Active across Cameroon, Ghana, Nigeria, and Rwanda, we combine digital engagement and in-person
+                  programming — flagship speaker sessions, community workshops, LinkedIn training, and curated
+                  opportunity sharing — grounded in real, documented work.
                 </p>
 
                 <div className="pt-4 border-t border-dark-700/50">
                   <p className="text-sm md:text-base text-primary-400 font-medium italic">
-                    A growing organization building credible systems, stronger partnerships, and measurable outcomes over time.
+                    A credible, growing organization — building structured systems and measurable outcomes.
                   </p>
                 </div>
               </div>

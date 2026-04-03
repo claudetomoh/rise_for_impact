@@ -51,11 +51,6 @@ export function Team() {
   const teamAndCountryCoordinators = teamMembers.filter(m => m.category === 'coordinators')
   const regionalCoordinators = teamMembers.filter(m => m.category === 'regional')
 
-  console.log('All team members:', teamMembers)
-  console.log('Executive team:', executiveTeam)
-  console.log('Coordinators:', teamAndCountryCoordinators)
-  console.log('Regional:', regionalCoordinators)
-
   if (isLoading) {
     return (
       <section id="team" className="py-12 md:py-16 relative overflow-hidden">
@@ -91,13 +86,13 @@ export function Team() {
             <span className="text-sm font-medium text-primary-400">Our Team</span>
           </motion.div>
 
-          <h2 className="text-5xl md:text-7xl font-display font-bold">
-            <span className="text-white">Leadership, operations, and </span>
-            <span className="text-gradient">boots-on-the-ground coordinators.</span>
+          <h2 className="text-3xl md:text-5xl font-display font-bold">
+            <span className="text-white">The people behind </span>
+            <span className="text-gradient">Rise for Impact.</span>
           </h2>
 
-          <p className="text-xl text-dark-300 max-w-3xl mx-auto leading-relaxed">
-            The executive board supervises the content, communications, and program teams before responsibility flows down to the country coordinators.
+          <p className="text-lg text-dark-300 max-w-3xl mx-auto leading-relaxed">
+            Executive board, program team, and country coordinators — each accountable for real outcomes in their region.
           </p>
         </AnimatedSection>
 

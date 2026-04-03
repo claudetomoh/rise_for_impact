@@ -2,51 +2,64 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { MapPin, Users, Sparkles, TrendingUp, Globe } from 'lucide-react'
-import { Card } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { MapPin, Users, TrendingUp, Globe, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { AnimatedSection } from '@/components/animations/motion-wrappers'
 import { SectionParallax } from '@/components/animations/parallax-background'
 
 const regions = [
   {
-    name: 'Cameroon Northwest',
-    code: 'NW',
-    description: 'Empowering young leaders to drive sustainable community transformation through leadership development and impactful programs.',
-    members: '150+',
-    projects: '3+',
-    image: '/images/backgrounds/nw.jpeg',
+    name: 'Cameroon',
+    code: 'CM',
+    description: 'Our founding and most active country, with chapters in the Northwest and Southwest regions driving leadership development, community projects, and youth engagement.',
     color: 'from-primary-500 to-primary-600',
-    coordinator: {
-      name: 'Chafor Ramson Njoyue',
-      role: 'Regional Coordinator',
-      focus: ['Community Building', 'Leadership Development', 'Youth Empowerment']
-    },
+    coordinator: 'Chafor Ramson Njoyue',
     highlights: [
+      'Northwest & Southwest regional chapters',
       'Rise Circles leadership training',
-      'Impact Clinics for social innovation',
-      'Community development projects',
-      'Youth advocacy programs'
+      'Impact Clinics & community development',
     ],
-    exploreLink: '/#newsletter'
+    exploreLink: '/regions#northwest',
   },
   {
-    name: 'Cameroon Southwest',
-    code: 'SW',
-    description: 'Building resilient communities in the Southwest Region through youth-led sustainable development initiatives.',
-    members: '200+',
-    projects: '5+',
-    image: '/images/backgrounds/sw.jpeg',
+    name: 'Ghana',
+    code: 'GH',
+    description: 'Active chapters at Ashesi University and Academic City, engaging student leaders in leadership, innovation, and social impact programming.',
     color: 'from-accent-500 to-accent-600',
+    coordinator: 'Akurugu Princess',
     highlights: [
-      'Community development projects',
-      'Active youth engagement',
-      'Impact Clinics',
-      'Environmental conservation'
+      'Ashesi University Chapter — active',
+      'Academic City Chapter — launched 2025',
+      'LinkedIn & professional skills workshops',
     ],
-    exploreLink: 'https://chat.whatsapp.com/HRo4Qf39p3P7sSRQzGkmqT'
-  }
+    exploreLink: '/regions#ghana',
+  },
+  {
+    name: 'Nigeria',
+    code: 'NG',
+    description: 'Growing presence with flagship sessions, opportunity sharing, and community-building activities reaching youth across the country.',
+    color: 'from-blue-500 to-blue-600',
+    coordinator: 'Kareen Ajatitton',
+    highlights: [
+      'Flagship speaker sessions',
+      'Opportunity sharing & guidance',
+      'Digital community engagement',
+    ],
+    exploreLink: '/regions#nigeria',
+  },
+  {
+    name: 'Rwanda',
+    code: 'RW',
+    description: 'Our newest active country, building foundational community and programming under strong local coordination.',
+    color: 'from-purple-500 to-purple-600',
+    coordinator: 'Regine Niyorukundo',
+    highlights: [
+      'Community onboarding underway',
+      'Local coordination established',
+      'Programs launching 2026',
+    ],
+    exploreLink: '/regions#rwanda',
+  },
 ]
 
 const stats = [
@@ -151,126 +164,44 @@ export function Regions() {
           })}
         </div>
 
-        {/* Regions Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+        {/* Countries Grid */}
+        <div className="grid md:grid-cols-2 gap-6 mb-12">
           {regions.map((region, index) => (
             <motion.div
               key={region.name}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.08 }}
             >
-              <Card className="group h-full hover:scale-[1.02] transition-all duration-500 overflow-hidden">
-                {/* Header with Image */}
-                <div className="relative h-64 overflow-hidden">
-                  <img 
-                    src={region.image}
-                    alt={region.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/80 to-transparent" />
-                  
-                  {/* Region Badge */}
-                  <div className="absolute top-6 left-6">
-                    <motion.div
-                      whileHover={{ scale: 1.1 }}
-                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${region.color} flex items-center justify-center shadow-glow`}
-                    >
-                      <span className="text-2xl font-bold text-white">{region.code}</span>
-                    </motion.div>
+              <div className="group glass-card rounded-2xl p-6 h-full flex flex-col gap-4 hover:scale-[1.02] transition-all duration-300">
+                <div className="flex items-center gap-4">
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${region.color} flex items-center justify-center shadow-lg flex-shrink-0`}>
+                    <span className="text-sm font-bold text-white">{region.code}</span>
                   </div>
-
-                  {/* Stats Badges */}
-                  <div className="absolute bottom-6 left-6 right-6 flex gap-3">
-                    <Badge variant="gradient" size="sm">
-                      <Users className="w-3 h-3 mr-1" />
-                      {region.members} Members
-                    </Badge>
-                    <Badge variant="gradient" size="sm">
-                      <Sparkles className="w-3 h-3 mr-1" />
-                      {region.projects} Projects
-                    </Badge>
+                  <div>
+                    <h3 className="text-xl font-display font-bold text-white">{region.name}</h3>
+                    <p className="text-xs text-dark-400">Coordinator: {region.coordinator}</p>
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="p-8 space-y-6">
-                  <div>
-                    <h3 className="text-2xl font-display font-bold text-white mb-3">
-                      {region.name}
-                    </h3>
-                    <p className="text-dark-300 leading-relaxed">
-                      {region.description}
-                    </p>
-                  </div>
+                <p className="text-sm text-dark-300 leading-relaxed">{region.description}</p>
 
-                  {/* Regional Coordinator */}
-                  {region.coordinator && (
-                    <div className="pt-4 border-t border-dark-700">
-                      <h4 className="text-sm font-semibold text-primary-400 mb-3">Regional Coordinator</h4>
-                      <div className="space-y-2">
-                        <h5 className="font-bold text-white">{region.coordinator.name}</h5>
-                        <div className="flex flex-wrap gap-1.5">
-                          {region.coordinator.focus.map((item) => (
-                            <span key={item} className="px-2 py-1 text-xs rounded-md bg-primary-500/10 text-primary-400 border border-primary-500/20">
-                              {item}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                <ul className="space-y-1.5 flex-1">
+                  {region.highlights.map((h) => (
+                    <li key={h} className="flex items-start gap-2 text-sm text-dark-400">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary-400 mt-1.5 flex-shrink-0" />
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
 
-                  {/* Highlights */}
-                  <div>
-                    <h4 className="text-sm font-semibold text-primary-400 mb-3">Key Highlights</h4>
-                    <ul className="space-y-2">
-                      {region.highlights.map((highlight) => (
-                        <li key={highlight} className="flex items-start gap-2 text-sm text-dark-400">
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary-400 mt-1.5 flex-shrink-0" />
-                          <span>{highlight}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {region.exploreLink ? (
-                    region.exploreLink.startsWith('http') ? (
-                      <a href={region.exploreLink} target="_blank" rel="noopener noreferrer" className="block">
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          fullWidth
-                          className="group-hover:bg-white/5"
-                        >
-                          Explore Region
-                        </Button>
-                      </a>
-                    ) : (
-                      <Link href={region.exploreLink}>
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          fullWidth
-                          className="group-hover:bg-white/5"
-                        >
-                          Explore Region
-                        </Button>
-                      </Link>
-                    )
-                  ) : (
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      fullWidth
-                      className="group-hover:bg-white/5"
-                    >
-                      Explore Region
-                    </Button>
-                  )}
-                </div>
-              </Card>
+                <Link href={region.exploreLink}>
+                  <Button variant="ghost" size="sm" className="w-full group-hover:bg-white/5 flex items-center justify-center gap-1">
+                    Explore Region <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              </div>
             </motion.div>
           ))}
         </div>
