@@ -4,6 +4,7 @@ import { Providers } from './providers'
 import { ScrollProgress } from '@/components/effects/scroll-progress'
 import { ToastProvider } from '@/components/providers/toast-provider'
 import { ThemeProvider } from '@/components/providers/theme-provider'
+import { AccessibilityWidget } from '@/components/ui/accessibility-widget'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
@@ -114,6 +115,7 @@ export default function RootLayout({
           <Providers>
             <ToastProvider />
             {children}
+            <AccessibilityWidget />
             <Analytics />
             <SpeedInsights />
           </Providers>

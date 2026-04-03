@@ -713,6 +713,143 @@ body {
     border-width: 0;
 }
 
+
+/* ═══════════════════════════════════════════════════════
+   ACCESSIBILITY WIDGET — feature classes applied to <html>
+   ═══════════════════════════════════════════════════════ */
+
+
+/* HIGH CONTRAST ─────────────────────────────────────── */
+
+.a11y-high-contrast body,
+.a11y-high-contrast main {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.a11y-high-contrast p,
+.a11y-high-contrast li,
+.a11y-high-contrast span,
+.a11y-high-contrast label,
+.a11y-high-contrast td,
+.a11y-high-contrast th {
+    color: #fff !important;
+}
+
+.a11y-high-contrast h1,
+.a11y-high-contrast h2,
+.a11y-high-contrast h3,
+.a11y-high-contrast h4,
+.a11y-high-contrast h5,
+.a11y-high-contrast h6 {
+    color: #ffff00 !important;
+}
+
+.a11y-high-contrast a {
+    color: #0ff !important;
+    text-decoration: underline !important;
+}
+
+.a11y-high-contrast button:not([disabled]) {
+    outline: 2px solid #ffff00 !important;
+}
+
+.a11y-high-contrast img {
+    filter: contrast(1.4) brightness(1.1);
+}
+
+.a11y-high-contrast [class*="bg-"],
+.a11y-high-contrast [class*="glass"] {
+    background: #111 !important;
+    border-color: #fff !important;
+}
+
+
+/* DYSLEXIA-FRIENDLY FONT ─────────────────────────────── */
+
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/fonts/OpenDyslexic-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+.a11y-dyslexia,
+.a11y-dyslexia * {
+    font-family: 'OpenDyslexic', sans-serif !important;
+    letter-spacing: 0.05em !important;
+    word-spacing: 0.15em !important;
+    line-height: 1.8 !important;
+}
+
+
+/* TEXT SPACING ──────────────────────────────────────── */
+
+.a11y-text-spacing p,
+.a11y-text-spacing li,
+.a11y-text-spacing h1,
+.a11y-text-spacing h2,
+.a11y-text-spacing h3,
+.a11y-text-spacing h4,
+.a11y-text-spacing span,
+.a11y-text-spacing a,
+.a11y-text-spacing td {
+    letter-spacing: 0.12em !important;
+    word-spacing: 0.16em !important;
+    line-height: 2 !important;
+}
+
+
+/* REDUCE / PAUSE ANIMATIONS ─────────────────────────── */
+
+.a11y-reduce-motion *,
+.a11y-reduce-motion *::before,
+.a11y-reduce-motion *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+}
+
+
+/* HIGHLIGHT LINKS ───────────────────────────────────── */
+
+.a11y-highlight-links a {
+    background-color: rgba(250, 204, 21, 0.25) !important;
+    color: #92400e !important;
+    text-decoration: underline !important;
+    text-decoration-thickness: 2px !important;
+    text-underline-offset: 3px !important;
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+.a11y-highlight-links.dark a,
+.a11y-highlight-links a:not(.light *) {
+    background-color: rgba(250, 204, 21, 0.2) !important;
+    color: #fcd34d !important;
+}
+
+
+/* BIG CURSOR ─────────────────────────────────────────── */
+
+.a11y-big-cursor,
+.a11y-big-cursor * {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M5 3l30 17-13 3-7 12z' fill='white' stroke='black' stroke-width='2'/%3E%3C/svg%3E") 5 3, auto !important;
+}
+
+
+/* ────────────────────────────────────────────────────── */
+
 *:focus-visible {
     outline: 2px solid #22c55e;
     outline-offset: 2px;
