@@ -132,14 +132,14 @@ This flagship program is designed for emerging leaders who have demonstrated com
       'Quarterly regional convenings for in-person connection',
       'Fellowship certificate and alumni network membership'
     ],
-    impact: 'Applications opening soon',
+    impact: 'Opening April 15, 2026',
     duration: '3-6 months',
     frequency: 'Quarterly convenings + monthly virtual sessions',
     locations: 'Open to Africa-based applicants',
     image: '/images/backgrounds/fellowship.jpeg',
     color: 'from-yellow-500 to-yellow-600',
     applicationsOpen: false,
-    status: 'Applications open February 2026'
+    status: 'Applications open April 15, 2026'
   },
   'campus-ambassadors': {
     id: 'campus-ambassadors',
