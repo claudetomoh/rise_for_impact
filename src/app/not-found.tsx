@@ -29,7 +29,7 @@ export default function NotFound() {
               Go Home
             </Button>
           </Link>
-          <Link href="/#programs">
+          <Link href="/programs">
             <Button variant="outline" size="lg" leftIcon={<Search />}>
               Explore Programs
             </Button>
@@ -40,16 +40,16 @@ export default function NotFound() {
         <div className="pt-8 border-t border-dark-700">
           <p className="text-sm text-dark-500 mb-4">Quick Links</p>
           <div className="flex gap-4 justify-center flex-wrap text-sm">
-            <Link href="/#about" className="text-primary-400 hover:text-primary-300 transition-colors">
+            <Link href="/about" className="text-primary-400 hover:text-primary-300 transition-colors">
               About Us
             </Link>
-            <Link href="/#programs" className="text-primary-400 hover:text-primary-300 transition-colors">
+            <Link href="/programs" className="text-primary-400 hover:text-primary-300 transition-colors">
               Programs
             </Link>
-            <Link href="/#team" className="text-primary-400 hover:text-primary-300 transition-colors">
+            <Link href="/team" className="text-primary-400 hover:text-primary-300 transition-colors">
               Team
             </Link>
-            <Link href="/#blog" className="text-primary-400 hover:text-primary-300 transition-colors">
+            <Link href="/blog" className="text-primary-400 hover:text-primary-300 transition-colors">
               Blog
             </Link>
             <Link href="/get-involved" className="text-primary-400 hover:text-primary-300 transition-colors">

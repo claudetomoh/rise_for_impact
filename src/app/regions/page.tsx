@@ -8,18 +8,14 @@ export default function RegionsPage() {
     { name: 'Cameroon', flag: '🇨🇲', coordinator: 'Nawal Chefton', regions: 2 },
     { name: 'Ghana', flag: '🇬🇭', coordinator: 'Akurugu Princess' },
     { name: 'Nigeria', flag: '🇳🇬', coordinator: 'Kareen Ajatitton' },
-    { name: 'Uganda', flag: '🇺🇬', coordinator: 'Tito Moses' },
-    { name: 'DRC', flag: '🇨🇩', coordinator: 'Jacques Balolage' },
     { name: 'Rwanda', flag: '🇷🇼', coordinator: 'Regine Niyorukundo' },
-    { name: 'Tanzania', flag: '🇹🇿', coordinator: 'Johnson Pendaeli' },
-    { name: 'Liberia', flag: '🇱🇷', coordinator: 'Jessica A. Morris' },
   ]
 
   return (
     <PageWithNav>
       <PremiumPageLayout
-        title="Our Regional Presence"
-        subtitle="Active in 8+ African countries with dedicated coordinators"
+        title="Where We Work"
+        subtitle="Active programmes in Cameroon, Ghana, Nigeria, and Rwanda"
         icon={<Globe className="w-10 h-10 text-emerald-400" />}
         gradient="emerald"
       >
@@ -27,15 +23,15 @@ export default function RegionsPage() {
           {/* Stats */}
           <div className="grid md:grid-cols-3 gap-6 text-center">
             <div className="p-6 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border border-emerald-500/20">
-              <div className="text-4xl font-bold text-emerald-400 mb-2">8+</div>
-              <div className="text-sm text-dark-300 font-medium">Countries</div>
+              <div className="text-4xl font-bold text-emerald-400 mb-2">4</div>
+              <div className="text-sm text-dark-300 font-medium">Active Countries</div>
             </div>
             <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20">
-              <div className="text-4xl font-bold text-blue-400 mb-2">10+</div>
-              <div className="text-sm text-dark-300 font-medium">Regional Chapters</div>
+              <div className="text-4xl font-bold text-blue-400 mb-2">4</div>
+              <div className="text-sm text-dark-300 font-medium">Flagship Sessions</div>
             </div>
             <div className="p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20">
-              <div className="text-4xl font-bold text-purple-400 mb-2">10K+</div>
+              <div className="text-4xl font-bold text-purple-400 mb-2">500+</div>
               <div className="text-sm text-dark-300 font-medium">Youth Engaged</div>
             </div>
           </div>

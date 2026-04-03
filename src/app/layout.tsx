@@ -12,16 +12,23 @@ export const metadata: Metadata = {
     default: 'Rise for Impact | Empowering African Youth Leaders',
     template: '%s | Rise for Impact'
   },
-  description: 'A pan-African youth-led organization empowering young leaders to drive sustainable development through leadership development, climate action, and civic education.',
-  keywords: ['African youth', 'leadership development', 'social impact', 'climate action', 'civic education', 'pan-African', 'youth empowerment'],
+  description: 'Rise for Impact is a youth-focused social initiative connecting young Africans to opportunities, skills, and leadership pathways across Cameroon, Ghana, Nigeria, and Rwanda.',
+  keywords: [
+    'African youth', 'youth leadership Africa', 'social impact Africa',
+    'youth opportunity access', 'pan-African social initiative', 'climate action youth',
+    'civic education Africa', 'youth empowerment Cameroon', 'youth empowerment Ghana',
+    'youth empowerment Nigeria', 'youth empowerment Rwanda', 'fellowship Africa',
+    'scholarship Africa', 'Rise for Impact', 'youth networking Africa',
+    'leadership development Africa', 'African youth organisation'
+  ],
   authors: [{ name: 'Rise for Impact' }],
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://www.riseforimpact.org',
     siteName: 'Rise for Impact',
-    title: 'Rise for Impact | Empowering 10,000+ African Youth Leaders',
-    description: 'Pan-African movement of young changemakers building Africa\'s next generation of leaders through transformative programs, climate innovation, and community-driven impact across 8+ countries.',
+    title: 'Rise for Impact | Connecting Young Africans to Real Opportunities',
+    description: 'Rise for Impact is a youth-focused social initiative connecting young Africans to real opportunities, practical skills, and leadership pathways across Cameroon, Ghana, Nigeria, and Rwanda.',
     images: [
       {
         url: '/images/backgrounds/fellowship.jpeg',
@@ -34,12 +41,9 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Rise for Impact | Empowering African Youth Leaders',
-    description: 'Pan-African movement of young changemakers building Africa\'s next generation of leaders through transformative programs, climate innovation, and community-driven impact across 8+ countries.',
+    description: 'Rise for Impact is a youth-focused social initiative connecting young Africans to real opportunities, practical skills, and leadership pathways across Cameroon, Ghana, Nigeria, and Rwanda.',
     images: ['/images/backgrounds/fellowship.jpeg'],
     creator: '@riseforimpact'
-  },
-  verification: {
-    google: 'your-google-verification-code',
   },
   alternates: {
     canonical: 'https://riseforimpact.org',
@@ -80,15 +84,11 @@ export default function RootLayout({
               name: 'Rise for Impact',
               url: 'https://riseforimpact.org',
               logo: 'https://riseforimpact.org/images/logo.jpeg',
-              description: 'Pan-African youth-led movement empowering 10,000+ young leaders across 8+ countries through leadership development, climate action, and community impact projects.',
-              foundingDate: '2024',
+              description: 'Rise for Impact is a youth-focused social initiative founded in 2025 to connect young Africans to opportunities, practical skills, and leadership pathways across Cameroon, Ghana, Nigeria, and Rwanda.',
+              foundingDate: '2025',
               areaServed: {
                 '@type': 'Place',
                 name: 'Africa'
-              },
-              numberOfEmployees: {
-                '@type': 'QuantitativeValue',
-                value: '10000+'
               },
               sameAs: [
                 'https://www.linkedin.com/company/rise-for-impact',

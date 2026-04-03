@@ -54,7 +54,7 @@ const programs = [
     impact: 'Growing community',
     duration: '6 months',
     frequency: 'Weekly meetings',
-    locations: '8+ countries',
+    locations: 'Cameroon, Ghana, Nigeria & Rwanda',
     image: '/images/backgrounds/ClubMeeting.jpeg'
   },
   {
@@ -94,7 +94,7 @@ const programs = [
     impact: 'Growing environmental impact',
     duration: 'Ongoing',
     frequency: 'Monthly campaigns',
-    locations: '8+ countries',
+    locations: 'Cameroon, Ghana, Nigeria & Rwanda',
     image: '/images/backgrounds/Togetherness.jpg'
   },
   {
@@ -237,12 +237,12 @@ export function Programs() {
           </motion.div>
 
           <h2 className="text-4xl md:text-6xl font-display font-bold">
-            <span className="text-gradient">Empowering Through Action</span>
+            <span className="text-gradient">Our Programs</span>
           </h2>
 
           <p className="text-xl text-dark-300 max-w-3xl mx-auto leading-relaxed">
-            Our comprehensive programs are designed to develop leadership skills, 
-            drive sustainable impact, and create lasting change across Africa.
+            Practical, community-grounded programs that connect young people to skills,
+            opportunities, and leadership development pathways.
           </p>
         </AnimatedSection>
 

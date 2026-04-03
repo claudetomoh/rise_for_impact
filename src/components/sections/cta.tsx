@@ -133,16 +133,14 @@ export function CallToAction() {
 					</motion.div>
 
 					<h2 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold leading-tight">
-						<span className="text-white">Be Part of the </span>
+						<span className="text-white">Get Involved </span>
 						<br />
-						<span className="text-gradient">Impact Revolution</span>
+						<span className="text-gradient">With Rise for Impact</span>
 					</h2>
 
 					<p className="text-base md:text-lg text-dark-300 max-w-3xl mx-auto leading-relaxed">
-						Whether you're a young leader ready to grow, a donor wanting to make a
-						difference,
-						<br className="hidden sm:block" /> or an organization seeking
-						meaningful partnerships, there's a place for you in our movement.
+						Whether you're a young person looking for opportunities, someone wanting to support our work,
+						<br className="hidden sm:block" /> or an organization seeking meaningful partnership, here's how to connect.
 					</p>
 				</AnimatedSection>
 
@@ -220,11 +218,11 @@ export function CallToAction() {
 									<Mail className="w-10 h-10 text-emerald-400" />
 								</div>
 								<h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-									Stay Inspired, Stay Informed
-								</h2>
-								<p className="text-lg md:text-xl text-dark-300 max-w-2xl mx-auto">
-									Get monthly updates on our programs, impact stories, and opportunities to join the movement for positive change.
-								</p>
+							Stay Updated
+						</h2>
+						<p className="text-lg md:text-xl text-dark-300 max-w-2xl mx-auto">
+							Get updates on our programs, curated opportunities, and impact stories. No spam, just substance.
+						</p>
 							</div>
 
 							<form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto mb-6">
@@ -246,7 +244,7 @@ export function CallToAction() {
 							</form>
 
 							<p className="text-center text-dark-400 text-sm">
-								Join 5,000+ subscribers. Unsubscribe anytime. We respect your privacy.
+							Unsubscribe anytime. We respect your privacy.
 							</p>
 						</div>
 					</div>

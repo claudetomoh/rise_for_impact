@@ -161,20 +161,20 @@ export function Testimonials() {
           <div className="glass-card p-12 rounded-3xl">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
-                <div className="text-4xl font-display font-bold text-gradient mb-2">98%</div>
-                <div className="text-dark-400">Satisfaction Rate</div>
-              </div>
-              <div>
-                <div className="text-4xl font-display font-bold text-gradient mb-2">10K+</div>
-                <div className="text-dark-400">Lives Impacted</div>
-              </div>
-              <div>
                 <div className="text-4xl font-display font-bold text-gradient mb-2">500+</div>
-                <div className="text-dark-400">Success Stories</div>
+                <div className="text-dark-400">Youth Engaged</div>
               </div>
               <div>
-                <div className="text-4xl font-display font-bold text-gradient mb-2">8+</div>
-                <div className="text-dark-400">Countries</div>
+                <div className="text-4xl font-display font-bold text-gradient mb-2">4</div>
+                <div className="text-dark-400">Flagship Sessions</div>
+              </div>
+              <div>
+                <div className="text-4xl font-display font-bold text-gradient mb-2">200+</div>
+                <div className="text-dark-400">Workshop Participants</div>
+              </div>
+              <div>
+                <div className="text-4xl font-display font-bold text-gradient mb-2">4</div>
+                <div className="text-dark-400">Active Countries</div>
               </div>
             </div>
           </div>

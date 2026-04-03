@@ -11,26 +11,26 @@ import { SectionParallax } from '@/components/animations/parallax-background'
 const coreValues = [
   {
     icon: Lightbulb,
-    title: 'Bold Innovation',
-    description: 'We don\'t wait for solutions—we create them. From climate action to opportunity access, we\'re building the future Africa deserves.',
+    title: 'Credibility',
+    description: 'We say what we can prove and prove what we say. Every number, claim, and program on this platform reflects real, documented work.',
     color: 'from-yellow-500 to-yellow-600'
   },
   {
     icon: Users,
-    title: 'Youth Power',
-    description: 'Africa\'s 1.4 billion young people aren\'t the leaders of tomorrow—we\'re the changemakers of today, right now.',
+    title: 'Access',
+    description: 'Information should not be luck-based. We actively lower the barriers that prevent young people from reaching opportunities they deserve.',
     color: 'from-primary-500 to-primary-600'
   },
   {
     icon: Globe,
-    title: 'Pan-African Unity',
-    description: 'Borders don\'t limit impact. We\'re one continent, one movement, 8+ countries strong and growing.',
+    title: 'Collaboration',
+    description: 'We build with communities, not for them. Local coordinators, peer networks, and partners are co-architects of everything we do.',
     color: 'from-blue-500 to-blue-600'
   },
   {
     icon: Target,
     title: 'Action Over Words',
-    description: 'We measure success in real impact: communities transformed, leaders developed, opportunities unlocked.',
+    description: 'We measure success in real outcomes: youth connected to opportunities, skills developed, and local leadership capacity strengthened.',
     color: 'from-red-500 to-red-600'
   }
 ]
@@ -64,7 +64,7 @@ export function MissionVision() {
           </h2>
 
           <p className="text-xl text-dark-300 max-w-3xl mx-auto leading-relaxed">
-            Guided by purpose, driven by impact—building a movement of young African leaders.
+            Guided by purpose, evidence, and a commitment to building what we promise.
           </p>
         </AnimatedSection>
 
@@ -85,26 +85,24 @@ export function MissionVision() {
 
               <div className="space-y-4 text-base md:text-lg text-dark-200 leading-relaxed">
                 <p>
-                  <span className="text-white font-semibold">Rise for Impact</span> is a bold, youth-led 
-                  pan-African movement reshaping the future of leadership development across the continent. 
-                  Born from the conviction that Africa's young people shouldn't wait for opportunities—they 
-                  should create them—we've built a dynamic ecosystem where ambition meets action.
+                  <span className="text-white font-semibold">Rise for Impact</span> is a youth-focused social initiative
+                  founded in 2025 to help young people access opportunities, strengthen their leadership and
+                  professional skills, and grow within a supportive community.
                 </p>
                 
                 <p>
-                  With <span className="text-primary-400 font-semibold">10,000+ young leaders</span> across{' '}
-                  <span className="text-accent-400 font-semibold">8+ countries</span> and{' '}
-                  <span className="text-blue-400 font-semibold">4+ active university clubs</span>, we're 
-                  not just talking about change—we're engineering it through transformative programs, hands-on 
-                  community projects, and a relentless focus on climate action, education, and economic opportunity. 
-                  From Cameroon to Ghana, Kenya to Nigeria, Rise for Impact is proving that when you combine 
-                  Africa's largest asset—its youth—with world-class training and real-world opportunities, 
-                  extraordinary impact becomes inevitable.
+                  Since its launch, the organization has combined digital engagement and in-person programming
+                  to connect youth to training, mentorship conversations, leadership development sessions, and
+                  curated opportunities for personal and professional growth. Its early work has included{' '}
+                  <span className="text-primary-400 font-semibold">flagship speaker sessions</span>,{' '}
+                  <span className="text-accent-400 font-semibold">community workshops</span>,{' '}
+                  <span className="text-blue-400 font-semibold">LinkedIn optimisation training</span>, opportunity
+                  sharing, and student engagement activities across Cameroon, Ghana, Nigeria, and Rwanda.
                 </p>
 
                 <div className="pt-4 border-t border-dark-700/50">
                   <p className="text-sm md:text-base text-primary-400 font-medium italic">
-                    We are the generation that won't wait for permission to lead. We are Rise for Impact.
+                    A growing organization building credible systems, stronger partnerships, and measurable outcomes over time.
                   </p>
                 </div>
               </div>
@@ -134,15 +132,13 @@ export function MissionVision() {
                 </h3>
 
                 <p className="text-base md:text-lg text-dark-300 leading-relaxed">
-                  To unleash the power of African youth by providing radical access to leadership 
-                  development, game-changing opportunities, and a movement where every young person 
-                  can rise, lead, and transform their community.
+                  To equip young people with access to opportunities, practical skills, and supportive
+                  networks that help them grow into education, employment, and leadership pathways.
                 </p>
 
                 <div className="pt-4 border-t border-dark-700">
                   <p className="text-sm text-dark-400 italic">
-                    "We're not just building leaders—we're building a generation that refuses to wait 
-                    for change and instead creates it."
+                    "We help young people move from aspiration to access."
                   </p>
                 </div>
               </div>
@@ -169,15 +165,14 @@ export function MissionVision() {
                 </h3>
 
                 <p className="text-base md:text-lg text-dark-300 leading-relaxed">
-                  An Africa where every young person—regardless of background, location, or 
-                  circumstances—has the skills, network, and opportunities to become a world-class 
-                  leader driving sustainable prosperity across the continent and beyond.
+                  To build a trusted platform that helps thousands of young people across Africa
+                  access structured opportunities and develop the confidence, skills, and leadership
+                  capacity to create change in their communities.
                 </p>
 
                 <div className="pt-4 border-t border-dark-700">
                   <p className="text-sm text-dark-400 italic">
-                    "By 2030, Rise for Impact will be the defining movement for youth-led transformation 
-                    in Africa—1 million young leaders, 50+ countries, unstoppable impact."
+                    "Rise for Impact presents itself as a growing organization — intentional, honest, and fundable."
                   </p>
                 </div>
               </div>
@@ -237,11 +232,11 @@ export function MissionVision() {
         <AnimatedSection className="mt-20 text-center">
           <div className="glass-card p-8 md:p-12 rounded-3xl">
             <h3 className="text-2xl md:text-4xl font-bold text-white mb-4">
-              Join Us in Building Africa's Future
+              Ready to Connect?
             </h3>
             <p className="text-lg text-dark-300 mb-8 max-w-2xl mx-auto">
-              Whether you're a young leader ready to make an impact, an organization seeking to partner, 
-              or a supporter of our mission—there's a place for you in the Rise for Impact movement.
+              Whether you're a young person looking for opportunities, an organization seeking to partner,
+              or someone who wants to share what we do — there's a way to engage.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link href="/get-involved">

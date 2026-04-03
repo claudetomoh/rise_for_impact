@@ -29,3 +29,17 @@ convert-application.js
 logo-base64.txt
 # Code Citations.md
 # Code Citations.txt
+
+# Generated documents, PDFs, Word files (personal privacy)
+*.pdf
+*.docx
+*.doc
+~$*.docx
+~$*.doc
+FOR_YOUTH_BY_YOUTH_APPLICATION_GUIDE.md
+FOR_YOUTH_BY_YOUTH_CREATIVE_SUBMISSION.md
+FOR_YOUTH_BY_YOUTH_CROSSCHECK.md
+NEWSLETTER_MOBILE_OPTIMIZED.html
+
+# TypeScript build cache
+tsconfig.tsbuildinfo

@@ -70,30 +70,26 @@ export default function OpportunitiesSection() {
 
   if (loading) {
     return (
-      <section className="py-20 bg-gradient-to-br from-orange-50 via-white to-yellow-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading opportunities...</p>
-          </div>
+      <section className="py-20 bg-dark-900">
+        <div className="container-premium text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto"></div>
+          <p className="mt-4 text-dark-400">Loading opportunities...</p>
         </div>
       </section>
     )
   }
 
   if (opportunities.length === 0) {
-    return null // Don't show section if no opportunities
+    return null
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-orange-50 via-white to-yellow-50 relative overflow-hidden">
-      {/* Background Decoration */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-72 h-72 bg-orange-400 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-yellow-400 rounded-full blur-3xl"></div>
-      </div>
+    <section className="py-20 relative overflow-hidden bg-dark-950">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(34,197,94,0.06),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_50%,rgba(249,115,22,0.06),transparent_50%)]" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container-premium relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -102,17 +98,15 @@ export default function OpportunitiesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-            <TrendingUp className="w-4 h-4" />
-            Featured Opportunities
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-500/10 border border-primary-500/20 mb-4">
+            <TrendingUp className="w-3.5 h-3.5 text-primary-400" />
+            <span className="text-xs font-medium text-primary-400">Featured Opportunities</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Don't Miss Out on These{' '}
-            <span className="bg-gradient-to-r from-orange-600 to-yellow-600 bg-clip-text text-transparent">
-              Opportunities
-            </span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
+            Don&apos;t Miss These{' '}
+            <span className="text-gradient">Opportunities</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-dark-300 max-w-3xl mx-auto">
             Handpicked scholarships, internships, and opportunities to accelerate your growth
           </p>
         </motion.div>
@@ -130,10 +124,10 @@ export default function OpportunitiesSection() {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full font-medium transition-all ${
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
                   selectedCategory === category
-                    ? 'bg-gradient-to-r from-orange-600 to-yellow-600 text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-orange-50 border border-gray-200'
+                    ? 'bg-gradient-to-r from-primary-500 to-accent-500 text-white shadow-lg shadow-primary-500/25'
+                    : 'bg-dark-800/60 text-dark-300 hover:text-white border border-dark-600 hover:border-primary-500/40'
                 }`}
               >
                 {category === 'all' ? 'All' : category}
@@ -143,7 +137,7 @@ export default function OpportunitiesSection() {
         )}
 
         {/* Opportunities Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredOpportunities.map((opportunity, index) => {
             const CategoryIcon =
               categoryIcons[opportunity.category || ''] || ExternalLink
@@ -153,95 +147,80 @@ export default function OpportunitiesSection() {
                 key={opportunity.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
                 viewport={{ once: true }}
-                className="group"
+                className="group h-full"
               >
-                <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full flex flex-col border border-gray-100">
+                <div className="h-full flex flex-col rounded-2xl bg-dark-900/60 border border-white/8 hover:border-primary-500/30 overflow-hidden transition-all duration-300 hover:bg-dark-800/60">
                   {/* Image */}
                   {opportunity.image ? (
-                    <div className="relative h-48 overflow-hidden">
+                    <div className="relative h-44 overflow-hidden flex-shrink-0">
                       <img
                         src={opportunity.image}
                         alt={opportunity.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                      
-                      {/* Featured Badge */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-dark-950/80 to-transparent"></div>
                       {opportunity.isFeatured && (
-                        <div className="absolute top-4 right-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+                        <div className="absolute top-3 right-3 bg-accent-500/90 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1">
                           <Star className="w-3 h-3 fill-white" />
                           Featured
                         </div>
                       )}
-
-                      {/* Category Badge */}
                       {opportunity.category && (
-                        <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-orange-700 px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg">
+                        <div className="absolute top-3 left-3 bg-dark-900/80 backdrop-blur-sm text-primary-400 px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1 border border-primary-500/30">
                           <CategoryIcon className="w-3 h-3" />
                           {opportunity.category}
                         </div>
                       )}
                     </div>
                   ) : (
-                    <div className="h-48 bg-gradient-to-br from-orange-400 to-yellow-500 flex items-center justify-center">
-                      <CategoryIcon className="w-16 h-16 text-white opacity-50" />
+                    <div className="h-44 flex-shrink-0 bg-gradient-to-br from-primary-500/20 to-accent-500/20 flex items-center justify-center">
+                      <CategoryIcon className="w-14 h-14 text-primary-400/50" />
                     </div>
                   )}
 
                   {/* Content */}
-                  <div className="p-6 flex-1 flex flex-col">
-                    {/* Organization */}
+                  <div className="p-5 flex-1 flex flex-col gap-3">
                     {opportunity.organization && (
-                      <div className="flex items-center gap-2 text-gray-600 text-sm mb-3">
-                        <Building2 className="w-4 h-4" />
-                        <span className="font-medium">{opportunity.organization}</span>
+                      <div className="flex items-center gap-2 text-dark-400 text-xs">
+                        <Building2 className="w-3.5 h-3.5" />
+                        <span className="font-medium truncate">{opportunity.organization}</span>
                       </div>
                     )}
 
-                    {/* Title */}
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-orange-600 transition-colors">
+                    <h3 className="text-base font-bold text-white line-clamp-2 group-hover:text-primary-300 transition-colors">
                       {opportunity.title}
                     </h3>
 
-                    {/* Description */}
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-3 flex-1">
+                    <p className="text-dark-400 text-sm line-clamp-3 flex-1">
                       {opportunity.description}
                     </p>
 
-                    {/* Meta Info */}
-                    <div className="space-y-2 mb-4">
+                    <div className="space-y-1.5">
                       {opportunity.deadline && (
-                        <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">
-                          <Clock className="w-4 h-4" />
-                          <span className="font-medium">
-                            Deadline: {opportunity.deadline}
-                          </span>
+                        <div className="flex items-center gap-2 text-xs text-rose-400 bg-rose-500/10 border border-rose-500/20 px-2.5 py-1.5 rounded-lg">
+                          <Clock className="w-3.5 h-3.5" />
+                          <span className="font-medium">Deadline: {opportunity.deadline}</span>
                         </div>
                       )}
-
                       {opportunity.location && (
-                        <div className="flex items-center gap-2 text-sm text-gray-600">
-                          <MapPin className="w-4 h-4" />
+                        <div className="flex items-center gap-2 text-xs text-dark-400">
+                          <MapPin className="w-3.5 h-3.5" />
                           <span>{opportunity.location}</span>
                         </div>
                       )}
                     </div>
 
-                    {/* Apply Button */}
                     <a
                       href={opportunity.applyLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={() => {
-                        // Track view
-                        fetch(`/api/opportunities/${opportunity.id}`)
-                      }}
-                      className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-600 to-yellow-600 text-white rounded-xl font-semibold hover:from-orange-700 hover:to-yellow-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                      onClick={() => { fetch(`/api/opportunities/${opportunity.id}`) }}
+                      className="mt-auto w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 text-white rounded-xl text-sm font-semibold transition-all shadow-lg hover:shadow-primary-500/25"
                     >
                       <span>Apply Now</span>
-                      <ExternalLink className="w-4 h-4" />
+                      <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
                 </div>
@@ -250,54 +229,29 @@ export default function OpportunitiesSection() {
           })}
         </div>
 
-        {/* Back to Home / View More */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="text-center mt-12 space-y-4"
-        >
-          {/* Back to Home Button - Always visible */}
-          <div>
+        {/* Footer */}
+        {opportunities.length >= 6 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="text-center mt-12"
+          >
+            <p className="text-dark-400 mb-5 text-sm">
+              And many more opportunities waiting for you!
+            </p>
             <a
-              href="/"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-600 to-yellow-600 text-white rounded-xl font-semibold hover:from-orange-700 hover:to-yellow-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              href="/opportunities"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-dark-800/60 border border-dark-600 hover:border-primary-500/40 text-white text-sm font-semibold hover:bg-dark-700/60 transition-all"
             >
-              <svg 
-                className="w-5 h-5" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" 
-                />
-              </svg>
-              <span>Back to Homepage</span>
+              View All Opportunities
+              <ExternalLink className="w-4 h-4" />
             </a>
-          </div>
-
-          {/* View More - Only if 6 or more opportunities */}
-          {opportunities.length >= 6 && (
-            <div>
-              <p className="text-gray-600 mb-4">
-                And many more opportunities waiting for you!
-              </p>
-              <a
-                href="/opportunities"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-orange-600 rounded-xl font-semibold hover:bg-orange-50 transition-all shadow-lg hover:shadow-xl border-2 border-orange-600 transform hover:-translate-y-1"
-              >
-                View All Opportunities
-                <ExternalLink className="w-5 h-5" />
-              </a>
-            </div>
-          )}
-        </motion.div>
+          </motion.div>
+        )}
       </div>
     </section>
   )
 }
+

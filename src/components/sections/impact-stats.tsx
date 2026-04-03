@@ -11,34 +11,34 @@ import { TiltCard } from '@/components/effects/tilt-card'
 const stats = [
   {
     icon: Users,
-    value: 1000,
+    value: 500,
     suffix: '+',
-    label: 'Youth Impacted',
-    description: 'Young leaders across Africa',
+    label: 'Youth Engaged',
+    description: 'In 2025 across all programs',
     color: 'from-primary-500 to-primary-600',
   },
   {
-    icon: Globe,
-    value: 8,
-    suffix: '+',
-    label: 'African Countries',
-    description: 'Growing pan-African presence',
+    icon: Target,
+    value: 4,
+    suffix: '',
+    label: 'Flagship Sessions',
+    description: '60+ participants per session',
     color: 'from-accent-500 to-accent-600',
   },
   {
-    icon: Target,
-    value: 10,
+    icon: Award,
+    value: 200,
     suffix: '+',
-    label: 'Impact Projects',
-    description: 'Community-driven initiatives',
+    label: 'Workshop Participants',
+    description: 'LinkedIn & skills training sessions',
     color: 'from-blue-500 to-blue-600',
   },
   {
-    icon: Award,
-    value: 5,
-    suffix: '+',
-    label: 'Partner Organizations',
-    description: 'Growing collaborative networks',
+    icon: Globe,
+    value: 4,
+    suffix: '',
+    label: 'Active Countries',
+    description: 'Cameroon, Ghana, Nigeria & Rwanda',
     color: 'from-purple-500 to-purple-600',
   },
 ]
@@ -98,14 +98,13 @@ export function ImpactStats() {
           </motion.div>
 
           <h2 className="text-3xl md:text-4xl font-display font-bold">
-            <span className="text-gradient">Transforming Lives</span>
+            <span className="text-gradient">Our Impact</span>
             <br />
-            <span className="text-white">Across Africa</span>
+            <span className="text-white">in 2025</span>
           </h2>
 
           <p className="text-lg text-dark-300 max-w-3xl mx-auto">
-            Our numbers tell a story of collective action, sustainable impact, 
-            and a growing movement of young changemakers.
+            Real numbers from our first year — verified, honest, and growing.
           </p>
         </AnimatedSection>
 

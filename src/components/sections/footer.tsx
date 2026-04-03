@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { 
   Facebook, 
@@ -19,27 +20,27 @@ import { Input } from '@/components/ui/input'
 
 const footerLinks = {
   about: [
-    { name: 'Our Story', href: '/#about' },
-    { name: 'Mission & Vision', href: '/#mission' },
-    { name: 'Team', href: '/#team' },
+    { name: 'Our Story', href: '/about' },
+    { name: 'Mission & Vision', href: '/about' },
+    { name: 'Team', href: '/team' },
     { name: 'Partners', href: '/partners' },
     { name: 'Annual Reports', href: '/reports' },
   ],
   programs: [
-    { name: 'Rise Circles', href: '/#programs' },
-    { name: 'Impact Clinics', href: '/#programs' },
-    { name: 'Rise for Climate', href: '/#programs' },
-    { name: 'All Programs', href: '/#programs' },
+    { name: 'Rise Circles', href: '/programs/rise-circles' },
+    { name: 'Impact Clinics', href: '/programs/impact-clinics' },
+    { name: 'Rise for Climate', href: '/programs/rise-for-climate' },
+    { name: 'All Programs', href: '/programs' },
   ],
   regions: [
-    { name: 'Cameroon Northwest', href: '/#regions' },
-    { name: 'Cameroon Southwest', href: '/#regions' },
-    { name: 'University Clubs', href: '/#clubs' },
+    { name: 'Cameroon Northwest', href: '/regions#northwest' },
+    { name: 'Cameroon Southwest', href: '/regions#southwest' },
+    { name: 'University Clubs', href: '/regions' },
     { name: 'All Regions', href: '/regions' },
   ],
   resources: [
     { name: 'Blog', href: '/blog' },
-    { name: 'Media Hub', href: '/#media' },
+    { name: 'Media Hub', href: '/media' },
     { name: 'Press Kit', href: '/press' },
   ],
 }
@@ -69,10 +70,12 @@ export function Footer() {
                 className="relative w-14 h-14"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/30 to-teal-400/30 rounded-2xl blur-lg group-hover:blur-xl transition-all duration-300" />
-                <img 
+                <Image 
                   src="/images/logo.jpeg" 
                   alt="Rise for Impact Logo" 
-                  className="relative w-full h-full object-cover rounded-2xl shadow-2xl ring-2 ring-emerald-400/30 group-hover:ring-emerald-400/60 transition-all duration-300"
+                  fill
+                  sizes="56px"
+                  className="object-cover rounded-2xl shadow-2xl ring-2 ring-emerald-400/30 group-hover:ring-emerald-400/60 transition-all duration-300"
                 />
               </motion.div>
               <div className="flex flex-col">
@@ -84,9 +87,8 @@ export function Footer() {
             </Link>
 
             <p className="text-emerald-100/60 leading-relaxed font-medium">
-              A pan-African youth-led organization empowering young leaders 
-              to drive sustainable development through leadership development, 
-              climate action, and civic education.
+              A youth-focused social initiative connecting young people to
+              opportunities, skills, and leadership development across Africa.
             </p>
 
             {/* Social Links */}

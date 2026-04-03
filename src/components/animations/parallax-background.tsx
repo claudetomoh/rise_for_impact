@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { useEffect, useState, useRef } from 'react'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 
 interface ParallaxBackgroundProps {
   images: string[]
@@ -10,17 +10,54 @@ interface ParallaxBackgroundProps {
 
 export function ParallaxBackground({ images, sectionId }: ParallaxBackgroundProps) {
   const [scrollY, setScrollY] = useState(0)
-  
+  // true on touch/mobile devices; initialise false (SSR-safe) and detect on mount
+  const [isMobile, setIsMobile] = useState(false)
+  const rafRef = useRef<number | null>(null)
+  const prefersReduced = useReducedMotion()
+
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
-    
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    // Coarse pointer = touchscreen; also catches narrow viewports
+    const mq = window.matchMedia('(pointer: coarse), (max-width: 767px)')
+    setIsMobile(mq.matches)
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
   }, [])
 
-  // Calculate which image should be visible based on scroll position
+  useEffect(() => {
+    // No scroll parallax on mobile or when user prefers reduced motion
+    if (isMobile || prefersReduced) return
+
+    const handleScroll = () => {
+      if (rafRef.current !== null) return // already scheduled
+      rafRef.current = requestAnimationFrame(() => {
+        setScrollY(window.scrollY)
+        rafRef.current = null
+      })
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
+    }
+  }, [isMobile, prefersReduced])
+
+  // ─── Mobile / reduced-motion path: single static image, no JS overhead ───
+  if (isMobile || prefersReduced) {
+    return (
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${images[0]})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-dark-900/90 via-dark-900/70 to-dark-900/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-dark-900/95 via-dark-800/90 to-dark-900/95" />
+      </div>
+    )
+  }
+
+  // ─── Desktop path: animated parallax ────────────────────────────────────
   const imageIndex = Math.floor((scrollY / 800) % images.length)
 
   return (

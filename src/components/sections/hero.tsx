@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { ArrowRight, Sparkles, Globe, Users, Target } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { FadeIn, SlideIn, ScaleIn } from '@/components/animations/motion-wrappers'
@@ -13,17 +14,20 @@ export function Hero() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 top-28">
-        <img 
-          src="/images/backgrounds/Teambg.png" 
-          alt="Rise for Impact Community" 
-          className="absolute inset-0 w-full h-full object-cover"
+        <Image
+          src="/images/backgrounds/Teambg.png"
+          alt="Rise for Impact Community"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/95 via-green-900/90 to-teal-900/95" />
         
         {/* Floating Particles */}
         <FloatingParticles count={30} />
         
-        {/* Animated Orbs */}
+        {/* Animated Orbs — hidden on mobile to avoid blur-3xl repaints on low-end GPUs */}
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
@@ -34,7 +38,7 @@ export function Hero() {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className="absolute top-32 left-10 w-72 h-72 rounded-full blur-3xl"
+          className="hidden md:block absolute top-32 left-10 w-72 h-72 rounded-full blur-3xl"
           style={{background: 'radial-gradient(circle, rgba(16,185,129,0.3) 0%, transparent 70%)'}}
         />
         <motion.div
@@ -48,7 +52,7 @@ export function Hero() {
             ease: 'easeInOut',
             delay: 2,
           }}
-          className="absolute bottom-20 right-10 w-72 h-72 rounded-full blur-3xl"
+          className="hidden md:block absolute bottom-20 right-10 w-72 h-72 rounded-full blur-3xl"
           style={{background: 'radial-gradient(circle, rgba(20,184,166,0.25) 0%, transparent 70%)'}}
         />
         
@@ -63,35 +67,35 @@ export function Hero() {
             <FadeIn direction="up" delay={0.3}>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[1.1] tracking-tight">
                 <span className="text-gradient drop-shadow-[0_0_30px_rgba(16,185,129,0.5)]">
-                  Rise Together,
+                  From Aspiration
                 </span>
                 <br />
                 <span className="text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                  Impact Forever
+                  to Access
                 </span>
               </h1>
             </FadeIn>
 
             <FadeIn direction="up" delay={0.4}>
               <p className="text-lg md:text-xl text-emerald-50/90 leading-relaxed max-w-2xl font-medium">
-                Join a pan-African movement of young changemakers building <span className="text-emerald-300 font-bold">Africa's next generation of leaders</span> through transformative programs, climate innovation, and community-driven impact across <span className="text-emerald-300 font-bold">8+ countries</span>.
+                Connecting young Africans to <span className="text-emerald-300 font-bold">real opportunities, skills, and leadership pathways</span> through a youth-focused social initiative that combines digital community with in-person programming.
               </p>
             </FadeIn>
 
             <FadeIn direction="up" delay={0.5}>
               <div className="flex flex-wrap gap-4">
                 <Magnetic strength={0.2}>
-                  <a href="/get-involved">
+                  <a href="/opportunities">
                     <Button variant="primary" size="lg" className="flex items-center gap-2 shadow-2xl shadow-emerald-500/40 hover:shadow-emerald-500/60">
-                      Apply Now
+                      Explore Opportunities
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </a>
                 </Magnetic>
                 <Magnetic strength={0.2}>
-                  <a href="/#programs">
+                  <a href="/get-involved">
                     <Button variant="outline" size="lg" className="flex items-center gap-2 backdrop-blur-xl">
-                      Explore Programs
+                      Partner With Us
                       <Globe className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                     </Button>
                   </a>
@@ -116,11 +120,13 @@ export function Hero() {
                 className="glass-card p-8 rounded-3xl relative overflow-hidden"
               >
                 {/* Hero Image */}
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden">
-                  <img 
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden relative">
+                  <Image
                     src="/images/backgrounds/bg.jpeg"
-                    alt="Rise for Impact Community"
-                    className="w-full h-full object-cover"
+                    alt="Rise for Impact community gathering"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
                   />
                 </div>
 
@@ -142,8 +148,8 @@ export function Hero() {
                       <Users className="w-7 h-7 text-white" />
                     </div>
                     <div>
-                      <div className="text-2xl font-black text-white drop-shadow-lg">10K+</div>
-                      <div className="text-xs font-semibold text-emerald-200/80 uppercase tracking-wider">Members</div>
+                      <div className="text-2xl font-black text-white drop-shadow-lg">500+</div>
+                      <div className="text-xs font-semibold text-emerald-200/80 uppercase tracking-wider">Youth Engaged</div>
                     </div>
                   </div>
                 </motion.div>
@@ -166,8 +172,8 @@ export function Hero() {
                       <Globe className="w-7 h-7 text-white" />
                     </div>
                     <div>
-                      <div className="text-2xl font-black text-white drop-shadow-lg">8+</div>
-                      <div className="text-xs font-semibold text-teal-200/80 uppercase tracking-wider">Countries</div>
+                      <div className="text-2xl font-black text-white drop-shadow-lg">4</div>
+                      <div className="text-xs font-semibold text-teal-200/80 uppercase tracking-wider">Active Countries</div>
                     </div>
                   </div>
                 </motion.div>

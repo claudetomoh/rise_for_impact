@@ -50,11 +50,10 @@ const regions = [
 ]
 
 const stats = [
-  { label: 'Countries', value: '8+', icon: Globe },
+  { label: 'Active Countries', value: '4', icon: Globe },
   { label: 'Active Clubs', value: '4+', icon: MapPin },
-  { label: 'Active Members', value: '10,000+', icon: Users },
-  { label: 'Community Projects', value: '50+', icon: TrendingUp },
-  { label: 'Campus Projects', value: '15+', icon: Sparkles }
+  { label: 'Youth Engaged', value: '500+', icon: Users },
+  { label: 'Flagship Sessions', value: '4', icon: TrendingUp }
 ]
 
 export function Regions() {
@@ -82,13 +81,13 @@ export function Regions() {
           </motion.div>
 
           <h2 className="text-3xl md:text-5xl font-display font-bold">
-            <span className="text-white">Pan-African </span>
-            <span className="text-gradient">Presence</span>
+            <span className="text-white">Where We </span>
+            <span className="text-gradient">Work</span>
           </h2>
 
           <p className="text-xl text-dark-300 max-w-3xl mx-auto leading-relaxed">
-            From local communities to continental impact, our regional chapters are 
-            driving sustainable change across Africa.
+            Rise for Impact is currently active in Cameroon, Ghana, Nigeria, and Rwanda — 
+            building programs and communities grounded in real, verifiable impact.
           </p>
         </AnimatedSection>
 

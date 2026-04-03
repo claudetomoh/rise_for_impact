@@ -12,13 +12,13 @@ import { cn } from '@/lib/utils'
 const navigation = [
   {
     name: 'About',
-    href: '/#mission-vision',
-    scroll: true,
+    href: '/about',
+    scroll: false,
   },
   {
     name: 'Programs',
-    href: '/#programs',
-    scroll: true,
+    href: '/programs',
+    scroll: false,
   },
   {
     name: 'Opportunities',
@@ -26,16 +26,21 @@ const navigation = [
     scroll: false,
   },
   {
+    name: 'Impact',
+    href: '/impact',
+    scroll: false,
+  },
+  {
     name: 'Team',
-    href: '/#team',
-    scroll: true,
+    href: '/team',
+    scroll: false,
   },
   {
     name: 'Regions & Clubs',
-    href: '/#regions',
-    scroll: true,
+    href: '/regions',
+    scroll: false,
     dropdown: [
-      { name: 'Cameroon Regions', href: '/#regions', icon: Globe, description: 'Northwest & Southwest' },
+      { name: 'Cameroon Regions', href: '/regions', icon: Globe, description: 'Northwest & Southwest' },
       { name: 'University Clubs', href: '/#clubs', icon: Users, description: 'Campus chapters' },
     ],
   },
@@ -45,7 +50,7 @@ const navigation = [
     scroll: true,
     dropdown: [
       { name: 'Photo Gallery', href: '/#media', icon: Video, description: 'Images and videos' },
-      { name: 'Blog & Stories', href: '/#blog', icon: FileText, description: 'Latest news and updates' },
+      { name: 'Blog & Stories', href: '/blog', icon: FileText, description: 'Latest news and updates' },
     ],
   },
 ]

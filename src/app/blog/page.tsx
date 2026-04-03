@@ -1,8 +1,14 @@
+import type { Metadata } from 'next'
 import { PageWithNav } from '@/components/layout/page-with-nav'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Calendar, User, ArrowRight } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Blog | Rise for Impact',
+  description: 'Stories, insights, and updates from Rise for Impact — connecting young Africans to opportunities across Cameroon, Ghana, Nigeria, and Rwanda.',
+}
 
 export default async function BlogPage() {
   const blogs = await prisma.blogPost.findMany({

@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 interface Particle {
@@ -14,9 +14,14 @@ interface Particle {
 
 export function FloatingParticles({ count = 20 }: { count?: number }) {
   const [particles, setParticles] = useState<Particle[]>([])
+  const prefersReduced = useReducedMotion()
 
   useEffect(() => {
-    const newParticles = Array.from({ length: count }, (_, i) => ({
+    // Reduce particle count on touch devices to avoid GPU overload
+    const isMobile = window.matchMedia('(pointer: coarse), (max-width: 767px)').matches
+    const effectiveCount = isMobile ? Math.min(count, 6) : count
+
+    const newParticles = Array.from({ length: effectiveCount }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -26,6 +31,9 @@ export function FloatingParticles({ count = 20 }: { count?: number }) {
     }))
     setParticles(newParticles)
   }, [count])
+
+  // No decorative animations when user requests reduced motion
+  if (prefersReduced) return null
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">

@@ -119,7 +119,7 @@ const galleryImages = [
   {
     src: '/images/backgrounds/bg.jpeg',
     title: 'Movement Building',
-    description: 'Growing the largest youth-led movement for social impact across Africa.',
+    description: 'Building a growing community of young people taking action for social impact in Cameroon, Ghana, Nigeria, and Rwanda.',
     location: 'Pan-African',
     date: '2024',
     category: 'Impact Stories'
@@ -157,7 +157,7 @@ const featuredMedia = [
   {
     type: 'gallery',
     title: 'Community Impact Gallery',
-    description: 'Visual stories from our projects across 8+ African countries showing real transformation.',
+    description: 'Visual stories from our programs across Cameroon, Ghana, Nigeria, and Rwanda.',
     thumbnail: '/images/backgrounds/club-impact.jpeg',
     photos: '500+',
     category: 'Photo Gallery'
@@ -327,16 +327,16 @@ export function MediaHub() {
               <div className="text-dark-400 text-sm">Photos</div>
             </div>
             <div className="glass-card p-6 rounded-2xl text-center">
-              <div className="text-4xl font-bold text-accent-400 mb-2">8+</div>
+              <div className="text-4xl font-bold text-accent-400 mb-2">3</div>
               <div className="text-dark-400 text-sm">Countries</div>
             </div>
             <div className="glass-card p-6 rounded-2xl text-center">
-              <div className="text-4xl font-bold text-blue-400 mb-2">50+</div>
-              <div className="text-dark-400 text-sm">Projects</div>
+              <div className="text-4xl font-bold text-blue-400 mb-2">4</div>
+              <div className="text-dark-400 text-sm">Flagship Sessions</div>
             </div>
             <div className="glass-card p-6 rounded-2xl text-center">
-              <div className="text-4xl font-bold text-green-400 mb-2">10K+</div>
-              <div className="text-dark-400 text-sm">Lives Impacted</div>
+              <div className="text-4xl font-bold text-green-400 mb-2">500+</div>
+              <div className="text-dark-400 text-sm">Youth Engaged</div>
             </div>
           </div>
         </AnimatedSection>

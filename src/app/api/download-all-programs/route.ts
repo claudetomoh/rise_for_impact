@@ -13,7 +13,7 @@ export async function GET() {
         description: 'Leadership development through peer learning circles where young leaders collaborate, share experiences, and develop essential skills.',
         duration: '1-day on-site kickoff + 2-3 months online mentorship',
         frequency: 'Monthly virtual workshops',
-        locations: 'Cameroon, Ghana, Nigeria',
+        locations: 'Cameroon, Ghana, Nigeria, Rwanda',
         features: [
           '1-day intensive on-site launch event with all participants',
           'Structured peer learning sessions with 8-12 participants',
@@ -30,7 +30,7 @@ export async function GET() {
         description: 'Intensive project incubation program providing hands-on support to turn social impact ideas into reality.',
         duration: '2-day on-site bootcamp + 3 months virtual incubation',
         frequency: 'Weekly virtual sessions',
-        locations: 'Cameroon, Ghana, Nigeria',
+        locations: 'Cameroon, Ghana, Nigeria, Rwanda',
         features: [
           '2-day intensive on-site bootcamp for project ideation and design thinking',
           'Weekly virtual project development and mentorship sessions',
