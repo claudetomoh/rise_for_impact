@@ -20,7 +20,9 @@ import {
   Menu,
   X,
   ChevronDown,
-  GraduationCap
+  GraduationCap,
+  ClipboardList,
+  Settings,
 } from 'lucide-react'
 
 export default function AdminNav() {
@@ -29,6 +31,7 @@ export default function AdminNav() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [contentExpanded, setContentExpanded] = useState(true)
+  const [fellowshipExpanded, setFellowshipExpanded] = useState(pathname.startsWith('/admin/fellowship'))
 
   if (!session) return null
 
@@ -36,7 +39,12 @@ export default function AdminNav() {
     { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/admin/applications', label: 'Applications', icon: FileText },
     { href: '/admin/volunteers', label: 'Volunteers', icon: Users },
-    { href: '/admin/fellowship/applications', label: 'Fellowship', icon: GraduationCap },
+  ]
+
+  const fellowshipItems = [
+    { href: '/admin/fellowship/applications', label: 'Applications', icon: Users },
+    { href: '/admin/fellowship/questions', label: 'Form Questions', icon: ClipboardList },
+    { href: '/admin/fellowship/settings', label: 'Settings', icon: Settings },
   ]
 
   const contentItems = [
@@ -116,7 +124,7 @@ export default function AdminNav() {
           {/* Navigation */}
           <nav className="flex-1 overflow-y-auto py-4 px-3">
             {/* Main Items */}
-            <div className="space-y-1 mb-6">
+            <div className="space-y-1 mb-4">
               {mainNavItems.map((item) => {
                 const Icon = item.icon
                 return (
@@ -135,6 +143,74 @@ export default function AdminNav() {
                   </Link>
                 )
               })}
+            </div>
+
+            {/* Fellowship Section */}
+            <div className="mb-4">
+              {sidebarOpen ? (
+                <>
+                  <button
+                    onClick={() => setFellowshipExpanded(!fellowshipExpanded)}
+                    className={`flex items-center justify-between w-full px-3 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg transition-all ${
+                      pathname.startsWith('/admin/fellowship')
+                        ? 'text-emerald-200 bg-emerald-800/50'
+                        : 'text-emerald-300 hover:text-white'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <GraduationCap className="w-4 h-4" />
+                      <span>Fellowship</span>
+                    </div>
+                    <ChevronDown className={`w-4 h-4 transition-transform ${fellowshipExpanded ? 'rotate-180' : ''}`} />
+                  </button>
+                  {fellowshipExpanded && (
+                    <div className="space-y-0.5 mt-1 ml-2 pl-3 border-l border-emerald-700">
+                      {fellowshipItems.map((item) => {
+                        const Icon = item.icon
+                        return (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className={`flex items-center gap-2.5 px-3 py-2 rounded-lg transition-all text-sm ${
+                              pathname === item.href || pathname.startsWith(item.href + '/')
+                                ? 'bg-emerald-700 text-white'
+                                : 'text-emerald-200 hover:bg-emerald-800 hover:text-white'
+                            }`}
+                          >
+                            <Icon className="w-4 h-4 flex-shrink-0" />
+                            <span className="font-medium">{item.label}</span>
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="space-y-1">
+                  <div className="flex items-center justify-center p-2 text-emerald-300" title="Fellowship">
+                    <GraduationCap className="w-5 h-5" />
+                  </div>
+                  {fellowshipItems.map((item) => {
+                    const Icon = item.icon
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`flex items-center justify-center p-2.5 rounded-lg transition-all ${
+                          isActive(item.href)
+                            ? 'bg-emerald-700 text-white shadow-lg'
+                            : 'text-emerald-100 hover:bg-emerald-800'
+                        }`}
+                        title={item.label}
+                      >
+                        <Icon className="w-5 h-5" />
+                      </Link>
+                    )
+                  })}
+                </div>
+              )}
             </div>
 
             {/* Content Section */}
