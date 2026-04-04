@@ -87,22 +87,48 @@ async function generatePDF() {
     pageNum++
   }
 
-  /** Persistent header on pages 2+ */
+  /** Persistent header on pages 2+ — letterhead style */
   const addRunningHeader = () => {
+    // Dark background band
     doc.setFillColor(...C.DARK)
-    doc.rect(0, 0, PAGE_W, 11, 'F')
+    doc.rect(0, 0, PAGE_W, 16, 'F')
+    // Green accent bottom line
+    doc.setFillColor(...C.PRIMARY)
+    doc.rect(0, 15.5, PAGE_W, 0.8, 'F')
+
+    // Center logo
     if (logoB64) {
-      try { doc.addImage(logoB64, 'JPEG', M, 3, 6, 6, undefined, 'FAST') } catch { /* */ }
+      try { doc.addImage(logoB64, 'JPEG', PAGE_W / 2 - 5, 2, 10, 10, undefined, 'FAST') } catch { /* */ }
     }
-    doc.setFontSize(7)
+    // Center: fellowship name
+    doc.setFontSize(6.5)
     doc.setFont('helvetica', 'bold')
     doc.setTextColor(...C.WHITE)
-    doc.text('RISE FOR IMPACT FELLOWSHIP', M + 8, 7.5)
+    doc.text('RISE FOR IMPACT FELLOWSHIP', PAGE_W / 2, 14, { align: 'center' })
+
+    // Left — Ghana HQ
+    doc.setFontSize(5.5)
+    doc.setFont('helvetica', 'bold')
+    doc.setTextColor(...C.PRIMARY)
+    doc.text('GHANA HQ', M, 5.5)
+    doc.setFontSize(5)
     doc.setFont('helvetica', 'normal')
     doc.setTextColor(...C.LIGHT)
-    doc.text('Application Guide — Cameroon Cohort 2026', M + 60, 7.5)
+    doc.text('1 University Ave, Berekuso', M, 8.5)
+    doc.text('Eastern Region, Ghana', M, 11.5)
+
+    // Right — Cameroon HQ
+    doc.setFontSize(5.5)
+    doc.setFont('helvetica', 'bold')
+    doc.setTextColor(...C.PRIMARY)
+    doc.text('CAMEROON HQ', PAGE_W - M, 5.5, { align: 'right' })
+    doc.setFontSize(5)
+    doc.setFont('helvetica', 'normal')
     doc.setTextColor(...C.LIGHT)
-    doc.text(`Page ${pageNum}`, PAGE_W - M, 7.5, { align: 'right' })
+    doc.text('Chapelle Obili, Yaounde', PAGE_W - M, 8.5, { align: 'right' })
+    doc.text('Centre Region, Cameroon', PAGE_W - M, 11.5, { align: 'right' })
+    // Page number bottom-right
+    doc.text(`Page ${pageNum}`, PAGE_W - M, 14, { align: 'right' })
   }
 
   /** Footer */
@@ -280,7 +306,7 @@ async function generatePDF() {
   y = infoRow('Applications open:', 'April 15, 2026', y + 1)
   y = infoRow('Applications close:', '30 May 2026', y)
   y = infoRow('Program location:', 'Buea, Cameroon', y)
-  y = infoRow('In-person dates:', 'June 2026 (TBC)', y)
+  y = infoRow('In-person dates:', 'July 2026 (TBC)', y)
   y = infoRow('Program duration:', '~5 months (kick-off + 4 months mentorship)', y)
   y = infoRow('Eligibility:', 'Ages 16–30, based in Cameroon', y)
 
@@ -662,7 +688,7 @@ async function generatePDF() {
   const dateInfo: [string, string][] = [
     ['Applications open', 'April 15, 2026'],
     ['Applications close', '30 May 2026'],
-    ['In-person kick-off', 'June 2026 (TBC)'],
+    ['In-person kick-off', 'July 2026 (TBC)'],
     ['Mentorship period', '~4 months post-kick-off'],
     ['Location', 'Buea, Cameroon'],
     ['Format', 'In-person + virtual'],

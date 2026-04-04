@@ -415,7 +415,7 @@ export default function FellowshipApplyPage() {
       </header>
 
       {/* Content */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-36 pb-8 sm:pb-12">
         {/* Hero strip — visible only on step 1 */}
         {step === 1 && (
           <div className="relative rounded-2xl overflow-hidden mb-8 h-44 md:h-56">

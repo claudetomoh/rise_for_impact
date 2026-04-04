@@ -59,7 +59,7 @@ const CAMEROON_2026_CONFIG: CohortConfig = {
   city: 'Buea',
   venueCity: 'Buea',
   applicationCloseDate: '30 May 2026',
-  inPersonDates: 'June 2026 (exact dates TBC)',
+  inPersonDates: 'July 2026 (exact dates TBC)',
   mentorshipDuration: '4 months',
   contributionAmount: 10000,
   contributionCurrency: 'FCFA',
