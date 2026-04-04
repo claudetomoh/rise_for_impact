@@ -76,9 +76,9 @@ const CAMEROON_2026_CONFIG: CohortConfig = {
 // ─── 2026 Cameroon Cohort Copy ────────────────────────────────────────────────
 
 const CAMEROON_2026_COPY: CohortCopy = {
-  introTitle: 'Rise for Impact Fellowship — Cameroon Cohort 2026',
+  introTitle: 'Rise for Impact Fellowship — Where Africa’s Next Leaders Are Built.',
   introParagraph:
-    'The Rise for Impact Fellowship is a structured leadership and impact development program designed to equip young people with the skills, mindset, and support needed to create meaningful change in their communities.',
+    'The Rise for Impact Fellowship is a selective, transformational leadership program for Africa’s emerging changemakers. Fellows receive formal credentials, mentorship, practical skills, exposure to funding opportunities, and the community of peers and leaders needed to make their impact real — starting in Cameroon, expanding across Africa.',
   fellowshipBullets: [
     'a 2-day in-person experience in Buea',
     'a 4-month mentorship and development journey',

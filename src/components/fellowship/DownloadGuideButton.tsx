@@ -315,6 +315,12 @@ async function generatePDF() {
   doc.setTextColor(...C.PRIMARY_LT)
   doc.text('Application Guide & Program Overview', titleX, logoCardY + 47)
 
+  // Slogan
+  doc.setFontSize(8.5)
+  doc.setFont('helvetica', 'bolditalic')
+  doc.setTextColor(...C.ACCENT_LT)
+  doc.text('Where Africa’s Next Leaders Are Built.', titleX, logoCardY + 57)
+
   // ── Addresses strip (dark secondary band under main band) ─────────────────
   doc.setFillColor(...C.DARK2)
   doc.rect(0, BAND_H, PAGE_W, 16, 'F')
@@ -620,22 +626,30 @@ async function generatePDF() {
   addRunningHeader()
   y = 18
 
-  y = sectionBar('03  What Participants Gain', y) + 7
+  y = sectionBar('03  What Every Fellow Receives & Gains', y) + 7
+
+  // Intro line
+  y = bodyText(
+    'The fellowship is designed to deliver specific, tangible outcomes — from formal credentials to practical skills and funding exposure. Every fellow who completes the program receives the following:',
+    M, y, { size: 9.5, color: C.MID }
+  ) + 6
 
   const gains = [
-    ['Leadership Development', C.PHASE1, 'Structured exposure to leadership principles applied in real situations.'],
-    ['Practical Skills',       C.PHASE2, 'Project design, communication, problem-solving, and execution skills.'],
-    ['Clarity & Direction',    [59, 130, 246] as [number, number, number], 'A clearer picture of personal goals and a defined path forward.'],
-    ['Mentorship & Feedback',  [139, 92, 246] as [number, number, number], 'Structured guidance and honest feedback from experienced mentors.'],
-    ['Network & Community',    C.PHASE3, 'Connection to peers committed to leadership and positive contribution.'],
-    ['Multiplied Reach',       [249, 115, 22] as [number, number, number], 'Support to carry learning beyond yourself into your community.'],
+    ['Certificate of Completion', C.ACCENT as [number, number, number],     'Every fellow who completes the program receives an official Certificate of Completion from Rise for Impact.'],
+    ['Certificate of Graduation',  C.PHASE1 as [number, number, number],    'Fellows who meet all milestones are awarded a Certificate of Graduation — a formal credential recognising the full fellowship journey.'],
+    ['Recommendation Letter',      [139, 92, 246] as [number, number, number], 'Outstanding fellows are eligible for a personalised recommendation letter from RFI leadership — valuable for academic, career, or funding applications.'],
+    ['Funding Exposure',           [20, 184, 166] as [number, number, number],  'Direct exposure to funding opportunities, grant cycles, and scholarship pathways — with guidance on positioning yourself as a credible candidate.'],
+    ['Leadership Development',     C.PHASE1 as [number, number, number],    'Structured exposure to leadership principles applied in real situations — decision-making, initiative, and accountability built through doing.'],
+    ['Practical Skills',           C.PHASE2 as [number, number, number],    'Project design, communication, problem-solving, and execution — competencies built through real work, not passive learning.'],
+    ['Mentorship & Feedback',      [139, 92, 246] as [number, number, number], 'Structured guidance and honest feedback from experienced mentors throughout the fellowship period.'],
+    ['Network & Community',        C.PHASE3 as [number, number, number],    'Connection to a growing cohort of peers and alumni across Africa — all committed to leadership, growth, and community contribution.'],
   ]
 
-  const gCardW = (CW - 4) / 3
+  const gCardW = (CW - 4) / 2
   gains.forEach((g, i) => {
-    const col = i % 3
-    const row = Math.floor(i / 3)
-    const gx = M + col * (gCardW + 2)
+    const col = i % 2
+    const row = Math.floor(i / 2)
+    const gx = M + col * (gCardW + 4)
     const gy = y + row * 28
     const gc = g[1] as [number, number, number]
     doc.setFillColor(...C.BG)
@@ -653,7 +667,7 @@ async function generatePDF() {
     doc.text(dLines, gx + 3, gy + 10)
   })
 
-  y += 62
+  y += 118
 
   y = rule(y) + 2
 

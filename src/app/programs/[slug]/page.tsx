@@ -25,6 +25,10 @@ import {
   Globe,
   Lightbulb,
   MoveRight,
+  Award,
+  GraduationCap,
+  Star,
+  TrendingUp,
 } from 'lucide-react'
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/sections/footer'
@@ -301,12 +305,15 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
     ]
 
     const fellowshipGains = [
+      { icon: Award, title: 'Certificate of Completion', desc: 'Every fellow who successfully completes the program receives an official Certificate of Completion from Rise for Impact, recognising their dedication and achievement.', color: 'from-amber-500 to-amber-600', bg: 'bg-amber-500/10', border: 'border-amber-500/20', text: 'text-amber-400' },
+      { icon: GraduationCap, title: 'Certificate of Graduation', desc: 'Fellows who fully meet all program requirements and milestones are awarded a Certificate of Graduation — a formal recognition of having completed the full fellowship journey.', color: 'from-yellow-500 to-yellow-600', bg: 'bg-yellow-500/10', border: 'border-yellow-500/20', text: 'text-yellow-400' },
+      { icon: Star, title: 'Recommendation Letter', desc: 'Outstanding fellows are eligible to receive a personalised recommendation letter from Rise for Impact leadership — a powerful credential for academic, career, or funding applications.', color: 'from-purple-500 to-purple-600', bg: 'bg-purple-500/10', border: 'border-purple-500/20', text: 'text-purple-400' },
+      { icon: TrendingUp, title: 'Funding Exposure', desc: 'Fellows gain direct exposure to funding opportunities, grant cycles, and scholarship pathways — with guidance on how to position themselves as credible candidates for investment.', color: 'from-teal-500 to-teal-600', bg: 'bg-teal-500/10', border: 'border-teal-500/20', text: 'text-teal-400' },
       { icon: UserCheck, title: 'Leadership Development', desc: 'Structured exposure to leadership principles, decision-making, and the ability to take initiative — applied in real situations, not just theory.', color: 'from-primary-500 to-primary-600', bg: 'bg-primary-500/10', border: 'border-primary-500/20', text: 'text-primary-400' },
-      { icon: Zap, title: 'Practical Skills', desc: 'Project design and execution, communication, problem-solving, and turning ideas into action — competencies built through doing.', color: 'from-yellow-500 to-yellow-600', bg: 'bg-yellow-500/10', border: 'border-yellow-500/20', text: 'text-yellow-400' },
-      { icon: Compass, title: 'Clarity & Direction', desc: 'A clearer picture of personal goals, areas of contribution, and a defined path forward — grounded in honest self-assessment.', color: 'from-blue-500 to-blue-600', bg: 'bg-blue-500/10', border: 'border-blue-500/20', text: 'text-blue-400' },
-      { icon: MessageSquare, title: 'Mentorship & Feedback', desc: 'Access to mentors who provide structured guidance, honest feedback, and consistent support across the fellowship period.', color: 'from-purple-500 to-purple-600', bg: 'bg-purple-500/10', border: 'border-purple-500/20', text: 'text-purple-400' },
-      { icon: Users, title: 'Network & Community', desc: 'Connection to a growing cohort of peers across different backgrounds, all committed to learning, growth, and positive contribution.', color: 'from-emerald-500 to-emerald-600', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', text: 'text-emerald-400' },
-      { icon: Repeat2, title: 'Multiplied Reach', desc: 'The expectation and support to carry learning beyond yourself — organizing sessions, sharing knowledge, and expanding the circle.', color: 'from-orange-500 to-orange-600', bg: 'bg-orange-500/10', border: 'border-orange-500/20', text: 'text-orange-400' },
+      { icon: Zap, title: 'Practical Skills', desc: 'Project design and execution, communication, problem-solving, and turning ideas into action — competencies built through doing, not passive learning.', color: 'from-orange-500 to-orange-600', bg: 'bg-orange-500/10', border: 'border-orange-500/20', text: 'text-orange-400' },
+      { icon: Compass, title: 'Clarity & Direction', desc: 'A clearer picture of personal goals, areas of contribution, and a defined path forward — grounded in honest self-assessment and structured reflection.', color: 'from-blue-500 to-blue-600', bg: 'bg-blue-500/10', border: 'border-blue-500/20', text: 'text-blue-400' },
+      { icon: MessageSquare, title: 'Mentorship & Feedback', desc: 'Access to mentors who provide structured guidance, honest feedback, and consistent support across the fellowship period — drawn from professionals with real-world experience.', color: 'from-indigo-500 to-indigo-600', bg: 'bg-indigo-500/10', border: 'border-indigo-500/20', text: 'text-indigo-400' },
+      { icon: Users, title: 'Network & Community', desc: "Connection to a growing cohort of peers and alumni across different backgrounds — all committed to leadership, learning, and contributing to Africa's development.", color: 'from-emerald-500 to-emerald-600', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', text: 'text-emerald-400' },
     ]
 
     const multiplierSteps = [
@@ -346,11 +353,14 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
                   <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
                   <span className="text-xs font-semibold text-yellow-400 tracking-widest uppercase">Applications open — April 15, 2026</span>
                 </div>
-                <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-tight">
+                <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-4 leading-tight">
                   Rise for Impact <span className="text-gradient">Fellowship</span>
                 </h1>
+                <p className="text-lg md:text-xl font-semibold text-yellow-400/90 italic mb-5 max-w-2xl tracking-wide">
+                  Where Africa's Next Leaders Are Built.
+                </p>
                 <p className="text-xl md:text-2xl text-dark-200 leading-relaxed mb-3 max-w-2xl">
-                  A structured leadership and impact development program for young Africans ready to move from potential to action.
+                  A selective, transformational leadership fellowship for Africa's emerging changemakers — where guided structure meets real-world accountability.
                 </p>
                 <p className="text-dark-400 text-sm mb-10 max-w-xl">Starting in Cameroon · Cohort 1 · 2026</p>
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -498,8 +508,8 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/6 border border-white/10 mb-4">
                 <span className="text-xs font-semibold text-dark-300 tracking-widest uppercase">What You Gain</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-3">What participants leave with</h2>
-              <p className="text-dark-400 max-w-xl mx-auto">The fellowship is designed to deliver specific, measurable outcomes — not generic self-improvement.</p>
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-3">What every fellow receives and gains</h2>
+              <p className="text-dark-400 max-w-2xl mx-auto">From formal credentials to practical skills and funding exposure — the fellowship is designed to deliver specific, tangible outcomes that matter for your future.</p>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {fellowshipGains.map((item) => {
@@ -528,7 +538,7 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
                   <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">Who It's For</span>
                 </div>
                 <h2 className="text-3xl md:text-4xl font-display font-bold text-white leading-tight">Who should apply</h2>
-                <p className="text-dark-300 leading-relaxed">The fellowship is not selective on the basis of credentials or status. It is selective on the basis of commitment, intention, and readiness to do real work.</p>
+                <p className="text-dark-300 leading-relaxed">The fellowship is not selective on the basis of credentials or social status. It is selective on the basis of commitment, intention, and readiness to do real work in service of your community and Africa's future.</p>
                 <div className="space-y-3">
                   {criteria.map((c) => (
                     <div key={c} className="flex items-start gap-3">
@@ -650,8 +660,9 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
                 <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
                 <span className="text-xs font-semibold text-yellow-400 tracking-widest uppercase">Cohort 1 — Applications open April 15, 2026</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Ready to apply?</h2>
-              <p className="text-dark-300 mb-6 max-w-xl mx-auto leading-relaxed">Applications for the first cohort open on April 15, 2026. Spots are limited. If you meet the criteria and are prepared to commit, we'd like to hear from you.</p>
+              <p className="text-base font-semibold text-yellow-400/80 italic mb-3 tracking-wide">Where Africa's Next Leaders Are Built.</p>
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Apply for Cohort 1 — Cameroon 2026</h2>
+              <p className="text-dark-300 mb-6 max-w-xl mx-auto leading-relaxed">Applications open April 15, 2026. Only 40 spots available. If you have the commitment, the drive, and the vision to lead — this fellowship was built for you.</p>
               {/* Download Guide prompt */}
               <div className="bg-dark-900/60 border border-dark-700 rounded-2xl p-5 max-w-md mx-auto mb-8 text-left">
                 <p className="text-xs font-semibold text-white mb-1">Prepare your application early</p>
