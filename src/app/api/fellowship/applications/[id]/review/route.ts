@@ -6,11 +6,12 @@ import { prisma } from '@/lib/prisma'
 /**
  * POST /api/fellowship/applications/[id]/review  — create or update a review (admin only)
  */
-export async function POST(request: Request, { params }: { params: { id: string } }) {
+export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const session = await getServerSession(authOptions)
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   try {
+    const { id } = await params
     const body = await request.json()
 
     const {
@@ -43,9 +44,9 @@ export async function POST(request: Request, { params }: { params: { id: string 
       scores.scorePassItOn
 
     const review = await prisma.applicationReview.upsert({
-      where: { applicationId: params.id },
+      where: { applicationId: id },
       create: {
-        applicationId: params.id,
+        applicationId: id,
         reviewerName,
         ...scores,
         totalScore,
@@ -70,7 +71,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
       pending: 'submitted',
     }
     await prisma.fellowshipApplication.update({
-      where: { id: params.id },
+      where: { id },
       data: { status: statusMap[finalRecommendation] || 'submitted' },
     })
 

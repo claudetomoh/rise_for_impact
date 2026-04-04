@@ -7,10 +7,11 @@ import { prisma } from '@/lib/prisma'
  * PUT /api/fellowship/applications/[id]  — update draft fields + progress_step
  */
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
+export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params
     const app = await prisma.fellowshipApplication.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: { cohort: { select: { name: true, slug: true, status: true } } },
     })
     if (!app) return NextResponse.json({ error: 'Not found' }, { status: 404 })
@@ -21,14 +22,15 @@ export async function GET(_req: Request, { params }: { params: { id: string } })
   }
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params
     const body = await request.json()
     const { ...data } = body
 
     // Prevent editing a submitted application
     const existing = await prisma.fellowshipApplication.findUnique({
-      where: { id: params.id },
+      where: { id },
       select: { isSubmitted: true },
     })
     if (!existing) return NextResponse.json({ error: 'Not found' }, { status: 404 })
@@ -37,7 +39,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     }
 
     const updated = await prisma.fellowshipApplication.update({
-      where: { id: params.id },
+      where: { id },
       data: sanitiseFields(data),
     })
 

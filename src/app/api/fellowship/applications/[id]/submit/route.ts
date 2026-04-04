@@ -6,10 +6,11 @@ import { notifyApplicationReceived } from '@/lib/email-notifications'
  * POST /api/fellowship/applications/[id]/submit
  * Finalises a draft, validates required fields server-side, marks as submitted.
  */
-export async function POST(_req: Request, { params }: { params: { id: string } }) {
+export async function POST(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params
     const app = await prisma.fellowshipApplication.findUnique({
-      where: { id: params.id },
+      where: { id },
     })
     if (!app) return NextResponse.json({ error: 'Not found' }, { status: 404 })
     if (app.isSubmitted) {
@@ -50,7 +51,7 @@ export async function POST(_req: Request, { params }: { params: { id: string } }
     }
 
     const submitted = await prisma.fellowshipApplication.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         isSubmitted: true,
         submittedAt: new Date(),
