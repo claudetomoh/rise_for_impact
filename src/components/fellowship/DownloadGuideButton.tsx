@@ -635,8 +635,7 @@ async function generatePDF() {
   ) + 6
 
   const gains = [
-    ['Certificate of Completion', C.ACCENT as [number, number, number],     'Every fellow who completes the program receives an official Certificate of Completion from Rise for Impact.'],
-    ['Certificate of Graduation',  C.PHASE1 as [number, number, number],    'Fellows who meet all milestones are awarded a Certificate of Graduation — a formal credential recognising the full fellowship journey.'],
+    ['Certificate of Completion', C.ACCENT as [number, number, number],     'Every fellow who completes all requirements receives an official Certificate of Completion from Rise for Impact — a formal, shareable credential.'],
     ['Recommendation Letter',      [139, 92, 246] as [number, number, number], 'Outstanding fellows are eligible for a personalised recommendation letter from RFI leadership — valuable for academic, career, or funding applications.'],
     ['Funding Exposure',           [20, 184, 166] as [number, number, number],  'Direct exposure to funding opportunities, grant cycles, and scholarship pathways — with guidance on positioning yourself as a credible candidate.'],
     ['Leadership Development',     C.PHASE1 as [number, number, number],    'Structured exposure to leadership principles applied in real situations — decision-making, initiative, and accountability built through doing.'],

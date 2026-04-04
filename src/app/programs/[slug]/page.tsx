@@ -26,7 +26,6 @@ import {
   Lightbulb,
   MoveRight,
   Award,
-  GraduationCap,
   Star,
   TrendingUp,
 } from 'lucide-react'
@@ -305,8 +304,7 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
     ]
 
     const fellowshipGains = [
-      { icon: Award, title: 'Certificate of Completion', desc: 'Every fellow who successfully completes the program receives an official Certificate of Completion from Rise for Impact, recognising their dedication and achievement.', color: 'from-amber-500 to-amber-600', bg: 'bg-amber-500/10', border: 'border-amber-500/20', text: 'text-amber-400' },
-      { icon: GraduationCap, title: 'Certificate of Graduation', desc: 'Fellows who fully meet all program requirements and milestones are awarded a Certificate of Graduation — a formal recognition of having completed the full fellowship journey.', color: 'from-yellow-500 to-yellow-600', bg: 'bg-yellow-500/10', border: 'border-yellow-500/20', text: 'text-yellow-400' },
+      { icon: Award, title: 'Certificate of Completion', desc: 'Every fellow who successfully completes all requirements receives an official Certificate of Completion from Rise for Impact — a formal, shareable credential recognising their achievement.', color: 'from-amber-500 to-amber-600', bg: 'bg-amber-500/10', border: 'border-amber-500/20', text: 'text-amber-400' },
       { icon: Star, title: 'Recommendation Letter', desc: 'Outstanding fellows are eligible to receive a personalised recommendation letter from Rise for Impact leadership — a powerful credential for academic, career, or funding applications.', color: 'from-purple-500 to-purple-600', bg: 'bg-purple-500/10', border: 'border-purple-500/20', text: 'text-purple-400' },
       { icon: TrendingUp, title: 'Funding Exposure', desc: 'Fellows gain direct exposure to funding opportunities, grant cycles, and scholarship pathways — with guidance on how to position themselves as credible candidates for investment.', color: 'from-teal-500 to-teal-600', bg: 'bg-teal-500/10', border: 'border-teal-500/20', text: 'text-teal-400' },
       { icon: UserCheck, title: 'Leadership Development', desc: 'Structured exposure to leadership principles, decision-making, and the ability to take initiative — applied in real situations, not just theory.', color: 'from-primary-500 to-primary-600', bg: 'bg-primary-500/10', border: 'border-primary-500/20', text: 'text-primary-400' },
