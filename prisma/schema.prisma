@@ -156,3 +156,113 @@ model Opportunity {
 
   @@map("opportunities")
 }
+
+// ─── Fellowship System ────────────────────────────────────────────────────────
+
+model FellowshipCohort {
+  id                      Int      @id @default(autoincrement())
+  name                    String                        // e.g. "Cameroon Cohort 2026"
+  slug                    String   @unique              // e.g. "cameroon-2026"
+  year                    Int
+  country                 String
+  city                    String
+  venueCity               String   @map("venue_city")
+  applicationOpenDate     DateTime? @map("application_open_date")
+  applicationCloseDate    DateTime? @map("application_close_date")
+  fellowshipStartDate     DateTime? @map("fellowship_start_date")
+  inPersonStartDate       DateTime? @map("in_person_start_date")
+  inPersonEndDate         DateTime? @map("in_person_end_date")
+  mentorshipDurationText  String   @default("4 months") @map("mentorship_duration_text")
+  status                  String   @default("open")     // upcoming | open | closed | archived
+  contributionAmount      Int      @default(10000) @map("contribution_amount")
+  contributionCurrency    String   @default("FCFA") @map("contribution_currency")
+  contributionLabel       String   @default("Commitment Contribution") @map("contribution_label")
+  contributionDescription String?  @map("contribution_description")
+  transportationCovered   Boolean  @default(false) @map("transportation_covered")
+  accommodationCovered    Boolean  @default(false) @map("accommodation_covered")
+  introCopy               String?  @map("intro_copy")
+  eligibilityCopy         String?  @map("eligibility_copy")
+  logisticsCopy           String?  @map("logistics_copy")
+  createdAt               DateTime @default(now()) @map("created_at")
+  updatedAt               DateTime @updatedAt @map("updated_at")
+
+  applications FellowshipApplication[]
+
+  @@map("fellowship_cohorts")
+}
+
+model FellowshipApplication {
+  id                       String   @id @default(cuid())
+  cohortId                 Int      @map("cohort_id")
+  status                   String   @default("draft")  // draft | submitted | shortlisted | interview | accepted | rejected
+  // Personal
+  fullName                 String?  @map("full_name")
+  dateOfBirth              DateTime? @map("date_of_birth")
+  age                      Int?
+  gender                   String?
+  email                    String?
+  phone                    String?
+  // Location
+  country                  String?
+  region                   String?
+  cityTown                 String?  @map("city_town")
+  // Background
+  currentStatus            String?  @map("current_status")    // Student | Graduate | Entrepreneur | Other
+  schoolOrganization       String?  @map("school_organization")
+  // Logistics
+  canAttendBuea            Boolean? @map("can_attend_buea")
+  bueaAccommodationStatus  String?  @map("buea_accommodation_status")
+  canCommitFourMonths      Boolean? @map("can_commit_four_months")
+  // Short responses
+  hasCurrentInitiative     Boolean? @map("has_current_initiative")
+  initiativeSummary        String?  @map("initiative_summary")
+  impactArea               String?  @map("impact_area")
+  hasLedInitiative         Boolean? @map("has_led_initiative")
+  ledInitiativeSummary     String?  @map("led_initiative_summary")
+  // Essays
+  essayLeadership          String?  @map("essay_leadership")
+  essayCommunityProblem    String?  @map("essay_community_problem")
+  passItOnResponse         String?  @map("pass_it_on_response")
+  // Commitment
+  contributionWilling      Boolean? @map("contribution_willing")
+  contributionExplanation  String?  @map("contribution_explanation")
+  // Declaration
+  motivationOneSentence    String?  @map("motivation_one_sentence")
+  declareAttendBuea        Boolean  @default(false) @map("declare_attend_buea")
+  declareTransportAccom    Boolean  @default(false) @map("declare_transport_accom")
+  declareCommitProgram     Boolean  @default(false) @map("declare_commit_program")
+  declareCompetitiveProc   Boolean  @default(false) @map("declare_competitive_proc")
+  declareActiveParticip    Boolean  @default(false) @map("declare_active_particip")
+  // Progress
+  progressStep             Int      @default(1) @map("progress_step")
+  isSubmitted              Boolean  @default(false) @map("is_submitted")
+  submittedAt              DateTime? @map("submitted_at")
+  createdAt                DateTime @default(now()) @map("created_at")
+  updatedAt                DateTime @updatedAt @map("updated_at")
+
+  cohort  FellowshipCohort @relation(fields: [cohortId], references: [id])
+  review  ApplicationReview?
+
+  @@map("fellowship_applications")
+}
+
+model ApplicationReview {
+  id                          String   @id @default(cuid())
+  applicationId               String   @unique @map("application_id")
+  reviewerName                String?  @map("reviewer_name")
+  scoreCommitmentAvailability Int      @default(0) @map("score_commitment_availability")  // /20
+  scoreLeadershipInitiative   Int      @default(0) @map("score_leadership_initiative")    // /20
+  scoreProblemAwareness       Int      @default(0) @map("score_problem_awareness")        // /20
+  scoreClarityComm            Int      @default(0) @map("score_clarity_comm")             // /15
+  scoreExecutionPotential     Int      @default(0) @map("score_execution_potential")      // /15
+  scorePassItOn               Int      @default(0) @map("score_pass_it_on")               // /10
+  totalScore                  Int      @default(0) @map("total_score")                    // /100
+  notes                       String?
+  finalRecommendation         String   @default("pending") @map("final_recommendation")  // pending | shortlist | interview | accepted | rejected
+  createdAt                   DateTime @default(now()) @map("created_at")
+  updatedAt                   DateTime @updatedAt @map("updated_at")
+
+  application FellowshipApplication @relation(fields: [applicationId], references: [id])
+
+  @@map("application_reviews")
+}

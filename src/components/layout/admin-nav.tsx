@@ -19,7 +19,8 @@ import {
   LogOut,
   Menu,
   X,
-  ChevronDown
+  ChevronDown,
+  GraduationCap
 } from 'lucide-react'
 
 export default function AdminNav() {
@@ -35,6 +36,7 @@ export default function AdminNav() {
     { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/admin/applications', label: 'Applications', icon: FileText },
     { href: '/admin/volunteers', label: 'Volunteers', icon: Users },
+    { href: '/admin/fellowship/applications', label: 'Fellowship', icon: GraduationCap },
   ]
 
   const contentItems = [
