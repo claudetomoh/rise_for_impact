@@ -183,6 +183,34 @@ model FellowshipCohort {
   introCopy               String?  @map("intro_copy")
   eligibilityCopy         String?  @map("eligibility_copy")
   logisticsCopy           String?  @map("logistics_copy")
+
+  // Age eligibility
+  ageMin                    Int?    @map("age_min")
+  ageMax                    Int?    @map("age_max")
+
+  // Program content (JSON arrays stored as strings, one item per line when edited)
+  fellowshipBulletsJson     String? @map("fellowship_bullets_json")
+  passItOnTitle             String? @map("pass_it_on_title")
+  passItOnParagraph         String? @map("pass_it_on_paragraph")
+  passItOnBulletsJson       String? @map("pass_it_on_bullets_json")
+  contributionFullTitle     String? @map("contribution_full_title")
+  contributionFullParagraph String? @map("contribution_full_paragraph")
+
+  // Eligibility & pre-apply
+  eligibilityPointsJson     String? @map("eligibility_points_json")
+  beforeYouApplyJson        String? @map("before_you_apply_json")
+
+  // Essay prompts
+  essay1Title               String? @map("essay1_title")
+  essay1Prompt              String? @map("essay1_prompt")
+  essay2Title               String? @map("essay2_title")
+  essay2Prompt              String? @map("essay2_prompt")
+  passItOnEssayTitle        String? @map("pass_it_on_essay_title")
+  passItOnEssayPrompt       String? @map("pass_it_on_essay_prompt")
+
+  // Declaration checkboxes
+  declarationCheckboxesJson String? @map("declaration_checkboxes_json")
+
   createdAt               DateTime @default(now()) @map("created_at")
   updatedAt               DateTime @updatedAt @map("updated_at")
 

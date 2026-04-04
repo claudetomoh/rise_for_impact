@@ -42,8 +42,13 @@ const TOTAL_STEPS = 9
 const DRAFT_STORAGE_KEY = 'rfi_fellowship_draft_id'
 const COHORT_SLUG = 'cameroon-2026'
 
-const cohortConfig = getActiveCohortConfig()
-const copy = getActiveCohortCopy()
+// Static defaults — overridden at runtime by DB values fetched from /api/fellowship/cohorts/active
+const STATIC_CONFIG = getActiveCohortConfig()
+const STATIC_COPY   = getActiveCohortCopy()
+
+// Module-level live config — mutated on first DB fetch, triggers re-render via forceUpdate
+let LIVE_COPY   = STATIC_COPY
+let LIVE_CONFIG = STATIC_CONFIG
 
 // ─── Word limits ──────────────────────────────────────────────────────────────
 const WORD_LIMITS = {
@@ -123,6 +128,48 @@ export default function FellowshipApplyPage() {
   const router = useRouter()
   const [step, setStep] = useState(1)
   const [form, setForm] = useState<ApplicationFormData>(EMPTY_FORM)
+  // Trigger re-render after DB config loads
+  const [, forceUpdate] = useState(0)
+
+  useEffect(() => {
+    fetch('/api/fellowship/cohorts/active')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((db) => {
+        if (!db) return
+        const arr = (json: string | null, fallback: string[]): string[] => {
+          if (!json) return fallback
+          try { return JSON.parse(json) as string[] } catch { return fallback }
+        }
+        LIVE_COPY = {
+          ...STATIC_COPY,
+          fellowshipBullets:         arr(db.fellowshipBulletsJson,      STATIC_COPY.fellowshipBullets),
+          passItOnTitle:             db.passItOnTitle             ?? STATIC_COPY.passItOnTitle,
+          passItOnParagraph:         db.passItOnParagraph         ?? STATIC_COPY.passItOnParagraph,
+          passItOnBullets:           arr(db.passItOnBulletsJson,         STATIC_COPY.passItOnBullets),
+          eligibilityPoints:         arr(db.eligibilityPointsJson,       STATIC_COPY.eligibilityPoints),
+          beforeYouApplyPoints:      arr(db.beforeYouApplyJson,          STATIC_COPY.beforeYouApplyPoints),
+          contributionFullTitle:     db.contributionFullTitle     ?? STATIC_COPY.contributionFullTitle,
+          contributionFullParagraph: db.contributionFullParagraph ?? STATIC_COPY.contributionFullParagraph,
+          declarationCheckboxes:     arr(db.declarationCheckboxesJson,   STATIC_COPY.declarationCheckboxes),
+          essay1Title:               db.essay1Title               ?? STATIC_COPY.essay1Title,
+          essay1Prompt:              db.essay1Prompt              ?? STATIC_COPY.essay1Prompt,
+          essay2Title:               db.essay2Title               ?? STATIC_COPY.essay2Title,
+          essay2Prompt:              db.essay2Prompt              ?? STATIC_COPY.essay2Prompt,
+          passItOnEssayTitle:        db.passItOnEssayTitle        ?? STATIC_COPY.passItOnEssayTitle,
+          passItOnEssayPrompt:       db.passItOnEssayPrompt       ?? STATIC_COPY.passItOnEssayPrompt,
+        }
+        LIVE_CONFIG = {
+          ...STATIC_CONFIG,
+          contributionAmount:   db.contributionAmount   ?? STATIC_CONFIG.contributionAmount,
+          contributionCurrency: db.contributionCurrency ?? STATIC_CONFIG.contributionCurrency,
+          ageMin: db.ageMin ?? STATIC_CONFIG.ageMin,
+          ageMax: db.ageMax ?? STATIC_CONFIG.ageMax,
+        }
+        forceUpdate((n) => n + 1)
+      })
+      .catch(() => {})
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const [draftId, setDraftId] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -559,7 +606,7 @@ interface SocialFollowProps {
 
 function Step1Overview({ followLinkedIn, setFollowLinkedIn, followFacebook, setFollowFacebook }: SocialFollowProps) {
   return (
-    <FormStepLayout title={copy.introTitle}>
+    <FormStepLayout title={LIVE_COPY.introTitle}>
       {/* ── Social media follow requirement ── */}
       <div className="mb-2 bg-blue-950/40 border border-blue-700/40 rounded-xl p-5">
         <div className="flex items-start gap-3 mb-3">
@@ -619,7 +666,7 @@ function Step1Overview({ followLinkedIn, setFollowLinkedIn, followFacebook, setF
       {/* Main intro */}
       <div className="space-y-3">
         <p className="text-dark-200 leading-relaxed text-sm">
-          {copy.introParagraph}
+          {LIVE_COPY.introParagraph}
         </p>
         <p className="text-dark-200 text-sm">
           A fellowship is not just a training program. It is a guided experience that combines learning, mentorship, and real-world application.
@@ -628,7 +675,7 @@ function Step1Overview({ followLinkedIn, setFollowLinkedIn, followFacebook, setF
           The fellowship includes:
         </p>
         <ul className="space-y-1 pl-4">
-          {copy.fellowshipBullets.map((b, i) => (
+          {LIVE_COPY.fellowshipBullets.map((b, i) => (
             <li key={i} className="text-sm text-dark-200 flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-2 flex-shrink-0" />
               {b}
@@ -643,12 +690,12 @@ function Step1Overview({ followLinkedIn, setFollowLinkedIn, followFacebook, setF
       {/* Pass It On */}
       <div className="mt-4 bg-amber-900/15 border border-amber-800/40 rounded-xl p-5">
         <h3 className="text-sm font-bold text-amber-300 mb-2">
-            {copy.passItOnTitle}
+            {LIVE_COPY.passItOnTitle}
           </h3>
-          <p className="text-sm text-amber-400 mb-3">{copy.passItOnParagraph}</p>
+          <p className="text-sm text-amber-400 mb-3">{LIVE_COPY.passItOnParagraph}</p>
           <p className="text-sm text-amber-400 mb-1">Participants will work in teams to:</p>
           <ul className="space-y-1 pl-4">
-            {copy.passItOnBullets.map((b, i) => (
+            {LIVE_COPY.passItOnBullets.map((b, i) => (
               <li key={i} className="text-sm text-amber-400 flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 flex-shrink-0" />
               {b}
@@ -660,21 +707,21 @@ function Step1Overview({ followLinkedIn, setFollowLinkedIn, followFacebook, setF
       {/* Logistics — soft fee mention */}
       <div className="mt-2">
         <h3 className="text-sm font-bold text-white mb-2">
-          {copy.logisticsTitle}
+          {LIVE_COPY.logisticsTitle}
         </h3>
         <p className="text-sm text-dark-400 italic mb-2">
-          {copy.softContributionLine}
+          {LIVE_COPY.softContributionLine}
         </p>
-        <p className="text-sm text-dark-200">{copy.logisticsParagraph}</p>
+        <p className="text-sm text-dark-200">{LIVE_COPY.logisticsParagraph}</p>
       </div>
 
       {/* Eligibility */}
       <div className="mt-2">
         <h3 className="text-sm font-bold text-white mb-2">
-          {copy.eligibilityTitle}
+          {LIVE_COPY.eligibilityTitle}
         </h3>
         <ul className="space-y-1.5 pl-4">
-          {copy.eligibilityPoints.map((p, i) => (
+          {LIVE_COPY.eligibilityPoints.map((p, i) => (
             <li key={i} className="text-sm text-dark-200 flex items-start gap-2">
               <CheckCircle2 className="w-4 h-4 text-primary-500 mt-0.5 flex-shrink-0" />
               {p}
@@ -686,10 +733,10 @@ function Step1Overview({ followLinkedIn, setFollowLinkedIn, followFacebook, setF
       {/* Before you apply */}
       <div className="mt-2 bg-dark-800 rounded-xl p-5 border border-dark-700">
         <h3 className="text-sm font-bold text-white mb-2">
-          {copy.beforeYouApplyTitle}
+          {LIVE_COPY.beforeYouApplyTitle}
         </h3>
         <ul className="space-y-1.5 pl-4 mb-5">
-          {copy.beforeYouApplyPoints.map((p, i) => (
+          {LIVE_COPY.beforeYouApplyPoints.map((p, i) => (
             <li key={i} className="text-sm text-dark-400 flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-600 mt-2 flex-shrink-0" />
               {p}
@@ -915,11 +962,11 @@ function Step4ShortResponses({ form, set }: { form: ApplicationFormData; set: Fi
 
 function Step5Essay1({ form, set }: { form: ApplicationFormData; set: FieldSetter }) {
   return (
-    <FormStepLayout title={copy.essay1Title}>
+    <FormStepLayout title={LIVE_COPY.essay1Title}>
       <WordCountTextarea
         id="essayLeadership"
         label="Your response"
-        prompt={copy.essay1Prompt}
+        prompt={LIVE_COPY.essay1Prompt}
         value={form.essayLeadership}
         onChange={set('essayLeadership') as (v: string) => void}
         maxWords={200}
@@ -935,11 +982,11 @@ function Step5Essay1({ form, set }: { form: ApplicationFormData; set: FieldSette
 
 function Step6Essay2({ form, set }: { form: ApplicationFormData; set: FieldSetter }) {
   return (
-    <FormStepLayout title={copy.essay2Title}>
+    <FormStepLayout title={LIVE_COPY.essay2Title}>
       <WordCountTextarea
         id="essayCommunityProblem"
         label="Your response"
-        prompt={copy.essay2Prompt}
+        prompt={LIVE_COPY.essay2Prompt}
         value={form.essayCommunityProblem}
         onChange={set('essayCommunityProblem') as (v: string) => void}
         maxWords={200}
@@ -955,11 +1002,11 @@ function Step6Essay2({ form, set }: { form: ApplicationFormData; set: FieldSette
 
 function Step7PassItOn({ form, set }: { form: ApplicationFormData; set: FieldSetter }) {
   return (
-    <FormStepLayout title={copy.passItOnEssayTitle}>
+    <FormStepLayout title={LIVE_COPY.passItOnEssayTitle}>
       <WordCountTextarea
         id="passItOnResponse"
         label="Your response"
-        prompt={copy.passItOnEssayPrompt}
+        prompt={LIVE_COPY.passItOnEssayPrompt}
         value={form.passItOnResponse}
         onChange={set('passItOnResponse') as (v: string) => void}
         maxWords={150}
@@ -974,12 +1021,12 @@ function Step7PassItOn({ form, set }: { form: ApplicationFormData; set: FieldSet
 // ─── Step 8: Commitment ──────────────────────────────────────────────────────
 
 function Step8Commitment({ form, set }: { form: ApplicationFormData; set: FieldSetter }) {
-  const config = cohortConfig
+  const config = LIVE_CONFIG
   return (
-    <FormStepLayout title={copy.contributionFullTitle}>
+    <FormStepLayout title={LIVE_COPY.contributionFullTitle}>
       {/* Full contribution explanation — revealed here for the first time */}
       <div className="bg-dark-800 border border-dark-700 rounded-xl p-5 space-y-3">
-        <p className="text-sm text-dark-200">{copy.contributionFullParagraph}</p>
+        <p className="text-sm text-dark-200">{LIVE_COPY.contributionFullParagraph}</p>
         <div>
           <p className="text-sm font-semibold text-white mb-1">
             The contribution of{' '}
@@ -1059,11 +1106,11 @@ function Step9Declaration({
   isSubmitting: boolean
 }) {
   const checks: Array<{ key: keyof ApplicationFormData; text: string }> = [
-    { key: 'declareAttendBuea', text: copy.declarationCheckboxes[0] },
-    { key: 'declareTransportAccom', text: copy.declarationCheckboxes[1] },
-    { key: 'declareCommitProgram', text: copy.declarationCheckboxes[2] },
-    { key: 'declareCompetitiveProc', text: copy.declarationCheckboxes[3] },
-    { key: 'declareActiveParticip', text: copy.declarationCheckboxes[4] },
+    { key: 'declareAttendBuea', text: LIVE_COPY.declarationCheckboxes[0] },
+    { key: 'declareTransportAccom', text: LIVE_COPY.declarationCheckboxes[1] },
+    { key: 'declareCommitProgram', text: LIVE_COPY.declarationCheckboxes[2] },
+    { key: 'declareCompetitiveProc', text: LIVE_COPY.declarationCheckboxes[3] },
+    { key: 'declareActiveParticip', text: LIVE_COPY.declarationCheckboxes[4] },
   ]
 
   return (
