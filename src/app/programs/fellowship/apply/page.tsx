@@ -129,6 +129,9 @@ export default function FellowshipApplyPage() {
   const [stepErrors, setStepErrors] = useState<string[]>([])
   const [submitError, setSubmitError] = useState<string>('')
   const errorsRef = useRef<HTMLDivElement>(null)
+  // Social follow gate — required before proceeding past step 1
+  const [followLinkedIn, setFollowLinkedIn] = useState(false)
+  const [followFacebook, setFollowFacebook] = useState(false)
 
   // Load draft from localStorage on mount
   useEffect(() => {
@@ -262,18 +265,38 @@ export default function FellowshipApplyPage() {
   if (!isApplicationOpen) {
     return (
       <div className="min-h-screen bg-dark-950">
-        {/* Branded header */}
-        <header className="sticky top-0 z-30 bg-dark-950/90 backdrop-blur-sm border-b border-white/8">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-            <Link href="/programs/fellowship" className="flex items-center gap-2 text-dark-400 hover:text-white transition-colors">
-              <ChevronLeft className="w-4 h-4" />
-              <span className="text-sm">Back to Fellowship</span>
-            </Link>
-            <Link href="/" className="flex items-center gap-2">
-              <Image src="/images/logo.jpeg" alt="Rise for Impact" width={28} height={28} className="rounded-full" />
-              <span className="text-sm font-semibold text-white hidden sm:block">Rise for Impact</span>
-            </Link>
-            <div className="w-24" />
+        {/* Letterhead header */}
+        <header className="bg-dark-900 border-b border-white/8">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3">
+            <div className="grid grid-cols-3 gap-2 items-center">
+              {/* Ghana HQ */}
+              <div className="text-left hidden sm:block">
+                <p className="text-xs font-semibold text-white leading-tight">1 University Avenue, Berekuso</p>
+                <p className="text-xs text-dark-400">Eastern Region, Ghana</p>
+              </div>
+              {/* Center logo */}
+              <Link href="/" className="flex flex-col items-center gap-1.5">
+                <Image src="/images/logo.jpeg" alt="Rise for Impact" width={44} height={44} className="rounded-xl shadow-lg" />
+                <span className="text-xs font-bold text-white tracking-wide">Rise for Impact</span>
+              </Link>
+              {/* Cameroon HQ */}
+              <div className="text-right hidden sm:block">
+                <p className="text-xs font-semibold text-white leading-tight">Chapelle Obili, Yaounde</p>
+                <p className="text-xs text-dark-400">Centre Region, Cameroon</p>
+              </div>
+            </div>
+            <div className="mt-2 pt-2 border-t border-white/8 text-center">
+              <p className="text-xs text-dark-400 italic">A structured leadership &amp; impact development programme for young Africans ready to move from potential to action</p>
+            </div>
+          </div>
+          {/* Back nav */}
+          <div className="border-t border-white/8">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 h-9 flex items-center">
+              <Link href="/programs/fellowship" className="flex items-center gap-1.5 text-xs text-dark-400 hover:text-white transition-colors">
+                <ChevronLeft className="w-3.5 h-3.5" />
+                Back to Fellowship
+              </Link>
+            </div>
           </div>
         </header>
 
@@ -351,41 +374,43 @@ export default function FellowshipApplyPage() {
 
   return (
     <div className="min-h-screen bg-dark-950">
-      {/* Branded header */}
-      <header className="sticky top-0 z-30 bg-dark-950/90 backdrop-blur-sm border-b border-white/8">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link
-            href="/programs/fellowship"
-            className="text-sm text-dark-400 hover:text-white flex items-center gap-1 transition-colors group"
-          >
-            <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-            Fellowship
-          </Link>
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/images/logo.jpeg" alt="Rise for Impact" width={28} height={28} className="rounded-full" />
-            <span className="text-sm font-semibold text-white hidden sm:block">Rise for Impact</span>
-          </Link>
-          {/* Save status indicator */}
-          {step > 1 ? (
-            <button
-              onClick={handleManualSave}
-              disabled={isSaving}
-              className="flex items-center gap-1.5 text-xs text-dark-400 hover:text-white transition-colors disabled:opacity-50"
-            >
-              {isSaving ? (
-                <Loader2 className="w-3.5 h-3.5 animate-spin" />
-              ) : saveStatus === 'saved' ? (
-                <CheckCircle2 className="w-3.5 h-3.5 text-green-400" />
-              ) : saveStatus === 'error' ? (
-                <AlertCircle className="w-3.5 h-3.5 text-red-400" />
-              ) : (
-                <Save className="w-3.5 h-3.5" />
-              )}
-              {saveStatus === 'saved' ? 'Saved' : saveStatus === 'error' ? 'Save failed' : 'Save'}
-            </button>
-          ) : (
-            <div className="w-14" />
-          )}
+      {/* Letterhead header */}
+      <header className="sticky top-0 z-30 bg-dark-900/95 backdrop-blur-sm border-b border-white/8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-2.5">
+          <div className="grid grid-cols-3 gap-2 items-center">
+            {/* Ghana HQ */}
+            <div className="text-left hidden md:block">
+              <p className="text-xs font-semibold text-white leading-tight">1 University Avenue, Berekuso</p>
+              <p className="text-[10px] text-dark-400">Eastern Region, Ghana</p>
+            </div>
+            {/* Center logo */}
+            <Link href="/" className="flex flex-col items-center gap-1">
+              <Image src="/images/logo.jpeg" alt="Rise for Impact" width={36} height={36} className="rounded-xl" />
+              <span className="text-[10px] font-bold text-white tracking-wide">Rise for Impact</span>
+            </Link>
+            {/* Cameroon HQ */}
+            <div className="text-right hidden md:block">
+              <p className="text-xs font-semibold text-white leading-tight">Chapelle Obili, Yaounde</p>
+              <p className="text-[10px] text-dark-400">Centre Region, Cameroon</p>
+            </div>
+          </div>
+          <div className="mt-1.5 pt-1.5 border-t border-white/8 text-center">
+            <p className="text-[10px] text-dark-500 italic">A structured leadership &amp; impact development programme — from potential to action</p>
+          </div>
+        </div>
+        {/* Nav / save row */}
+        <div className="border-t border-white/8">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 h-8 flex items-center justify-between">
+            <Link href="/programs/fellowship" className="text-xs text-dark-400 hover:text-white flex items-center gap-1 transition-colors">
+              <ChevronLeft className="w-3 h-3" /> Fellowship
+            </Link>
+            {step > 1 ? (
+              <button onClick={handleManualSave} disabled={isSaving} className="flex items-center gap-1 text-xs text-dark-400 hover:text-white transition-colors disabled:opacity-50">
+                {isSaving ? <Loader2 className="w-3 h-3 animate-spin" /> : saveStatus === 'saved' ? <CheckCircle2 className="w-3 h-3 text-green-400" /> : saveStatus === 'error' ? <AlertCircle className="w-3 h-3 text-red-400" /> : <Save className="w-3 h-3" />}
+                {saveStatus === 'saved' ? 'Saved' : saveStatus === 'error' ? 'Save failed' : 'Save'}
+              </button>
+            ) : <div />}
+          </div>
         </div>
       </header>
 
@@ -438,7 +463,7 @@ export default function FellowshipApplyPage() {
 
         {/* Step panels */}
         <div className="bg-dark-900 rounded-2xl border border-dark-800 p-6 sm:p-8">
-          {step === 1 && <Step1Overview />}
+          {step === 1 && <Step1Overview followLinkedIn={followLinkedIn} setFollowLinkedIn={setFollowLinkedIn} followFacebook={followFacebook} setFollowFacebook={setFollowFacebook} />}
           {step === 2 && <Step2Personal form={form} set={field} />}
           {step === 3 && <Step3Logistics form={form} set={field} />}
           {step === 4 && <Step4ShortResponses form={form} set={field} />}
@@ -472,7 +497,15 @@ export default function FellowshipApplyPage() {
 
           {step < TOTAL_STEPS ? (
             <button
-              onClick={step === 1 ? () => { setStep(2); scrollToTop() } : handleNext}
+              onClick={step === 1 ? () => {
+                if (!followLinkedIn && !followFacebook) {
+                  setStepErrors(['Please follow Rise for Impact on LinkedIn and/or Facebook before starting your application.'])
+                  return
+                }
+                setStepErrors([])
+                setStep(2)
+                scrollToTop()
+              } : handleNext}
               disabled={isSaving}
               className="flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-400 hover:to-primary-500 text-white text-sm font-semibold shadow-lg shadow-primary-500/20 transition-all disabled:opacity-60"
             >
@@ -516,9 +549,60 @@ export default function FellowshipApplyPage() {
 
 // ─── Step 1: Overview ─────────────────────────────────────────────────────────
 
-function Step1Overview() {
+interface SocialFollowProps {
+  followLinkedIn: boolean
+  setFollowLinkedIn: (v: boolean) => void
+  followFacebook: boolean
+  setFollowFacebook: (v: boolean) => void
+}
+
+function Step1Overview({ followLinkedIn, setFollowLinkedIn, followFacebook, setFollowFacebook }: SocialFollowProps) {
   return (
     <FormStepLayout title={copy.introTitle}>
+      {/* ── Social media follow requirement ── */}
+      <div className="mb-2 bg-blue-950/40 border border-blue-700/40 rounded-xl p-5">
+        <div className="flex items-start gap-3 mb-3">
+          <div className="w-8 h-8 rounded-lg bg-blue-500/15 border border-blue-500/25 flex items-center justify-center flex-shrink-0">
+            <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-white mb-0.5">Follow Rise for Impact <span className="text-xs font-normal text-red-400 ml-1">* Required</span></h3>
+            <p className="text-xs text-dark-400">Follow us on at least one platform to continue with your application.</p>
+          </div>
+        </div>
+        <div className="space-y-2.5 pl-1">
+          <label className="flex items-center gap-3 cursor-pointer group">
+            <input
+              type="checkbox"
+              checked={followLinkedIn}
+              onChange={e => setFollowLinkedIn(e.target.checked)}
+              className="w-4 h-4 rounded border-dark-600 bg-dark-800 text-primary-500 cursor-pointer"
+            />
+            <span className="text-sm text-dark-200 group-hover:text-white transition-colors">
+              I follow Rise for Impact on{' '}
+              <a href="https://www.linkedin.com/company/rise-for-impact" target="_blank" rel="noopener noreferrer" className="text-blue-400 underline hover:text-blue-300" onClick={e => e.stopPropagation()}>LinkedIn</a>
+            </span>
+          </label>
+          <label className="flex items-center gap-3 cursor-pointer group">
+            <input
+              type="checkbox"
+              checked={followFacebook}
+              onChange={e => setFollowFacebook(e.target.checked)}
+              className="w-4 h-4 rounded border-dark-600 bg-dark-800 text-primary-500 cursor-pointer"
+            />
+            <span className="text-sm text-dark-200 group-hover:text-white transition-colors">
+              I follow Rise for Impact on{' '}
+              <a href="https://www.facebook.com/share/1HVFiDupbD/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="text-blue-400 underline hover:text-blue-300" onClick={e => e.stopPropagation()}>Facebook</a>
+            </span>
+          </label>
+        </div>
+        {!followLinkedIn && !followFacebook && (
+          <p className="mt-3 text-xs text-red-400/80 flex items-center gap-1.5">
+            <span className="w-1 h-1 rounded-full bg-red-400 inline-block" />
+            You must follow us on at least one platform before starting
+          </p>
+        )}
+      </div>
       {/* Main intro */}
       <div className="space-y-3">
         <p className="text-dark-200 leading-relaxed text-sm">

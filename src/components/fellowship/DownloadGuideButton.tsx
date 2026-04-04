@@ -112,7 +112,7 @@ async function generatePDF() {
     doc.setFontSize(7)
     doc.setFont('helvetica', 'normal')
     doc.setTextColor(...C.LIGHT)
-    doc.text('riseforimpact.org  •  info@riseforimpact.org', PAGE_W / 2, PAGE_H - 3, { align: 'center' })
+    doc.text('riseforimpact.org  •  info@riseforimpact.org  •  LinkedIn & Facebook: Rise for Impact', PAGE_W / 2, PAGE_H - 3, { align: 'center' })
   }
 
   /** Section heading bar */
@@ -214,14 +214,8 @@ async function generatePDF() {
       y += hLines.length * 3 + 2
     }
 
-    // note lines
-    for (let i = 0; i < noteLines; i++) {
-      doc.setDrawColor(200, 210, 220)
-      doc.setLineWidth(0.2)
-      doc.line(M, y, M + CW, y)
-      y += 6
-    }
-    return y + 3
+    // Application is online — no blank draft lines needed
+    return y + 2
   }
 
   // ════════════════════════════════════════════════════════════════════════════
@@ -284,7 +278,7 @@ async function generatePDF() {
   y += 6
 
   y = infoRow('Applications open:', 'April 15, 2026', y + 1)
-  y = infoRow('Applications close:', '30 April 2026', y)
+  y = infoRow('Applications close:', '30 May 2026', y)
   y = infoRow('Program location:', 'Buea, Cameroon', y)
   y = infoRow('In-person dates:', 'June 2026 (TBC)', y)
   y = infoRow('Program duration:', '~5 months (kick-off + 4 months mentorship)', y)
@@ -667,7 +661,7 @@ async function generatePDF() {
   let ly = y + 14
   const dateInfo: [string, string][] = [
     ['Applications open', 'April 15, 2026'],
-    ['Applications close', '30 April 2026'],
+    ['Applications close', '30 May 2026'],
     ['In-person kick-off', 'June 2026 (TBC)'],
     ['Mentorship period', '~4 months post-kick-off'],
     ['Location', 'Buea, Cameroon'],
@@ -782,7 +776,7 @@ async function generatePDF() {
   doc.setFont('helvetica', 'normal')
   doc.setTextColor(...C.DARK2)
   const usageText = doc.splitTextToSize(
-    'The following pages show every question in the online application form before you start. Use the blank lines below each question to draft your answers on paper first. When you are ready, open the online form at riseforimpact.org/programs/fellowship/apply.',
+    'The following pages show every section and question in the online application form before you start. Review all questions carefully and prepare your answers before opening the online form. When you are ready, visit riseforimpact.org/programs/fellowship/apply.',
     CW - 12
   ) as string[]
   doc.text(usageText, M + 7, y + 12.5)
@@ -866,9 +860,25 @@ async function generatePDF() {
   doc.setFontSize(9)
   doc.setFont('helvetica', 'normal')
   doc.setTextColor(...C.MID)
-  doc.text('This step has no form fields. Read the program overview, eligibility, and Pass It On requirement carefully.', M, y, { maxWidth: CW })
-  doc.text('Click "Start Application" when you are ready to proceed.', M, y + 6)
-  y += 16
+  doc.text('This step has no form fields. Read the program overview, eligibility criteria, and the Pass It On requirement carefully.', M, y, { maxWidth: CW })
+  doc.text('Before clicking “Start Application” you must follow us on LinkedIn and/or Facebook.', M, y + 6, { maxWidth: CW })
+  y += 14
+
+  doc.setFontSize(9)
+  doc.setFont('helvetica', 'bold')
+  doc.setTextColor(...C.PRIMARY)
+  doc.text('▶  LinkedIn:', M, y)
+  doc.setFont('helvetica', 'normal')
+  doc.setTextColor(...C.DARK2)
+  doc.text('linkedin.com/company/rise-for-impact', M + 22, y)
+  y += 5
+  doc.setFont('helvetica', 'bold')
+  doc.setTextColor(...C.PRIMARY)
+  doc.text('▶  Facebook:', M, y)
+  doc.setFont('helvetica', 'normal')
+  doc.setTextColor(...C.DARK2)
+  doc.text('facebook.com/share/1HVFiDupbD', M + 22, y)
+  y += 12
 
   // ── Step 2: Personal Information ──
   doc.setFillColor(...C.DARK2)
@@ -984,16 +994,6 @@ async function generatePDF() {
   doc.text('What did you do, what challenges did you face, and what did you learn?', M + 3, y + 12.5)
   y += 20
 
-  // Draft lines
-  for (let i = 0; i < 15; i++) {
-    doc.setDrawColor(200, 210, 220)
-    doc.setLineWidth(0.2)
-    doc.line(M, y, M + CW, y)
-    y += 6
-  }
-
-  y += 5
-
   // ── Step 6: Essay 2 ──
   doc.setFillColor(...C.DARK2)
   doc.roundedRect(M, y, CW, 10, 2, 2, 'F')
@@ -1014,13 +1014,6 @@ async function generatePDF() {
   doc.setTextColor(...C.MID)
   doc.text('Explain why it is important and how you would approach creating change or contributing to a solution.', M + 3, y + 12.5, { maxWidth: CW - 6 })
   y += 20
-
-  for (let i = 0; i < 15; i++) {
-    doc.setDrawColor(200, 210, 220)
-    doc.setLineWidth(0.2)
-    doc.line(M, y, M + CW, y)
-    y += 6
-  }
 
   addFooter()
 
@@ -1064,13 +1057,6 @@ async function generatePDF() {
   ) as string[]
   doc.text(p7q, M, y)
   y += p7q.length * 4 + 4
-
-  for (let i = 0; i < 10; i++) {
-    doc.setDrawColor(200, 210, 220)
-    doc.setLineWidth(0.2)
-    doc.line(M, y, M + CW, y)
-    y += 6
-  }
 
   y += 5
 
@@ -1148,11 +1134,11 @@ async function generatePDF() {
   y += 8
 
   const nextSteps = [
-    ['Draft your essays', 'Use the blank lines in this guide to prepare your responses to all three essay questions (Steps 5, 6, and 7) before starting the online form.'],
+    ['Prepare your essays', 'Review the essay prompts in this guide (Steps 5, 6, and 7) and draft your responses before opening the online form. Word limits are enforced in the online form.'],
     ['Check eligibility', 'Confirm you meet all eligibility criteria: age 16–30, based in Cameroon, and available for the in-person session and 4-month mentorship.'],
     ['Open the application', 'Visit riseforimpact.org/programs/fellowship/apply on or after April 15, 2026 to begin your application.'],
     ['Save your progress', 'Your application is saved automatically as you complete each step. You can close and return at any time before the deadline.'],
-    ['Submit before the deadline', 'All applications must be submitted by April 30, 2026. Late or incomplete applications will not be considered.'],
+    ['Submit before the deadline', 'All applications must be submitted by 30 May 2026. Late or incomplete applications will not be considered.'],
     ['Wait for feedback', 'Only shortlisted candidates will be contacted. There is no need to follow up — we will reach out if you are selected.'],
   ]
 
@@ -1191,7 +1177,7 @@ async function generatePDF() {
   doc.setFontSize(9)
   doc.setFont('helvetica', 'normal')
   doc.setTextColor(...C.PRIMARY_LT)
-  doc.text('Applications open April 15, 2026  ·  Close April 30, 2026', M + 9, y + 17)
+  doc.text('Applications open April 15, 2026  ·  Close 30 May 2026', M + 9, y + 17)
   doc.setFontSize(10)
   doc.setFont('helvetica', 'bold')
   doc.setTextColor(...C.PRIMARY)
