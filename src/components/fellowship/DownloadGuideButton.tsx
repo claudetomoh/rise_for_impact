@@ -96,26 +96,24 @@ async function generatePDF() {
     doc.setFillColor(...C.PRIMARY)
     doc.rect(0, 15.5, PAGE_W, 0.8, 'F')
 
-    // Center logo
+    // Left: logo + fellowship name side-by-side
+    const hLogoX = M
+    const hLogoY = 3
+    const hLogoSize = 10
     if (logoB64) {
-      try { doc.addImage(logoB64, 'JPEG', PAGE_W / 2 - 5, 2, 10, 10, undefined, 'FAST') } catch { /* */ }
+      // White bg card so JPEG logo reads cleanly on dark band
+      doc.setFillColor(...C.WHITE)
+      doc.roundedRect(hLogoX, hLogoY, hLogoSize, hLogoSize, 1.5, 1.5, 'F')
+      try { doc.addImage(logoB64, 'JPEG', hLogoX, hLogoY, hLogoSize, hLogoSize, undefined, 'FAST') } catch { /* */ }
     }
-    // Center: fellowship name
-    doc.setFontSize(6.5)
+    doc.setFontSize(7.5)
     doc.setFont('helvetica', 'bold')
     doc.setTextColor(...C.WHITE)
-    doc.text('RISE FOR IMPACT FELLOWSHIP', PAGE_W / 2, 14, { align: 'center' })
-
-    // Left — Ghana HQ
-    doc.setFontSize(5.5)
-    doc.setFont('helvetica', 'bold')
-    doc.setTextColor(...C.PRIMARY)
-    doc.text('GHANA HQ', M, 5.5)
-    doc.setFontSize(5)
+    doc.text('RISE FOR IMPACT', hLogoX + hLogoSize + 3, hLogoY + 4.5)
+    doc.setFontSize(6)
     doc.setFont('helvetica', 'normal')
-    doc.setTextColor(...C.LIGHT)
-    doc.text('1 University Ave, Berekuso', M, 8.5)
-    doc.text('Eastern Region, Ghana', M, 11.5)
+    doc.setTextColor(...C.PRIMARY_LT)
+    doc.text('Fellowship — Application Guide', hLogoX + hLogoSize + 3, hLogoY + 9)
 
     // Right — Cameroon HQ
     doc.setFontSize(5.5)
@@ -728,7 +726,7 @@ async function generatePDF() {
 
   // LEFT — Dates & Location
   doc.setFillColor(...C.BG)
-  doc.roundedRect(leftX, y, colW, 52, 3, 3, 'F')
+  doc.roundedRect(leftX, y, colW, 82, 3, 3, 'F')
   doc.setFillColor(...C.PRIMARY)
   doc.rect(leftX, y, colW, 8, 'F')
   doc.setFontSize(8.5)
@@ -806,7 +804,7 @@ async function generatePDF() {
     ry += 4.5
   })
 
-  y += 58
+  y += 88
 
   // What we expect
   y = sectionBar('What We Expect from Fellows', y, C.DARK2) + 7
@@ -944,17 +942,17 @@ async function generatePDF() {
   doc.setFontSize(9)
   doc.setFont('helvetica', 'bold')
   doc.setTextColor(...C.PRIMARY)
-  doc.text('▶  LinkedIn:', M, y)
+  doc.text('LinkedIn:', M, y)
   doc.setFont('helvetica', 'normal')
   doc.setTextColor(...C.DARK2)
-  doc.text('linkedin.com/company/rise-for-impact', M + 22, y)
+  doc.text('linkedin.com/company/rise-for-impact', M + 20, y)
   y += 5
   doc.setFont('helvetica', 'bold')
   doc.setTextColor(...C.PRIMARY)
-  doc.text('▶  Facebook:', M, y)
+  doc.text('Facebook:', M, y)
   doc.setFont('helvetica', 'normal')
   doc.setTextColor(...C.DARK2)
-  doc.text('facebook.com/share/1HVFiDupbD', M + 22, y)
+  doc.text('facebook.com/share/1HVFiDupbD', M + 20, y)
   y += 12
 
   // ── Step 2: Personal Information ──
