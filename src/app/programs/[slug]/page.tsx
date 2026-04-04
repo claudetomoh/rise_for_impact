@@ -30,6 +30,7 @@ import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/sections/footer'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import DownloadGuideButton from '@/components/fellowship/DownloadGuideButton'
 import jsPDF from 'jspdf'
 
 interface ProgramData {
@@ -577,7 +578,13 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
                 <span className="text-xs font-semibold text-yellow-400 tracking-widest uppercase">Cohort 1 — Applications open April 15, 2026</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Ready to apply?</h2>
-              <p className="text-dark-300 mb-8 max-w-xl mx-auto leading-relaxed">Applications for the first cohort open on April 15, 2026. Spots are limited. If you meet the criteria and are prepared to commit, we'd like to hear from you.</p>
+              <p className="text-dark-300 mb-6 max-w-xl mx-auto leading-relaxed">Applications for the first cohort open on April 15, 2026. Spots are limited. If you meet the criteria and are prepared to commit, we'd like to hear from you.</p>
+              {/* Download Guide prompt */}
+              <div className="bg-dark-900/60 border border-dark-700 rounded-2xl p-5 max-w-md mx-auto mb-8 text-left">
+                <p className="text-xs font-semibold text-white mb-1">Prepare your application early</p>
+                <p className="text-xs text-dark-400 mb-4 leading-relaxed">Download the full application guide — covering the programme overview, all 9 form sections, every essay prompt, and what we look for in successful candidates.</p>
+                <DownloadGuideButton variant="secondary" size="sm" />
+              </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <div className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-yellow-500/15 border border-yellow-500/35 text-yellow-300 font-semibold cursor-default select-none">
                   <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse flex-shrink-0" />

@@ -24,6 +24,7 @@ import {
 
 import StepIndicator from '@/components/fellowship/StepIndicator'
 import WordCountTextarea from '@/components/fellowship/WordCountTextarea'
+import DownloadGuideButton from '@/components/fellowship/DownloadGuideButton'
 import FormStepLayout, {
   FieldRow,
   SectionHeading,
@@ -275,25 +276,67 @@ export default function FellowshipApplyPage() {
             <div className="w-24" />
           </div>
         </header>
-        <main className="flex items-center justify-center min-h-[calc(100vh-56px)] px-4 py-16">
-          <div className="text-center max-w-xl mx-auto">
-            <div className="mb-8">
-              <Image src="/images/logo.jpeg" alt="Rise for Impact" width={72} height={72} className="rounded-2xl mx-auto shadow-xl shadow-black/40" />
-            </div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-yellow-500/15 border border-yellow-500/25 mb-6">
+
+        {/* Hero banner */}
+        <div className="relative h-64 md:h-80 overflow-hidden">
+          <Image
+            src="/images/backgrounds/fellowship.jpeg"
+            alt="Rise for Impact Fellowship"
+            fill
+            className="object-cover object-center"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-dark-950/60 via-dark-950/40 to-dark-950" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-yellow-500/20 border border-yellow-500/30 mb-4 backdrop-blur-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
-              <span className="text-xs font-semibold text-yellow-400 tracking-widest uppercase">Applications not yet open</span>
+              <span className="text-xs font-semibold text-yellow-300 tracking-widest uppercase">Applications not yet open</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Coming Soon</h1>
-            <p className="text-dark-200 leading-relaxed mb-3">
-              Applications for <span className="text-white font-semibold">Rise for Impact Fellowship — Cohort 1 (Cameroon)</span> open on
-            </p>
-            <div className="inline-block px-8 py-4 rounded-2xl bg-yellow-500/10 border border-yellow-500/25 mb-8">
-              <p className="text-2xl font-bold text-yellow-300">April 15, 2026</p>
+            <h1 className="text-3xl md:text-4xl font-display font-bold text-white drop-shadow-lg">Rise for Impact Fellowship</h1>
+            <p className="text-dark-300 text-sm mt-2 drop-shadow">Cohort 1 — Buea, Cameroon · 2026</p>
+          </div>
+        </div>
+
+        <main className="px-4 py-12">
+          <div className="text-center max-w-xl mx-auto">
+            <div className="inline-block px-8 py-5 rounded-2xl bg-yellow-500/10 border border-yellow-500/25 mb-6">
+              <p className="text-xs text-yellow-500 uppercase tracking-widest font-semibold mb-1">Applications open</p>
+              <p className="text-3xl font-bold text-yellow-300">April 15, 2026</p>
             </div>
-            <p className="text-sm text-dark-400 mb-10 max-w-sm mx-auto">
-              Check back on the opening date to submit your application. In the meantime, explore what the fellowship involves.
+
+            <p className="text-dark-300 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
+              Mark your calendar. While you wait, download the complete application guide — it covers the full fellowship programme and every question on the form so you can prepare your responses in advance.
             </p>
+
+            {/* Download Guide CTA */}
+            <div className="bg-dark-900 border border-dark-700 rounded-2xl p-6 mb-8 text-left">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-primary-500/15 border border-primary-500/25 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.966 8.966 0 00-6 2.292m0-14.25v14.25" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-sm font-bold text-white mb-1">Prepare Before You Apply</h3>
+                  <p className="text-xs text-dark-400 mb-4 leading-relaxed">
+                    Download the official RFI Fellowship Application Guide — a full walkthrough of the programme, all 9 sections, every question and essay prompt, plus tips on what we look for in successful candidates.
+                  </p>
+                  <DownloadGuideButton variant="primary" size="sm" />
+                </div>
+              </div>
+            </div>
+
+            {/* Save & continue note */}
+            <div className="bg-dark-900/60 border border-dark-800 rounded-xl p-4 mb-8 flex items-start gap-3 text-left">
+              <CheckCircle2 className="w-4 h-4 text-primary-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-xs font-semibold text-white mb-0.5">Save & continue anytime</p>
+                <p className="text-xs text-dark-400 leading-relaxed">
+                  Once applications open, your progress is saved automatically at every step. You can close the page and pick up right where you left off.
+                </p>
+              </div>
+            </div>
+
             <Link
               href="/programs/fellowship"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-dark-950 font-semibold transition-colors text-sm"
@@ -348,6 +391,28 @@ export default function FellowshipApplyPage() {
 
       {/* Content */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        {/* Hero strip — visible only on step 1 */}
+        {step === 1 && (
+          <div className="relative rounded-2xl overflow-hidden mb-8 h-44 md:h-56">
+            <Image
+              src="/images/backgrounds/fellowship.jpeg"
+              alt="Rise for Impact Fellowship"
+              fill
+              className="object-cover object-center"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-dark-950/90 via-dark-950/60 to-dark-950/20" />
+            <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-8">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-yellow-500/20 border border-yellow-500/30 mb-3 w-fit">
+                <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
+                <span className="text-xs font-semibold text-yellow-300 tracking-wider uppercase">Cohort 1 · Buea, Cameroon</span>
+              </div>
+              <h2 className="text-xl md:text-2xl font-display font-bold text-white drop-shadow">Rise for Impact Fellowship</h2>
+              <p className="text-dark-300 text-xs mt-1">9-step application · Progress saved automatically</p>
+            </div>
+          </div>
+        )}
+
         <StepIndicator currentStep={step} totalSteps={TOTAL_STEPS} />
 
         {/* Step errors */}
@@ -427,10 +492,21 @@ export default function FellowshipApplyPage() {
           )}
         </div>
 
-        {/* Draft recovery note */}
+        {/* Save & continue note */}
         {step === 1 && (
-          <p className="mt-4 text-center text-xs text-dark-600">
-            Your progress is saved automatically. You can return to this page to continue where you left off.
+          <div className="mt-5 bg-dark-900/50 border border-dark-800 rounded-xl p-4 flex items-start gap-3">
+            <CheckCircle2 className="w-4 h-4 text-primary-400 mt-0.5 flex-shrink-0" />
+            <div>
+              <p className="text-xs font-semibold text-white mb-0.5">Save &amp; continue anytime</p>
+              <p className="text-xs text-dark-400 leading-relaxed">
+                Your progress is saved automatically as you move through each step. You can close this page and return later — your answers will be waiting for you right where you left off.
+              </p>
+            </div>
+          </div>
+        )}
+        {step > 1 && saveStatus === 'saved' && (
+          <p className="mt-3 text-center text-xs text-primary-500 flex items-center justify-center gap-1">
+            <CheckCircle2 className="w-3 h-3" /> Progress saved
           </p>
         )}
       </div>
@@ -515,7 +591,7 @@ function Step1Overview() {
         <h3 className="text-sm font-bold text-white mb-2">
           {copy.beforeYouApplyTitle}
         </h3>
-        <ul className="space-y-1.5 pl-4">
+        <ul className="space-y-1.5 pl-4 mb-5">
           {copy.beforeYouApplyPoints.map((p, i) => (
             <li key={i} className="text-sm text-dark-400 flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-600 mt-2 flex-shrink-0" />
@@ -523,6 +599,11 @@ function Step1Overview() {
             </li>
           ))}
         </ul>
+        {/* Download guide prompt */}
+        <div className="border-t border-dark-700 pt-4">
+          <p className="text-xs text-dark-400 mb-3">Want to review all questions before filling them in? Download the free application guide.</p>
+          <DownloadGuideButton variant="outline" size="sm" />
+        </div>
       </div>
     </FormStepLayout>
   )
