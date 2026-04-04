@@ -372,7 +372,7 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
               {[
                 { label: 'Format', value: 'In-person + virtual' },
                 { label: 'Duration', value: '~5 months' },
-                { label: 'Cohort Size', value: 'Limited intake' },
+                { label: 'Cohort Size', value: '40 Fellows — Cohort 1' },
                 { label: 'Location', value: 'Cameroon (Cohort 1)' },
               ].map((item) => (
                 <div key={item.label} className="rounded-2xl bg-white/4 border border-white/8 p-5 space-y-1">

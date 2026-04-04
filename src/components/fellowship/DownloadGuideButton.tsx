@@ -741,7 +741,7 @@ async function generatePDF() {
     ['Mentorship period', '~4 months post-kick-off'],
     ['Location', 'Buea, Cameroon'],
     ['Format', 'In-person + virtual'],
-    ['Cohort size', 'Limited intake'],
+    ['Cohort size', '40 fellows only (Cohort 1)'],
   ]
   dateInfo.forEach(([label, val]) => {
     doc.setFontSize(8)

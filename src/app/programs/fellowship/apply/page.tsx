@@ -20,6 +20,7 @@ import {
   CheckCircle2,
   AlertCircle,
   ArrowRight,
+  Users,
 } from 'lucide-react'
 
 import StepIndicator from '@/components/fellowship/StepIndicator'
@@ -430,7 +431,7 @@ export default function FellowshipApplyPage() {
             <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-8">
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-yellow-500/20 border border-yellow-500/30 mb-3 w-fit">
                 <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
-                <span className="text-xs font-semibold text-yellow-300 tracking-wider uppercase">Cohort 1 · Buea, Cameroon</span>
+                <span className="text-xs font-semibold text-yellow-300 tracking-wider uppercase">Cohort 1 · 40 spots only · Buea, Cameroon</span>
               </div>
               <h2 className="text-xl md:text-2xl font-display font-bold text-white drop-shadow">Rise for Impact Fellowship</h2>
               <p className="text-dark-300 text-xs mt-1">9-step application · Progress saved automatically</p>
@@ -602,6 +603,18 @@ function Step1Overview({ followLinkedIn, setFollowLinkedIn, followFacebook, setF
             You must follow us on at least one platform before starting
           </p>
         )}
+      </div>
+      {/* Cohort size notice */}
+      <div className="mb-2 bg-primary-950/50 border border-primary-700/40 rounded-xl p-4 flex items-start gap-3">
+        <div className="w-7 h-7 rounded-lg bg-primary-500/15 border border-primary-500/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+          <Users className="w-3.5 h-3.5 text-primary-400" />
+        </div>
+        <div>
+          <p className="text-sm font-bold text-white mb-0.5">Only 40 young people will be selected for Cohort 1</p>
+          <p className="text-xs text-dark-400 leading-relaxed">
+            This is a small, intentional cohort. We are selecting just <span className="text-white font-semibold">40 fellows</span> for this first cycle to ensure every participant receives meaningful mentorship and support. Apply only if you are genuinely ready to commit.
+          </p>
+        </div>
       </div>
       {/* Main intro */}
       <div className="space-y-3">
