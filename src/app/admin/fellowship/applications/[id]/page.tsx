@@ -106,7 +106,7 @@ export default function FellowshipApplicationDetailPage({ params }: { params: { 
   const [reviewerName, setReviewerName] = useState('')
 
   useEffect(() => {
-    if (status === 'unauthenticated') router.push('/admin/login')
+    if (status === 'unauthenticated') router.push('/login')
   }, [status, router])
 
   useEffect(() => {

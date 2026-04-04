@@ -26,7 +26,7 @@ export default function ApplicationDetailPage() {
 
   useEffect(() => {
     if (authStatus === 'unauthenticated') {
-      router.push('/admin/login')
+      router.push('/login')
     }
   }, [authStatus, router])
 

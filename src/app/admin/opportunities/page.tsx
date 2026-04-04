@@ -77,7 +77,7 @@ export default function OpportunitiesPage() {
   // Redirect if not authenticated
   useEffect(() => {
     if (status === 'unauthenticated') {
-      router.push('/admin/login')
+      router.push('/login')
     }
   }, [status, router])
 
@@ -855,3 +855,4 @@ export default function OpportunitiesPage() {
     </div>
   )
 }
+

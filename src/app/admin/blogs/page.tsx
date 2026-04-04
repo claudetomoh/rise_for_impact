@@ -51,7 +51,7 @@ export default function BlogsManagementPage() {
 
   useEffect(() => {
     if (status === 'unauthenticated') {
-      router.push('/admin/login')
+      router.push('/login')
     }
   }, [status, router])
 
@@ -535,3 +535,4 @@ export default function BlogsManagementPage() {
     </div>
   )
 }
+

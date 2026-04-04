@@ -81,7 +81,7 @@ export default function AdminNav() {
           </Link>
         </div>
         <button
-          onClick={() => signOut({ callbackUrl: '/admin/login' })}
+          onClick={() => signOut({ callbackUrl: '/login' })}
           className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
         >
           <LogOut className="w-5 h-5" />
@@ -233,7 +233,7 @@ export default function AdminNav() {
               </div>
             )}
             <button
-              onClick={() => signOut({ callbackUrl: '/admin/login' })}
+              onClick={() => signOut({ callbackUrl: '/login' })}
               className="flex items-center gap-3 w-full px-3 py-2.5 bg-red-600 hover:bg-red-700 rounded-lg transition-all text-sm font-medium"
             >
               <LogOut className="w-5 h-5 flex-shrink-0" />
@@ -253,3 +253,4 @@ export default function AdminNav() {
     </>
   )
 }
+

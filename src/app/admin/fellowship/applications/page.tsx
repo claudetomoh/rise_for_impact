@@ -47,7 +47,7 @@ export default function FellowshipApplicationsPage() {
   const [submittedOnly, setSubmittedOnly] = useState(true)
 
   useEffect(() => {
-    if (status === 'unauthenticated') router.push('/admin/login')
+    if (status === 'unauthenticated') router.push('/login')
   }, [status, router])
 
   useEffect(() => {
@@ -266,3 +266,4 @@ export default function FellowshipApplicationsPage() {
     </div>
   )
 }
+

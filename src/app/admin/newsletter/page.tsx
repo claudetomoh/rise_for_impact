@@ -48,7 +48,7 @@ export default function NewsletterPage() {
 
   useEffect(() => {
     if (status === 'unauthenticated') {
-      router.push('/admin/login')
+      router.push('/login')
     }
   }, [status, router])
 
@@ -843,3 +843,4 @@ export default function NewsletterPage() {
     </div>
   )
 }
+

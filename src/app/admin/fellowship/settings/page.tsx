@@ -69,7 +69,7 @@ export default function FellowshipSettingsPage() {
   const [isCreating, setIsCreating] = useState(false)
 
   useEffect(() => {
-    if (status === 'unauthenticated') router.push('/admin/login')
+    if (status === 'unauthenticated') router.push('/login')
   }, [status, router])
 
   useEffect(() => {
@@ -360,3 +360,4 @@ function LabeledTextarea({
     </div>
   )
 }
+

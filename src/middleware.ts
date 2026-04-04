@@ -45,26 +45,19 @@ function checkRateLimit(key: string): boolean {
 }
 
 export async function middleware(request: NextRequest) {
-  // Protect admin routes (except login, forgot-password, reset-password)
+  // Protect admin routes
   if (request.nextUrl.pathname.startsWith('/admin')) {
-    const isAuthPage = 
-      request.nextUrl.pathname === '/admin/login' ||
-      request.nextUrl.pathname === '/admin/forgot-password' ||
-      request.nextUrl.pathname.startsWith('/admin/reset-password')
+    // Check if user is authenticated
+    const token = await getToken({
+      req: request,
+      secret: process.env.NEXTAUTH_SECRET,
+    })
 
-    if (!isAuthPage) {
-      // Check if user is authenticated
-      const token = await getToken({
-        req: request,
-        secret: process.env.NEXTAUTH_SECRET,
-      })
-
-      if (!token) {
-        // Redirect to login page with callback URL
-        const loginUrl = new URL('/admin/login', request.url)
-        loginUrl.searchParams.set('callbackUrl', request.nextUrl.pathname)
-        return NextResponse.redirect(loginUrl)
-      }
+    if (!token) {
+      // Redirect to login page with callback URL
+      const loginUrl = new URL('/login', request.url)
+      loginUrl.searchParams.set('callbackUrl', request.nextUrl.pathname)
+      return NextResponse.redirect(loginUrl)
     }
   }
 
