@@ -245,58 +245,109 @@ async function generatePDF() {
   }
 
   // ════════════════════════════════════════════════════════════════════════════
-  // PAGE 1 — COVER
+  // PAGE 1 — COVER  (letterhead-style redesign)
   // ════════════════════════════════════════════════════════════════════════════
   newPage()
 
-  // Top hero band
+  const BAND_H = 106   // dark hero band height
+
+  // ── Dark hero band ─────────────────────────────────────────────────────────
   doc.setFillColor(...C.DARK)
-  doc.rect(0, 0, PAGE_W, 80, 'F')
+  doc.rect(0, 0, PAGE_W, BAND_H, 'F')
 
-  // Green accent stripe
+  // Thin green accent at bottom of band
   doc.setFillColor(...C.PRIMARY)
-  doc.rect(0, 78, PAGE_W, 3, 'F')
+  doc.rect(0, BAND_H - 2.5, PAGE_W, 2.5, 'F')
 
-  // Logo
+  // ── LEFT COLUMN: Logo card + org info ──────────────────────────────────────
+  const logoCardX = M
+  const logoCardY = 11
+  const logoCardW = 46
+  const logoCardH = 46
+
+  // White rounded card (makes the JPEG logo look clean on dark bg)
+  doc.setFillColor(...C.WHITE)
+  doc.roundedRect(logoCardX, logoCardY, logoCardW, logoCardH, 4, 4, 'F')
+
+  // Logo inside the card (inset 3mm)
   if (logoB64) {
     try {
-      doc.addImage(logoB64, 'JPEG', M, 14, 24, 24, undefined, 'FAST')
+      doc.addImage(logoB64, 'JPEG', logoCardX + 3, logoCardY + 3, logoCardW - 6, logoCardH - 6, undefined, 'FAST')
     } catch { /* */ }
   }
 
-  // Tagline badge
+  // Org name + tagline below logo card
+  doc.setFontSize(10.5)
+  doc.setFont('helvetica', 'bold')
+  doc.setTextColor(...C.WHITE)
+  doc.text('Rise for Impact', logoCardX, logoCardY + logoCardH + 9)
+
+  doc.setFontSize(7)
+  doc.setFont('helvetica', 'normal')
+  doc.setTextColor(...C.LIGHT)
+  doc.text('Pan-African Youth-Led Organisation', logoCardX, logoCardY + logoCardH + 16)
+
+  // ── Vertical divider ───────────────────────────────────────────────────────
+  const divX = logoCardX + logoCardW + 9   // ~73mm from left edge
+  doc.setDrawColor(...C.PRIMARY)
+  doc.setLineWidth(0.5)
+  doc.line(divX, logoCardY, divX, BAND_H - 8)
+
+  // ── RIGHT COLUMN: Cohort badge + title + subtitle ──────────────────────────
+  const titleX = divX + 8   // ~81mm from left edge
+
+  // Cohort badge
   doc.setFillColor(...C.PRIMARY)
-  doc.roundedRect(M + 29, 14, 55, 7, 2, 2, 'F')
+  doc.roundedRect(titleX, logoCardY, 66, 7.5, 2, 2, 'F')
   doc.setFontSize(7)
   doc.setFont('helvetica', 'bold')
   doc.setTextColor(...C.WHITE)
-  doc.text('COHORT 1  ·  CAMEROON  ·  2026', M + 31, 18.8)
+  doc.text('COHORT 1  ·  CAMEROON  ·  2026', titleX + 4, logoCardY + 5.2)
 
-  // Main title
-  doc.setFontSize(26)
+  // Large title
+  doc.setFontSize(25)
   doc.setFont('helvetica', 'bold')
   doc.setTextColor(...C.WHITE)
-  doc.text('RISE FOR IMPACT', M, 53)
-  doc.setFontSize(26)
-  doc.text('FELLOWSHIP', M, 63)
+  doc.text('RISE FOR IMPACT', titleX, logoCardY + 23)
+  doc.text('FELLOWSHIP', titleX, logoCardY + 36)
 
   // Subtitle
-  doc.setFontSize(11)
+  doc.setFontSize(9.5)
   doc.setFont('helvetica', 'normal')
   doc.setTextColor(...C.PRIMARY_LT)
-  doc.text('Application Guide & Program Overview', M, 73)
+  doc.text('Application Guide & Program Overview', titleX, logoCardY + 47)
 
-  // White content area
+  // ── Addresses strip (dark secondary band under main band) ─────────────────
+  doc.setFillColor(...C.DARK2)
+  doc.rect(0, BAND_H, PAGE_W, 16, 'F')
+
+  doc.setFontSize(6.5)
+  doc.setFont('helvetica', 'bold')
+  doc.setTextColor(...C.PRIMARY)
+  doc.text('GHANA HQ', M, BAND_H + 6)
+  doc.setFont('helvetica', 'normal')
+  doc.setTextColor(...C.LIGHT)
+  doc.text('1 University Avenue, Berekuso, Eastern Region, Ghana', M, BAND_H + 11)
+
+  doc.setFont('helvetica', 'bold')
+  doc.setTextColor(...C.PRIMARY)
+  doc.text('CAMEROON HQ', PAGE_W - M, BAND_H + 6, { align: 'right' })
+  doc.setFont('helvetica', 'normal')
+  doc.setTextColor(...C.LIGHT)
+  doc.text('Chapelle Obili, Yaounde, Centre Region, Cameroon', PAGE_W - M, BAND_H + 11, { align: 'right' })
+
+  // ── White content area ─────────────────────────────────────────────────────
   doc.setFillColor(...C.WHITE)
-  doc.rect(0, 83, PAGE_W, PAGE_H - 83, 'F')
+  doc.rect(0, BAND_H + 16, PAGE_W, PAGE_H - BAND_H - 16, 'F')
 
   // Info box
+  const infoY = BAND_H + 23
   doc.setFillColor(...C.BG)
-  doc.roundedRect(M, 90, CW, 46, 4, 4, 'F')
+  doc.roundedRect(M, infoY, CW, 46, 4, 4, 'F')
   doc.setFillColor(...C.PRIMARY)
-  doc.roundedRect(M, 90, 3, 46, 1, 1, 'F')
+  doc.roundedRect(M, infoY, 3, 46, 1, 1, 'F')
 
-  let y = 97
+  let y = infoY + 7
   doc.setFontSize(8)
   doc.setFont('helvetica', 'bold')
   doc.setTextColor(...C.PRIMARY)
@@ -311,7 +362,7 @@ async function generatePDF() {
   y = infoRow('Eligibility:', 'Ages 16–30, based in Cameroon', y)
 
   // What this guide covers
-  y = 145
+  y = infoY + 46 + 9
   doc.setFontSize(12)
   doc.setFont('helvetica', 'bold')
   doc.setTextColor(...C.DARK)
