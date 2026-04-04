@@ -11,6 +11,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   ChevronLeft,
   ChevronRight,
@@ -18,6 +19,7 @@ import {
   Loader2,
   CheckCircle2,
   AlertCircle,
+  ArrowRight,
 } from 'lucide-react'
 
 import StepIndicator from '@/components/fellowship/StepIndicator'
@@ -252,42 +254,97 @@ export default function FellowshipApplyPage() {
 
   // ─── Render ────────────────────────────────────────────────────────────────
 
+  // Coming Soon gate — applications open April 15, 2026
+  const APP_OPEN_DATE = new Date('2026-04-15T00:00:00Z')
+  const isApplicationOpen = new Date() >= APP_OPEN_DATE
+
+  if (!isApplicationOpen) {
+    return (
+      <div className="min-h-screen bg-dark-950">
+        {/* Branded header */}
+        <header className="sticky top-0 z-30 bg-dark-950/90 backdrop-blur-sm border-b border-white/8">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+            <Link href="/programs/fellowship" className="flex items-center gap-2 text-dark-400 hover:text-white transition-colors">
+              <ChevronLeft className="w-4 h-4" />
+              <span className="text-sm">Back to Fellowship</span>
+            </Link>
+            <Link href="/" className="flex items-center gap-2">
+              <Image src="/images/logo.jpeg" alt="Rise for Impact" width={28} height={28} className="rounded-full" />
+              <span className="text-sm font-semibold text-white hidden sm:block">Rise for Impact</span>
+            </Link>
+            <div className="w-24" />
+          </div>
+        </header>
+        <main className="flex items-center justify-center min-h-[calc(100vh-56px)] px-4 py-16">
+          <div className="text-center max-w-xl mx-auto">
+            <div className="mb-8">
+              <Image src="/images/logo.jpeg" alt="Rise for Impact" width={72} height={72} className="rounded-2xl mx-auto shadow-xl shadow-black/40" />
+            </div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-yellow-500/15 border border-yellow-500/25 mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
+              <span className="text-xs font-semibold text-yellow-400 tracking-widest uppercase">Applications not yet open</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Coming Soon</h1>
+            <p className="text-dark-200 leading-relaxed mb-3">
+              Applications for <span className="text-white font-semibold">Rise for Impact Fellowship — Cohort 1 (Cameroon)</span> open on
+            </p>
+            <div className="inline-block px-8 py-4 rounded-2xl bg-yellow-500/10 border border-yellow-500/25 mb-8">
+              <p className="text-2xl font-bold text-yellow-300">April 15, 2026</p>
+            </div>
+            <p className="text-sm text-dark-400 mb-10 max-w-sm mx-auto">
+              Check back on the opening date to submit your application. In the meantime, explore what the fellowship involves.
+            </p>
+            <Link
+              href="/programs/fellowship"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-dark-950 font-semibold transition-colors text-sm"
+            >
+              Explore the Fellowship <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </main>
+      </div>
+    )
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-dark-950">
-      {/* Top bar */}
-      <div className="bg-white dark:bg-dark-900 border-b border-gray-200 dark:border-dark-800 sticky top-0 z-30">
+    <div className="min-h-screen bg-dark-950">
+      {/* Branded header */}
+      <header className="sticky top-0 z-30 bg-dark-950/90 backdrop-blur-sm border-b border-white/8">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link
             href="/programs/fellowship"
-            className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white flex items-center gap-1 transition-colors"
+            className="text-sm text-dark-400 hover:text-white flex items-center gap-1 transition-colors group"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
             Fellowship
           </Link>
-          <span className="text-sm font-semibold text-gray-900 dark:text-white truncate">
-            {cohortConfig.name}
-          </span>
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/images/logo.jpeg" alt="Rise for Impact" width={28} height={28} className="rounded-full" />
+            <span className="text-sm font-semibold text-white hidden sm:block">Rise for Impact</span>
+          </Link>
           {/* Save status indicator */}
-          {step > 1 && (
+          {step > 1 ? (
             <button
               onClick={handleManualSave}
               disabled={isSaving}
-              className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors disabled:opacity-50"
+              className="flex items-center gap-1.5 text-xs text-dark-400 hover:text-white transition-colors disabled:opacity-50"
             >
               {isSaving ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
               ) : saveStatus === 'saved' ? (
-                <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-green-400" />
               ) : saveStatus === 'error' ? (
-                <AlertCircle className="w-3.5 h-3.5 text-red-500" />
+                <AlertCircle className="w-3.5 h-3.5 text-red-400" />
               ) : (
                 <Save className="w-3.5 h-3.5" />
               )}
               {saveStatus === 'saved' ? 'Saved' : saveStatus === 'error' ? 'Save failed' : 'Save'}
             </button>
+          ) : (
+            <div className="w-14" />
           )}
         </div>
-      </div>
+      </header>
 
       {/* Content */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
@@ -297,16 +354,16 @@ export default function FellowshipApplyPage() {
         {stepErrors.length > 0 && (
           <div
             ref={errorsRef}
-            className="mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4"
+            className="mb-6 bg-red-900/20 border border-red-800/60 rounded-lg p-4"
             role="alert"
           >
             <div className="flex items-start gap-2">
-              <AlertCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
+              <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-sm font-semibold text-red-700 dark:text-red-400 mb-1">
+                <p className="text-sm font-semibold text-red-400 mb-1">
                   Please fix the following before continuing:
                 </p>
-                <ul className="text-sm text-red-600 dark:text-red-300 space-y-0.5 list-disc list-inside">
+                <ul className="text-sm text-red-300 space-y-0.5 list-disc list-inside">
                   {stepErrors.map((e, i) => <li key={i}>{e}</li>)}
                 </ul>
               </div>
@@ -315,7 +372,7 @@ export default function FellowshipApplyPage() {
         )}
 
         {/* Step panels */}
-        <div className="bg-white dark:bg-dark-900 rounded-2xl border border-gray-200 dark:border-dark-800 p-6 sm:p-8 shadow-sm">
+        <div className="bg-dark-900 rounded-2xl border border-dark-800 p-6 sm:p-8">
           {step === 1 && <Step1Overview />}
           {step === 2 && <Step2Personal form={form} set={field} />}
           {step === 3 && <Step3Logistics form={form} set={field} />}
@@ -339,7 +396,7 @@ export default function FellowshipApplyPage() {
           {step > 1 ? (
             <button
               onClick={handleBack}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg border border-gray-300 dark:border-dark-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-dark-800 transition-colors"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-lg border border-dark-700 text-sm font-medium text-dark-300 hover:bg-dark-800 hover:text-white transition-colors"
             >
               <ChevronLeft className="w-4 h-4" />
               Back
@@ -352,7 +409,7 @@ export default function FellowshipApplyPage() {
             <button
               onClick={step === 1 ? () => { setStep(2); scrollToTop() } : handleNext}
               disabled={isSaving}
-              className="flex items-center gap-2 px-6 py-2.5 rounded-lg bg-primary-500 text-white text-sm font-semibold hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-colors disabled:opacity-60"
+              className="flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-400 hover:to-primary-500 text-white text-sm font-semibold shadow-lg shadow-primary-500/20 transition-all disabled:opacity-60"
             >
               {isSaving && <Loader2 className="w-4 h-4 animate-spin" />}
               {step === 1 ? 'Start Application' : 'Continue'}
@@ -362,7 +419,7 @@ export default function FellowshipApplyPage() {
             <button
               onClick={handleSubmit}
               disabled={isSubmitting || isSaving}
-              className="flex items-center gap-2 px-8 py-2.5 rounded-lg bg-primary-500 text-white text-sm font-semibold hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-colors disabled:opacity-60"
+              className="flex items-center gap-2 px-8 py-3 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-400 hover:to-primary-500 text-white text-sm font-semibold shadow-lg shadow-primary-500/20 transition-all disabled:opacity-60"
             >
               {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
               {isSubmitting ? 'Submitting…' : 'Submit Application'}
@@ -372,7 +429,7 @@ export default function FellowshipApplyPage() {
 
         {/* Draft recovery note */}
         {step === 1 && (
-          <p className="mt-4 text-center text-xs text-gray-400 dark:text-gray-600">
+          <p className="mt-4 text-center text-xs text-dark-600">
             Your progress is saved automatically. You can return to this page to continue where you left off.
           </p>
         )}
@@ -388,38 +445,38 @@ function Step1Overview() {
     <FormStepLayout title={copy.introTitle}>
       {/* Main intro */}
       <div className="space-y-3">
-        <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
+        <p className="text-dark-200 leading-relaxed text-sm">
           {copy.introParagraph}
         </p>
-        <p className="text-gray-700 dark:text-gray-300 text-sm">
+        <p className="text-dark-200 text-sm">
           A fellowship is not just a training program. It is a guided experience that combines learning, mentorship, and real-world application.
         </p>
-        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+        <p className="text-sm font-medium text-white">
           The fellowship includes:
         </p>
         <ul className="space-y-1 pl-4">
           {copy.fellowshipBullets.map((b, i) => (
-            <li key={i} className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+            <li key={i} className="text-sm text-dark-200 flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-2 flex-shrink-0" />
               {b}
             </li>
           ))}
         </ul>
-        <p className="text-sm text-gray-700 dark:text-gray-300 mt-2">
+        <p className="text-sm text-dark-200 mt-2">
           Participants will develop leadership capacity, gain clarity, build ideas into actionable initiatives, and apply what they learn within their communities.
         </p>
       </div>
 
       {/* Pass It On */}
-      <div className="mt-4 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800/50 rounded-xl p-5">
-        <h3 className="text-sm font-bold text-amber-800 dark:text-amber-300 mb-2">
-          {copy.passItOnTitle}
-        </h3>
-        <p className="text-sm text-amber-700 dark:text-amber-400 mb-3">{copy.passItOnParagraph}</p>
-        <p className="text-sm text-amber-700 dark:text-amber-400 mb-1">Participants will work in teams to:</p>
-        <ul className="space-y-1 pl-4">
-          {copy.passItOnBullets.map((b, i) => (
-            <li key={i} className="text-sm text-amber-700 dark:text-amber-400 flex items-start gap-2">
+      <div className="mt-4 bg-amber-900/15 border border-amber-800/40 rounded-xl p-5">
+        <h3 className="text-sm font-bold text-amber-300 mb-2">
+            {copy.passItOnTitle}
+          </h3>
+          <p className="text-sm text-amber-400 mb-3">{copy.passItOnParagraph}</p>
+          <p className="text-sm text-amber-400 mb-1">Participants will work in teams to:</p>
+          <ul className="space-y-1 pl-4">
+            {copy.passItOnBullets.map((b, i) => (
+              <li key={i} className="text-sm text-amber-400 flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-2 flex-shrink-0" />
               {b}
             </li>
@@ -429,23 +486,23 @@ function Step1Overview() {
 
       {/* Logistics — soft fee mention */}
       <div className="mt-2">
-        <h3 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
+        <h3 className="text-sm font-bold text-white mb-2">
           {copy.logisticsTitle}
         </h3>
-        <p className="text-sm text-gray-600 dark:text-gray-400 italic mb-2">
+        <p className="text-sm text-dark-400 italic mb-2">
           {copy.softContributionLine}
         </p>
-        <p className="text-sm text-gray-700 dark:text-gray-300">{copy.logisticsParagraph}</p>
+        <p className="text-sm text-dark-200">{copy.logisticsParagraph}</p>
       </div>
 
       {/* Eligibility */}
       <div className="mt-2">
-        <h3 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
+        <h3 className="text-sm font-bold text-white mb-2">
           {copy.eligibilityTitle}
         </h3>
         <ul className="space-y-1.5 pl-4">
           {copy.eligibilityPoints.map((p, i) => (
-            <li key={i} className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+            <li key={i} className="text-sm text-dark-200 flex items-start gap-2">
               <CheckCircle2 className="w-4 h-4 text-primary-500 mt-0.5 flex-shrink-0" />
               {p}
             </li>
@@ -454,13 +511,13 @@ function Step1Overview() {
       </div>
 
       {/* Before you apply */}
-      <div className="mt-2 bg-gray-50 dark:bg-dark-800 rounded-xl p-5 border border-gray-200 dark:border-dark-700">
-        <h3 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
+      <div className="mt-2 bg-dark-800 rounded-xl p-5 border border-dark-700">
+        <h3 className="text-sm font-bold text-white mb-2">
           {copy.beforeYouApplyTitle}
         </h3>
         <ul className="space-y-1.5 pl-4">
           {copy.beforeYouApplyPoints.map((p, i) => (
-            <li key={i} className="text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2">
+            <li key={i} className="text-sm text-dark-400 flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-gray-400 dark:bg-gray-600 mt-2 flex-shrink-0" />
               {p}
             </li>
@@ -743,10 +800,10 @@ function Step8Commitment({ form, set }: { form: ApplicationFormData; set: FieldS
   return (
     <FormStepLayout title={copy.contributionFullTitle}>
       {/* Full contribution explanation — revealed here for the first time */}
-      <div className="bg-gray-50 dark:bg-dark-800 border border-gray-200 dark:border-dark-700 rounded-xl p-5 space-y-3">
-        <p className="text-sm text-gray-700 dark:text-gray-300">{copy.contributionFullParagraph}</p>
+      <div className="bg-dark-800 border border-dark-700 rounded-xl p-5 space-y-3">
+        <p className="text-sm text-dark-200">{copy.contributionFullParagraph}</p>
         <div>
-          <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">
+          <p className="text-sm font-semibold text-white mb-1">
             The contribution of{' '}
             <span className="text-primary-500">
               {config.contributionAmount.toLocaleString()} {config.contributionCurrency}
@@ -755,7 +812,7 @@ function Step8Commitment({ form, set }: { form: ApplicationFormData; set: FieldS
           </p>
           <ul className="space-y-1 pl-4">
             {config.contributionCoverageItems.map((item, i) => (
-              <li key={i} className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+              <li key={i} className="text-sm text-dark-200 flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-2 flex-shrink-0" />
                 {item}
               </li>
@@ -763,12 +820,12 @@ function Step8Commitment({ form, set }: { form: ApplicationFormData; set: FieldS
           </ul>
         </div>
         <div>
-          <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">
+          <p className="text-sm font-semibold text-white mb-1">
             Participants are also responsible for:
           </p>
           <ul className="space-y-1 pl-4">
             {config.participantResponsibilities.map((item, i) => (
-              <li key={i} className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+              <li key={i} className="text-sm text-dark-200 flex items-start gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-gray-400 mt-2 flex-shrink-0" />
                 {item}
               </li>
@@ -792,7 +849,7 @@ function Step8Commitment({ form, set }: { form: ApplicationFormData; set: FieldS
       </FieldRow>
 
       {form.contributionWilling === 'no' && (
-        <div className="pl-0 sm:pl-4 border-l-2 border-gray-300 dark:border-dark-700">
+        <div className="pl-0 sm:pl-4 border-l-2 border-dark-700">
           <FieldRow id="contributionExplanation" label="Please briefly explain your situation (optional)">
             <WordCountTextarea
               id="contributionExplanation"
@@ -846,7 +903,7 @@ function Step9Declaration({
               onChange={(e) => set(key)(e.target.checked as ApplicationFormData[typeof key])}
               className="mt-1 w-4 h-4 rounded accent-primary-500 flex-shrink-0"
             />
-            <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
+            <span className="text-sm text-dark-200 group-hover:text-white transition-colors">
               {text}
             </span>
           </label>
@@ -866,14 +923,14 @@ function Step9Declaration({
       </FieldRow>
 
       {submitError && (
-        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 flex items-start gap-2" role="alert">
-          <AlertCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-          <p className="text-sm text-red-700 dark:text-red-400">{submitError}</p>
+        <div className="bg-red-900/20 border border-red-800/60 rounded-lg p-4 flex items-start gap-2" role="alert">
+          <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
+          <p className="text-sm text-red-300">{submitError}</p>
         </div>
       )}
 
       {!isSubmitting && (
-        <p className="text-xs text-gray-500 dark:text-gray-400 text-center pt-2">
+        <p className="text-xs text-dark-500 text-center pt-2">
           By submitting, you confirm all the information provided is accurate and complete.
         </p>
       )}

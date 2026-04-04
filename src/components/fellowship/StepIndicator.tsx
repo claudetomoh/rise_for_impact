@@ -27,14 +27,14 @@ export default function StepIndicator({ currentStep, totalSteps }: StepIndicator
       {/* Mobile: compact bar */}
       <div className="sm:hidden mb-6">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-semibold text-gray-900 dark:text-white">
+          <span className="text-sm font-semibold text-white">
             Step {currentStep} of {totalSteps}
           </span>
-          <span className="text-sm text-gray-500 dark:text-gray-400">
+          <span className="text-sm text-dark-400">
             {STEP_LABELS[currentStep - 1]}
           </span>
         </div>
-        <div className="w-full bg-gray-200 dark:bg-dark-800 rounded-full h-1.5">
+        <div className="w-full bg-dark-800 rounded-full h-1.5">
           <div
             className="h-1.5 rounded-full bg-primary-500 transition-all duration-500"
             style={{ width: `${((currentStep) / totalSteps) * 100}%` }}
@@ -60,7 +60,7 @@ export default function StepIndicator({ currentStep, totalSteps }: StepIndicator
                       ? 'bg-primary-500 text-white'
                       : isCurrent
                       ? 'bg-primary-500 text-white ring-4 ring-primary-500/20'
-                      : 'bg-gray-200 dark:bg-dark-800 text-gray-400 dark:text-gray-600'
+                      : 'bg-dark-800 text-dark-500'
                   }`}
                 >
                   {isCompleted ? (
@@ -74,10 +74,10 @@ export default function StepIndicator({ currentStep, totalSteps }: StepIndicator
                 <span
                   className={`text-[10px] font-medium text-center max-w-[52px] leading-tight ${
                     isCurrent
-                      ? 'text-gray-900 dark:text-white'
+                      ? 'text-white'
                       : isCompleted
                       ? 'text-primary-500'
-                      : 'text-gray-400 dark:text-gray-600'
+                      : 'text-dark-500'
                   }`}
                 >
                   {label}
@@ -88,7 +88,7 @@ export default function StepIndicator({ currentStep, totalSteps }: StepIndicator
               {idx < totalSteps - 1 && (
                 <div
                   className={`h-px w-6 mx-1 flex-shrink-0 transition-all duration-300 ${
-                    step < currentStep ? 'bg-primary-500' : 'bg-gray-200 dark:bg-dark-800'
+                    step < currentStep ? 'bg-primary-500' : 'bg-dark-800'
                   }`}
                 />
               )}

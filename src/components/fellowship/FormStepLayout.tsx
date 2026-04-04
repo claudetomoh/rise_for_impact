@@ -14,9 +14,9 @@ export default function FormStepLayout({ title, subtitle, children }: FormStepLa
     <div>
       {/* Step header */}
       <div className="mb-6">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">{title}</h2>
+        <h2 className="text-xl font-bold text-white">{title}</h2>
         {subtitle && (
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{subtitle}</p>
+          <p className="mt-1 text-sm text-dark-300 leading-relaxed">{subtitle}</p>
         )}
       </div>
 
@@ -44,11 +44,11 @@ export function FieldRow({
 }) {
   return (
     <div className="space-y-1.5">
-      <label htmlFor={id} className="block text-sm font-semibold text-gray-900 dark:text-white">
+      <label htmlFor={id} className="block text-sm font-semibold text-white">
         {label}
-        {required && <span className="text-red-500 ml-1">*</span>}
+        {required && <span className="text-red-400 ml-1">*</span>}
       </label>
-      {hint && <p className="text-xs text-gray-500 dark:text-gray-400">{hint}</p>}
+      {hint && <p className="text-xs text-dark-400">{hint}</p>}
       {children}
       {error && (
         <p className="text-xs text-red-500" role="alert">
@@ -63,7 +63,7 @@ export function FieldRow({
 export function SectionHeading({ title }: { title: string }) {
   return (
     <div className="pt-4">
-      <h3 className="text-base font-bold text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-dark-700 pb-2">
+      <h3 className="text-base font-bold text-white border-b border-dark-700 pb-2">
         {title}
       </h3>
     </div>
@@ -100,10 +100,10 @@ export function TextInput({
       required={required}
       placeholder={placeholder}
       disabled={disabled}
-      className={`w-full px-4 py-2.5 rounded-lg border text-sm text-gray-900 dark:text-white bg-white dark:bg-dark-900 placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-2 transition-colors disabled:opacity-50 ${
+      className={`w-full px-4 py-2.5 rounded-lg border text-sm text-white bg-dark-800 placeholder-dark-500 focus:outline-none focus:ring-2 transition-colors disabled:opacity-50 ${
         error
-          ? 'border-red-400 focus:ring-red-400/30'
-          : 'border-gray-300 dark:border-dark-700 focus:ring-primary-500/30 focus:border-primary-500'
+          ? 'border-red-500/60 focus:ring-red-500/20'
+          : 'border-dark-700 focus:ring-primary-500/30 focus:border-primary-500'
       }`}
     />
   )
@@ -134,10 +134,10 @@ export function SelectInput({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       required={required}
-      className={`w-full px-4 py-2.5 rounded-lg border text-sm text-gray-900 dark:text-white bg-white dark:bg-dark-900 focus:outline-none focus:ring-2 transition-colors ${
+      className={`w-full px-4 py-2.5 rounded-lg border text-sm text-white bg-dark-800 focus:outline-none focus:ring-2 transition-colors ${
         error
-          ? 'border-red-400 focus:ring-red-400/30'
-          : 'border-gray-300 dark:border-dark-700 focus:ring-primary-500/30 focus:border-primary-500'
+          ? 'border-red-500/60 focus:ring-red-500/20'
+          : 'border-dark-700 focus:ring-primary-500/30 focus:border-primary-500'
       }`}
     >
       <option value="" disabled>
@@ -175,8 +175,8 @@ export function RadioGroup({
           key={opt.value}
           className={`flex items-center gap-3 px-4 py-3 rounded-lg border cursor-pointer transition-all text-sm font-medium flex-1 ${
             value === opt.value
-              ? 'border-primary-500 bg-primary-500/5 text-gray-900 dark:text-white'
-              : 'border-gray-200 dark:border-dark-700 text-gray-600 dark:text-gray-400 hover:border-gray-300 dark:hover:border-dark-600'
+              ? 'border-primary-500 bg-primary-500/10 text-white'
+              : 'border-dark-700 text-dark-400 hover:border-dark-600 hover:text-dark-200'
           }`}
         >
           <input
@@ -227,10 +227,10 @@ export function ShortTextarea({
       required={required}
       placeholder={placeholder}
       rows={rows}
-      className={`w-full px-4 py-3 rounded-lg border text-sm text-gray-900 dark:text-white bg-white dark:bg-dark-900 placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-2 transition-colors resize-none ${
+      className={`w-full px-4 py-3 rounded-lg border text-sm text-white bg-dark-800 placeholder-dark-500 focus:outline-none focus:ring-2 transition-colors resize-none ${
         error
-          ? 'border-red-400 focus:ring-red-400/30'
-          : 'border-gray-300 dark:border-dark-700 focus:ring-primary-500/30 focus:border-primary-500'
+          ? 'border-red-500/60 focus:ring-red-500/20'
+          : 'border-dark-700 focus:ring-primary-500/30 focus:border-primary-500'
       }`}
     />
   )

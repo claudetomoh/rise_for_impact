@@ -45,19 +45,19 @@ export default function WordCountTextarea({
 
   return (
     <div className="space-y-2">
-      <label htmlFor={id} className="block text-sm font-semibold text-gray-900 dark:text-white">
+      <label htmlFor={id} className="block text-sm font-semibold text-white">
         {label}
-        {required && <span className="text-red-500 ml-1">*</span>}
+        {required && <span className="text-red-400 ml-1">*</span>}
       </label>
 
       {/* Multi-line prompt rendered with line breaks */}
       {prompt && (
-        <div className="bg-gray-50 dark:bg-dark-800 border border-gray-200 dark:border-dark-700 rounded-lg p-4">
+        <div className="bg-dark-800 border border-dark-700 rounded-lg p-4">
           {prompt.split('\n').map((line, i) =>
             line.trim() === '' ? (
               <br key={i} />
             ) : (
-              <p key={i} className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+              <p key={i} className="text-sm text-dark-200 leading-relaxed">
                 {line}
               </p>
             )
@@ -74,18 +74,18 @@ export default function WordCountTextarea({
         placeholder={placeholder}
         required={required}
         aria-describedby={`${id}-counter ${id}-error`}
-        className={`w-full px-4 py-3 rounded-lg border text-sm text-gray-900 dark:text-white bg-white dark:bg-dark-900 placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-2 transition-colors resize-none ${
+        className={`w-full px-4 py-3 rounded-lg border text-sm text-white bg-dark-800 placeholder-dark-500 focus:outline-none focus:ring-2 transition-colors resize-none ${
           overLimit
-            ? 'border-red-400 focus:ring-red-400/30'
+            ? 'border-red-500/60 focus:ring-red-500/20'
             : error
-            ? 'border-red-400 focus:ring-red-400/30'
-            : 'border-gray-300 dark:border-dark-700 focus:ring-primary-500/30 focus:border-primary-500'
+            ? 'border-red-500/60 focus:ring-red-500/20'
+            : 'border-dark-700 focus:ring-primary-500/30 focus:border-primary-500'
         }`}
       />
 
       {/* Word count bar */}
       <div id={`${id}-counter`} className="space-y-1" aria-live="polite" aria-atomic="true">
-        <div className="h-1 w-full bg-gray-200 dark:bg-dark-800 rounded-full overflow-hidden">
+        <div className="h-1 w-full bg-dark-800 rounded-full overflow-hidden">
           <div
             className={`h-full rounded-full transition-all duration-200 ${
               overLimit ? 'bg-red-500' : pct > 85 ? 'bg-amber-500' : 'bg-primary-500'
@@ -96,7 +96,7 @@ export default function WordCountTextarea({
         <div className="flex justify-between items-center">
           <span
             className={`text-xs font-medium ${
-              overLimit ? 'text-red-500' : 'text-gray-500 dark:text-gray-400'
+              overLimit ? 'text-red-400' : 'text-dark-400'
             }`}
           >
             {wordCount} / {maxWords} words

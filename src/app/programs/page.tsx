@@ -78,7 +78,7 @@ const programs = [
     frequency: 'Cohort-based',
     locations: 'Cameroon (Cohort 1)',
     status: 'Applications open April 15, 2026',
-    isOpen: true,
+    isOpen: false,
     image: '/images/backgrounds/fellowship.jpeg',
     highlights: ['In-person kick-off session', '4-month mentorship journey', 'Real-world impact project', 'Multiplier community action'],
   },

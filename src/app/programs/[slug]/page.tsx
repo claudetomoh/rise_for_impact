@@ -148,7 +148,7 @@ The design is deliberate: participants move through three connected phases — f
     locations: 'Cameroon (Cohort 1) · Pan-African expansion planned',
     image: '/images/backgrounds/fellowship.jpeg',
     color: 'from-yellow-500 to-yellow-600',
-    applicationsOpen: true,
+    applicationsOpen: false,
     status: 'Applications open April 15, 2026'
   },
   'campus-ambassadors': {
@@ -353,9 +353,10 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
                 </p>
                 <p className="text-dark-400 text-sm mb-10 max-w-xl">Starting in Cameroon · Cohort 1 · 2026</p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/get-involved" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-dark-950 font-semibold transition-colors text-sm">
-                    Apply Now <ExternalLink className="w-4 h-4" />
-                  </Link>
+                  <div className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-yellow-500/20 border border-yellow-500/40 text-yellow-300 font-semibold text-sm cursor-default select-none">
+                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
+                    Applications open April 15, 2026
+                  </div>
                   <a href="#structure" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-white/15 hover:bg-white/5 text-white font-semibold transition-colors text-sm">
                     See Program Structure
                   </a>
@@ -578,9 +579,10 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
               <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Ready to apply?</h2>
               <p className="text-dark-300 mb-8 max-w-xl mx-auto leading-relaxed">Applications for the first cohort open on April 15, 2026. Spots are limited. If you meet the criteria and are prepared to commit, we'd like to hear from you.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/programs/fellowship/apply" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-dark-950 font-semibold transition-colors">
-                  Apply for the Fellowship <ExternalLink className="w-4 h-4" />
-                </Link>
+                <div className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-yellow-500/15 border border-yellow-500/35 text-yellow-300 font-semibold cursor-default select-none">
+                  <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse flex-shrink-0" />
+                  Applications open April 15, 2026
+                </div>
                 <Link href="/programs" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/12 hover:bg-white/5 text-white font-semibold transition-colors">
                   Explore Other Programs
                 </Link>
