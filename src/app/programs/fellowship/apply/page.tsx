@@ -182,6 +182,7 @@ export default function FellowshipApplyPage() {
   // Social follow gate — required before proceeding past step 1
   const [followLinkedIn, setFollowLinkedIn] = useState(false)
   const [followFacebook, setFollowFacebook] = useState(false)
+  const [showFollowModal, setShowFollowModal] = useState(false)
 
   // Load draft from localStorage on mount
   useEffect(() => {
@@ -548,7 +549,7 @@ export default function FellowshipApplyPage() {
             <button
               onClick={step === 1 ? () => {
                 if (!followLinkedIn && !followFacebook) {
-                  setStepErrors(['Please follow Rise for Impact on LinkedIn and/or Facebook before starting your application.'])
+                  setShowFollowModal(true)
                   return
                 }
                 setStepErrors([])
@@ -592,6 +593,99 @@ export default function FellowshipApplyPage() {
           </p>
         )}
       </div>
+
+      {/* ── Follow Gate Modal ── */}
+      {showFollowModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ backdropFilter: 'blur(6px)', backgroundColor: 'rgba(0,0,0,0.75)' }}
+          onClick={(e) => { if (e.target === e.currentTarget) setShowFollowModal(false) }}
+        >
+          <div className="relative w-full max-w-md bg-dark-900 border border-dark-700 rounded-2xl p-8 shadow-2xl">
+            {/* Close */}
+            <button
+              onClick={() => setShowFollowModal(false)}
+              className="absolute top-4 right-4 text-dark-400 hover:text-white transition-colors text-xl leading-none"
+              aria-label="Close"
+            >
+              ✕
+            </button>
+
+            {/* Icon */}
+            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary-500/15 border border-primary-500/30 mb-5 mx-auto">
+              <Users className="w-6 h-6 text-primary-400" />
+            </div>
+
+            <h3 className="text-lg font-bold text-white text-center mb-2">One quick step before you begin</h3>
+            <p className="text-sm text-dark-300 text-center mb-6 leading-relaxed">
+              Follow Rise for Impact on social media to stay updated on fellowship announcements, results, and cohort news.
+            </p>
+
+            {/* Follow buttons */}
+            <div className="space-y-3 mb-6">
+              <a
+                href="https://www.linkedin.com/company/rise-for-impact"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setFollowLinkedIn(true)}
+                className="flex items-center gap-3 w-full px-4 py-3 rounded-xl bg-[#0077B5]/15 border border-[#0077B5]/40 hover:bg-[#0077B5]/25 transition-colors"
+              >
+                <span className="text-[#0077B5] font-bold text-sm">in</span>
+                <span className="text-sm font-semibold text-white flex-1">Follow on LinkedIn</span>
+                {followLinkedIn && <span className="text-xs text-green-400 font-semibold">✓ Done</span>}
+              </a>
+              <a
+                href="https://www.facebook.com/share/1HVFiDupbD/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setFollowFacebook(true)}
+                className="flex items-center gap-3 w-full px-4 py-3 rounded-xl bg-[#1877F2]/15 border border-[#1877F2]/40 hover:bg-[#1877F2]/25 transition-colors"
+              >
+                <span className="text-[#1877F2] font-bold text-sm">f</span>
+                <span className="text-sm font-semibold text-white flex-1">Follow on Facebook</span>
+                {followFacebook && <span className="text-xs text-green-400 font-semibold">✓ Done</span>}
+              </a>
+            </div>
+
+            {/* Confirmation checkboxes */}
+            <div className="space-y-2 mb-6">
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={followLinkedIn}
+                  onChange={(e) => setFollowLinkedIn(e.target.checked)}
+                  className="mt-0.5 accent-primary-500 w-4 h-4 flex-shrink-0"
+                />
+                <span className="text-xs text-dark-300 group-hover:text-white transition-colors">I have followed Rise for Impact on LinkedIn</span>
+              </label>
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={followFacebook}
+                  onChange={(e) => setFollowFacebook(e.target.checked)}
+                  className="mt-0.5 accent-primary-500 w-4 h-4 flex-shrink-0"
+                />
+                <span className="text-xs text-dark-300 group-hover:text-white transition-colors">I have followed Rise for Impact on Facebook</span>
+              </label>
+            </div>
+
+            {/* CTA */}
+            <button
+              disabled={!followLinkedIn && !followFacebook}
+              onClick={() => {
+                setShowFollowModal(false)
+                setStepErrors([])
+                setStep(2)
+                scrollToTop()
+              }}
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-400 hover:to-primary-500 text-white font-semibold text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              Continue to Application →
+            </button>
+            <p className="text-xs text-dark-500 text-center mt-3">At least one follow is required to proceed.</p>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
