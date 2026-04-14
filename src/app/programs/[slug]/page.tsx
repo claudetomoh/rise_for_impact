@@ -347,9 +347,9 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Programs
               </Link>
               <div className="max-w-3xl">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-yellow-500/15 border border-yellow-500/25 mb-6">
-                  <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
-                  <span className="text-xs font-semibold text-yellow-400 tracking-widest uppercase">Applications open — April 15, 2026</span>
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/15 border border-green-500/25 mb-6">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                  <span className="text-xs font-semibold text-green-400 tracking-widest uppercase">Applications Now Open</span>
                 </div>
                 <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-4 leading-tight">
                   Rise for Impact <span className="text-gradient">Fellowship</span>
@@ -362,10 +362,9 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
                 </p>
                 <p className="text-dark-400 text-sm mb-10 max-w-xl">Starting in Cameroon · Cohort 1 · 2026</p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-yellow-500/20 border border-yellow-500/40 text-yellow-300 font-semibold text-sm cursor-default select-none">
-                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
-                    Applications open April 15, 2026
-                  </div>
+                  <Link href="/programs/fellowship/apply" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-dark-950 font-bold text-sm transition-colors">
+                    Apply Now →
+                  </Link>
                   <a href="#structure" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-white/15 hover:bg-white/5 text-white font-semibold transition-colors text-sm">
                     See Program Structure
                   </a>
@@ -654,13 +653,13 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
           {/* ── CTA ── */}
           <section className="container-premium pt-6">
             <div className="rounded-3xl bg-gradient-to-br from-yellow-900/30 via-dark-900/55 to-primary-900/25 border border-yellow-500/15 p-12 md:p-16 text-center">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-yellow-500/15 border border-yellow-500/25 mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
-                <span className="text-xs font-semibold text-yellow-400 tracking-widest uppercase">Cohort 1 — Applications open April 15, 2026</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/15 border border-green-500/25 mb-6">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-xs font-semibold text-green-400 tracking-widest uppercase">Cohort 1 — Applications Now Open</span>
               </div>
               <p className="text-base font-semibold text-yellow-400/80 italic mb-3 tracking-wide">Where Africa's Next Leaders Are Built.</p>
               <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Apply for Cohort 1 — Cameroon 2026</h2>
-              <p className="text-dark-300 mb-6 max-w-xl mx-auto leading-relaxed">Applications open April 15, 2026. Only 40 spots available. If you have the commitment, the drive, and the vision to lead — this fellowship was built for you.</p>
+              <p className="text-dark-300 mb-6 max-w-xl mx-auto leading-relaxed">Applications are now open. Only 40 spots available. If you have the commitment, the drive, and the vision to lead — this fellowship was built for you.</p>
               {/* Download Guide prompt */}
               <div className="bg-dark-900/60 border border-dark-700 rounded-2xl p-5 max-w-md mx-auto mb-8 text-left">
                 <p className="text-xs font-semibold text-white mb-1">Prepare your application early</p>
@@ -668,10 +667,9 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
                 <DownloadGuideButton variant="secondary" size="sm" />
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <div className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-yellow-500/15 border border-yellow-500/35 text-yellow-300 font-semibold cursor-default select-none">
-                  <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse flex-shrink-0" />
-                  Applications open April 15, 2026
-                </div>
+                <Link href="/programs/fellowship/apply" className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-dark-950 font-bold transition-colors">
+                  Apply Now →
+                </Link>
                 <Link href="/programs" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/12 hover:bg-white/5 text-white font-semibold transition-colors">
                   Explore Other Programs
                 </Link>
