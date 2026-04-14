@@ -308,9 +308,8 @@ export default function FellowshipApplyPage() {
 
   // ─── Render ────────────────────────────────────────────────────────────────
 
-  // Coming Soon gate — applications open April 15, 2026
-  const APP_OPEN_DATE = new Date('2026-04-15T00:00:00Z')
-  const isApplicationOpen = new Date() >= APP_OPEN_DATE
+  // Applications are OPEN
+  const isApplicationOpen = true
 
   if (!isApplicationOpen) {
     return (
