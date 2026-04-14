@@ -70,6 +70,8 @@ export interface ApplicationFormData {
   declareCommitProgram: boolean
   declareCompetitiveProc: boolean
   declareActiveParticip: boolean
+  declareAccurate: boolean
+  declareDataConsent: boolean
 }
 
 export const EMPTY_FORM: ApplicationFormData = {
@@ -103,6 +105,8 @@ export const EMPTY_FORM: ApplicationFormData = {
   declareCommitProgram: false,
   declareCompetitiveProc: false,
   declareActiveParticip: false,
+  declareAccurate: false,
+  declareDataConsent: false,
 }
 
 // ─── Admin / Review Types ──────────────────────────────────────────────────

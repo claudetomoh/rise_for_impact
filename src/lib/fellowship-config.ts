@@ -128,6 +128,8 @@ const CAMEROON_2026_COPY: CohortCopy = {
     'I can commit to the 4-month mentorship program',
     'I understand this is a competitive selection process',
     'I am willing to actively participate in all fellowship activities',
+    'I confirm that all information I have provided in this application is accurate, truthful, and complete. I understand that providing false information may result in disqualification.',
+    'I consent to Rise for Impact collecting and processing my personal data for the purpose of evaluating my application. I understand my data will be handled in accordance with applicable privacy standards and will not be shared beyond the selection process.',
   ],
   essay1Title: 'Leadership & Initiative',
   essay1Prompt:

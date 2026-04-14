@@ -261,6 +261,8 @@ model FellowshipApplication {
   declareCommitProgram     Boolean  @default(false) @map("declare_commit_program")
   declareCompetitiveProc   Boolean  @default(false) @map("declare_competitive_proc")
   declareActiveParticip    Boolean  @default(false) @map("declare_active_particip")
+  declareAccurate          Boolean  @default(false) @map("declare_accurate")
+  declareDataConsent       Boolean  @default(false) @map("declare_data_consent")
   // Progress
   progressStep             Int      @default(1) @map("progress_step")
   isSubmitted              Boolean  @default(false) @map("is_submitted")

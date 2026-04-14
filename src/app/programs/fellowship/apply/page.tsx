@@ -118,6 +118,8 @@ function validateStep(step: number, data: ApplicationFormData): string[] {
     if (!data.declareCommitProgram) errs.push('Please confirm all declarations.')
     if (!data.declareCompetitiveProc) errs.push('Please confirm all declarations.')
     if (!data.declareActiveParticip) errs.push('Please confirm all declarations.')
+    if (!data.declareAccurate) errs.push('Please confirm that all information provided is accurate.')
+    if (!data.declareDataConsent) errs.push('Please confirm your consent to data processing.')
   }
   return errs
 }
@@ -1105,22 +1107,26 @@ function Step9Declaration({
   submitError: string
   isSubmitting: boolean
 }) {
-  const checks: Array<{ key: keyof ApplicationFormData; text: string }> = [
+  const checks: Array<{ key: keyof ApplicationFormData; text: string; highlight?: boolean }> = [
     { key: 'declareAttendBuea', text: LIVE_COPY.declarationCheckboxes[0] },
     { key: 'declareTransportAccom', text: LIVE_COPY.declarationCheckboxes[1] },
     { key: 'declareCommitProgram', text: LIVE_COPY.declarationCheckboxes[2] },
     { key: 'declareCompetitiveProc', text: LIVE_COPY.declarationCheckboxes[3] },
     { key: 'declareActiveParticip', text: LIVE_COPY.declarationCheckboxes[4] },
+    { key: 'declareAccurate', text: LIVE_COPY.declarationCheckboxes[5], highlight: true },
+    { key: 'declareDataConsent', text: LIVE_COPY.declarationCheckboxes[6], highlight: true },
   ]
 
   return (
     <FormStepLayout title="Commitment Confirmation">
       {/* Declarations */}
       <div className="space-y-3">
-        {checks.map(({ key, text }) => (
+        {checks.map(({ key, text, highlight }) => (
           <label
             key={key}
-            className="flex items-start gap-3 cursor-pointer group"
+            className={`flex items-start gap-3 cursor-pointer group rounded-lg p-2 -mx-2 transition-colors ${
+              highlight ? 'bg-amber-500/5 hover:bg-amber-500/10 border border-amber-500/20' : 'hover:bg-white/3'
+            }`}
           >
             <input
               type="checkbox"
@@ -1128,7 +1134,9 @@ function Step9Declaration({
               onChange={(e) => set(key)(e.target.checked as ApplicationFormData[typeof key])}
               className="mt-1 w-4 h-4 rounded accent-primary-500 flex-shrink-0"
             />
-            <span className="text-sm text-dark-200 group-hover:text-white transition-colors">
+            <span className={`text-sm transition-colors ${
+              highlight ? 'text-amber-200 group-hover:text-amber-100 font-medium' : 'text-dark-200 group-hover:text-white'
+            }`}>
               {text}
             </span>
           </label>
@@ -1214,5 +1222,7 @@ function mapDbToForm(db: Record<string, unknown>): ApplicationFormData {
     declareCommitProgram: Boolean(db.declareCommitProgram),
     declareCompetitiveProc: Boolean(db.declareCompetitiveProc),
     declareActiveParticip: Boolean(db.declareActiveParticip),
+    declareAccurate: Boolean(db.declareAccurate),
+    declareDataConsent: Boolean(db.declareDataConsent),
   }
 }
