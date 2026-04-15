@@ -110,6 +110,7 @@ function validateStep(step: number, data: ApplicationFormData): string[] {
   }
   if (step === 8) {
     if (!data.contributionWilling) errs.push('Please respond to the contribution question.')
+    if (data.contributionWilling && !data.contributionExplanation?.trim()) errs.push('Please explain your contribution plan.')
   }
   if (step === 9) {
     if (!data.motivationOneSentence.trim()) errs.push('Motivation sentence is required.')
@@ -1212,8 +1213,8 @@ function Step8Commitment({ form, set }: { form: ApplicationFormData; set: FieldS
       </FieldRow>
 
       {form.contributionWilling === 'no' && (
-        <div className="pl-0 sm:pl-4 border-l-2 border-dark-700">
-          <FieldRow id="contributionExplanation" label="Please briefly explain your situation (optional)">
+        <div className="pl-0 sm:pl-4 border-l-2 border-red-500/40">
+          <FieldRow id="contributionExplanation" label="Please briefly explain your situation" required>
             <WordCountTextarea
               id="contributionExplanation"
               label=""
@@ -1221,7 +1222,23 @@ function Step8Commitment({ form, set }: { form: ApplicationFormData; set: FieldS
               onChange={set('contributionExplanation') as (v: string) => void}
               maxWords={100}
               rows={4}
-              placeholder="Your response will be considered during the review process."
+              placeholder="Your response will be carefully considered during the review process."
+            />
+          </FieldRow>
+        </div>
+      )}
+
+      {form.contributionWilling === 'yes' && (
+        <div className="pl-0 sm:pl-4 border-l-2 border-primary-500/40">
+          <FieldRow id="contributionExplanation" label="How do you plan to make this contribution? (e.g. personal savings, family support, scholarship, etc.)" required>
+            <WordCountTextarea
+              id="contributionExplanation"
+              label=""
+              value={form.contributionExplanation}
+              onChange={set('contributionExplanation') as (v: string) => void}
+              maxWords={100}
+              rows={4}
+              placeholder="Briefly describe how you will arrange the contribution if selected."
             />
           </FieldRow>
         </div>

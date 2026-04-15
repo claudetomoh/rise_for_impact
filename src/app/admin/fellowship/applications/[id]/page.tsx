@@ -265,14 +265,38 @@ export default function FellowshipApplicationDetailPage({ params }: { params: Pr
             <EssayBlock label="Pass It On Response" text={app.passItOnResponse} />
           </Section>
 
-          {/* Commitment */}
-          <Section icon={<CheckCircle2 className="w-4 h-4" />} title="Commitment & Declaration">
-            <Grid2>
-              <Field label="Contribution willing?" value={bool(app.contributionWilling)} />
-            </Grid2>
-            {app.contributionExplanation && (
-              <EssayBlock label="Contribution explanation" text={app.contributionExplanation} />
+          {/* Commitment contribution — highlighted callout */}
+          <div className="bg-amber-50 dark:bg-amber-900/10 border-2 border-amber-300 dark:border-amber-600/50 rounded-xl p-5 space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="text-base">💰</span>
+              <h3 className="text-sm font-bold text-amber-800 dark:text-amber-400 uppercase tracking-wide">Commitment Contribution — Key Scoring Metric</h3>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <dt className="text-xs font-semibold text-gray-500 dark:text-gray-400">Willing to contribute?</dt>
+                <dd className={`mt-0.5 text-sm font-bold ${
+                  app.contributionWilling === true ? 'text-green-600 dark:text-green-400' :
+                  app.contributionWilling === false ? 'text-red-500 dark:text-red-400' :
+                  'text-gray-400'
+                }`}>
+                  {app.contributionWilling === true ? 'Yes ✓' : app.contributionWilling === false ? 'No ✗' : '—'}
+                </dd>
+              </div>
+            </div>
+            {app.contributionExplanation ? (
+              <div>
+                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Their explanation / plan</p>
+                <div className="bg-white dark:bg-dark-800 border border-amber-200 dark:border-amber-700/40 rounded-lg p-3">
+                  <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line leading-relaxed">{app.contributionExplanation}</p>
+                </div>
+              </div>
+            ) : (
+              <p className="text-xs text-red-500 italic">No explanation provided</p>
             )}
+          </div>
+
+          {/* Commitment */}
+          <Section icon={<CheckCircle2 className="w-4 h-4" />} title="Declaration">
             <EssayBlock label="Motivation (one sentence)" text={app.motivationOneSentence} />
             <div className="mt-3 space-y-1.5">
               {[

@@ -37,6 +37,7 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
     if (!app.essayCommunityProblem?.trim()) missing.push('Essay 2 — Community Problem')
     if (!app.passItOnResponse?.trim()) missing.push('Pass It On response')
     if (app.contributionWilling === null) missing.push('Commitment contribution')
+    if (!app.contributionExplanation?.trim()) missing.push('Contribution plan / explanation')
     if (!app.motivationOneSentence?.trim()) missing.push('Motivation sentence')
     if (!app.declareAttendBuea || !app.declareTransportAccom || !app.declareCommitProgram ||
         !app.declareCompetitiveProc || !app.declareActiveParticip) {
