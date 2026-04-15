@@ -266,33 +266,33 @@ export default function FellowshipApplicationDetailPage({ params }: { params: Pr
           </Section>
 
           {/* Commitment contribution — highlighted callout */}
-          <div className="bg-amber-50 dark:bg-amber-900/10 border-2 border-amber-300 dark:border-amber-600/50 rounded-xl p-5 space-y-3">
-            <div className="flex items-center gap-2">
+          <div className="border-2 border-amber-400 dark:border-amber-500/60 rounded-xl overflow-hidden">
+            <div className="flex items-center gap-2.5 px-5 py-3.5 bg-amber-400 dark:bg-amber-500/20">
               <span className="text-base">💰</span>
-              <h3 className="text-sm font-bold text-amber-800 dark:text-amber-400 uppercase tracking-wide">Commitment Contribution — Key Scoring Metric</h3>
+              <h3 className="text-sm font-bold text-white dark:text-amber-300 uppercase tracking-wide">Commitment Contribution — Key Scoring Metric</h3>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="p-5 bg-amber-50 dark:bg-amber-900/10 space-y-3">
               <div>
-                <dt className="text-xs font-semibold text-gray-500 dark:text-gray-400">Willing to contribute?</dt>
-                <dd className={`mt-0.5 text-sm font-bold ${
-                  app.contributionWilling === true ? 'text-green-600 dark:text-green-400' :
-                  app.contributionWilling === false ? 'text-red-500 dark:text-red-400' :
+                <dt className="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-0.5">Willing to contribute?</dt>
+                <dd className={`text-sm font-bold ${
+                  app.contributionWilling === true ? 'text-green-700 dark:text-green-400' :
+                  app.contributionWilling === false ? 'text-red-600 dark:text-red-400' :
                   'text-gray-400'
                 }`}>
-                  {app.contributionWilling === true ? 'Yes ✓' : app.contributionWilling === false ? 'No ✗' : '—'}
+                  {app.contributionWilling === true ? '✓ Yes' : app.contributionWilling === false ? '✗ No' : '—'}
                 </dd>
               </div>
-            </div>
-            {app.contributionExplanation ? (
-              <div>
-                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Their explanation / plan</p>
-                <div className="bg-white dark:bg-dark-800 border border-amber-200 dark:border-amber-700/40 rounded-lg p-3">
-                  <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line leading-relaxed">{app.contributionExplanation}</p>
+              {app.contributionExplanation ? (
+                <div>
+                  <p className="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">Their explanation / plan</p>
+                  <div className="bg-white dark:bg-dark-800 border border-amber-200 dark:border-amber-700/40 rounded-lg p-4">
+                    <p className="text-sm text-gray-900 dark:text-gray-100 whitespace-pre-line leading-relaxed">{app.contributionExplanation}</p>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <p className="text-xs text-red-500 italic">No explanation provided</p>
-            )}
+              ) : (
+                <p className="text-xs font-semibold text-red-600 dark:text-red-400">⚠ No explanation provided</p>
+              )}
+            </div>
           </div>
 
           {/* Commitment */}
@@ -308,13 +308,13 @@ export default function FellowshipApplicationDetailPage({ params }: { params: Pr
                 { label: 'Declares information is accurate', v: app.declareAccurate },
                 { label: 'Consents to data use', v: app.declareDataConsent },
               ].map(({ label, v }) => (
-                <div key={label} className="flex items-center gap-2 text-sm">
+                <div key={label} className="flex items-center gap-2.5 text-sm">
                   {v ? (
-                    <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400 flex-shrink-0" />
                   ) : (
-                    <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                    <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0" />
                   )}
-                  <span className={v ? 'text-gray-700 dark:text-gray-300' : 'text-red-500'}>{label}</span>
+                  <span className={`font-medium ${v ? 'text-gray-800 dark:text-gray-200' : 'text-red-600 dark:text-red-400'}`}>{label}</span>
                 </div>
               ))}
             </div>
@@ -323,12 +323,14 @@ export default function FellowshipApplicationDetailPage({ params }: { params: Pr
 
         {/* Right: Scoring panel */}
         <div className="space-y-4">
-          <div className="bg-white dark:bg-dark-900 border border-gray-200 dark:border-dark-800 rounded-xl p-5 sticky top-4">
-            <h2 className="text-sm font-bold text-gray-900 dark:text-white mb-4">Review & Scoring</h2>
-
+          <div className="bg-white dark:bg-dark-900 border border-gray-200 dark:border-dark-800 rounded-xl overflow-hidden sticky top-4">
+            <div className="px-5 py-3.5 bg-gray-900 dark:bg-dark-800 border-b border-gray-200 dark:border-dark-700">
+              <h2 className="text-sm font-bold text-white tracking-wide">Review &amp; Scoring</h2>
+            </div>
+            <div className="p-5">
             {/* Reviewer name */}
             <div className="mb-4">
-              <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Reviewer</label>
+              <label className="block text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Reviewer</label>
               <input
                 type="text"
                 value={reviewerName}
@@ -343,7 +345,7 @@ export default function FellowshipApplicationDetailPage({ params }: { params: Pr
               {SCORE_CATEGORIES.map(({ key, label, max }) => (
                 <div key={key}>
                   <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs text-gray-700 dark:text-gray-300 font-medium">{label}</label>
+                    <label className="text-xs font-semibold text-gray-800 dark:text-gray-200">{label}</label>
                     <span className="text-xs font-bold text-gray-900 dark:text-white">
                       {scores[key]} <span className="text-gray-400 font-normal">/ {max}</span>
                     </span>
@@ -374,7 +376,7 @@ export default function FellowshipApplicationDetailPage({ params }: { params: Pr
 
             {/* Recommendation */}
             <div className="mb-4">
-              <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Final Recommendation</label>
+              <label className="block text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Final Recommendation</label>
               <select
                 value={recommendation}
                 onChange={(e) => setRecommendation(e.target.value as FinalRecommendation)}
@@ -388,7 +390,7 @@ export default function FellowshipApplicationDetailPage({ params }: { params: Pr
 
             {/* Notes */}
             <div className="mb-5">
-              <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Reviewer Notes</label>
+              <label className="block text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Reviewer Notes</label>
               <textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
@@ -415,6 +417,7 @@ export default function FellowshipApplicationDetailPage({ params }: { params: Pr
             <p className="mt-3 text-[10px] text-gray-400 dark:text-gray-600 text-center">
               Submitted: {app.submittedAt ? new Date(app.submittedAt).toLocaleString() : '—'}
             </p>
+            </div>{/* end p-5 inner */}
           </div>
         </div>
       </div>
@@ -426,12 +429,14 @@ export default function FellowshipApplicationDetailPage({ params }: { params: Pr
 
 function Section({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-white dark:bg-dark-900 border border-gray-200 dark:border-dark-800 rounded-xl p-5 space-y-3">
-      <div className="flex items-center gap-2 text-gray-800 dark:text-gray-200">
-        {icon}
-        <h3 className="text-sm font-bold">{title}</h3>
+    <div className="bg-white dark:bg-dark-900 border border-gray-200 dark:border-dark-800 rounded-xl overflow-hidden">
+      <div className="flex items-center gap-2.5 px-5 py-3.5 bg-gray-100 dark:bg-dark-800 border-b border-gray-200 dark:border-dark-700">
+        <span className="text-gray-600 dark:text-gray-300">{icon}</span>
+        <h3 className="text-sm font-bold text-gray-900 dark:text-white tracking-wide">{title}</h3>
       </div>
-      {children}
+      <div className="p-5 space-y-3">
+        {children}
+      </div>
     </div>
   )
 }
@@ -443,8 +448,8 @@ function Grid2({ children }: { children: React.ReactNode }) {
 function Field({ label, value }: { label: string; value: string | null | undefined }) {
   return (
     <div>
-      <dt className="text-xs font-medium text-gray-500 dark:text-gray-400">{label}</dt>
-      <dd className="mt-0.5 text-sm text-gray-900 dark:text-white capitalize">{value || '—'}</dd>
+      <dt className="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-0.5">{label}</dt>
+      <dd className="text-sm font-medium text-gray-900 dark:text-white">{value || '—'}</dd>
     </div>
   )
 }
@@ -453,9 +458,9 @@ function EssayBlock({ label, text }: { label: string; text: string | null | unde
   if (!text) return null
   return (
     <div>
-      <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">{label}</p>
-      <div className="bg-gray-50 dark:bg-dark-800 rounded-lg p-3">
-        <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line leading-relaxed">{text}</p>
+      <p className="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">{label}</p>
+      <div className="bg-gray-50 dark:bg-dark-800 border border-gray-200 dark:border-dark-700 rounded-lg p-4">
+        <p className="text-sm text-gray-900 dark:text-gray-100 whitespace-pre-line leading-relaxed">{text}</p>
       </div>
     </div>
   )
