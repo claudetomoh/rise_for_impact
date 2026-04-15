@@ -1,5 +1,6 @@
 'use client'
 
+import { use } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -86,7 +87,8 @@ const RECOMMENDATION_OPTIONS: { value: FinalRecommendation; label: string; colou
   { value: 'rejected', label: 'Rejected', colour: 'text-red-600' },
 ]
 
-export default function FellowshipApplicationDetailPage({ params }: { params: { id: string } }) {
+export default function FellowshipApplicationDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params)
   const { status } = useSession()
   const router = useRouter()
   const [app, setApp] = useState<FullApplication | null>(null)
@@ -113,8 +115,11 @@ export default function FellowshipApplicationDetailPage({ params }: { params: { 
 
   useEffect(() => {
     if (status !== 'authenticated') return
-    fetch(`/api/fellowship/applications/${params.id}`)
-      .then((r) => r.json())
+    fetch(`/api/fellowship/applications/${id}`)
+      .then(async (r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`)
+        return r.json()
+      })
       .then((data: FullApplication) => {
         setApp(data)
         if (data.review) {
@@ -133,7 +138,7 @@ export default function FellowshipApplicationDetailPage({ params }: { params: { 
         setIsLoading(false)
       })
       .catch(() => setIsLoading(false))
-  }, [status, params.id])
+  }, [status, id])
 
   const totalScore = Object.entries(scores).reduce((sum, [, v]) => sum + Number(v), 0)
 
@@ -141,7 +146,7 @@ export default function FellowshipApplicationDetailPage({ params }: { params: { 
     setIsSaving(true)
     setSaveStatus('idle')
     try {
-      const res = await fetch(`/api/fellowship/applications/${params.id}/review`, {
+      const res = await fetch(`/api/fellowship/applications/${id}/review`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...scores, notes, finalRecommendation: recommendation, reviewerName }),
@@ -149,7 +154,7 @@ export default function FellowshipApplicationDetailPage({ params }: { params: { 
       if (!res.ok) throw new Error()
       setSaveStatus('saved')
       // Refresh app to reflect status change
-      const updated = await fetch(`/api/fellowship/applications/${params.id}`).then(r => r.json())
+      const updated = await fetch(`/api/fellowship/applications/${id}`).then(r => r.json())
       setApp(updated)
     } catch {
       setSaveStatus('error')

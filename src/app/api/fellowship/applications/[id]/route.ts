@@ -12,7 +12,10 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
     const { id } = await params
     const app = await prisma.fellowshipApplication.findUnique({
       where: { id },
-      include: { cohort: { select: { name: true, slug: true, status: true } } },
+      include: {
+        cohort: { select: { name: true, slug: true, status: true } },
+        review: true,
+      },
     })
     if (!app) return NextResponse.json({ error: 'Not found' }, { status: 404 })
     return NextResponse.json(app)
