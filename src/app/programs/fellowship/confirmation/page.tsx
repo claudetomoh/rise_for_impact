@@ -62,7 +62,7 @@ export default function FellowshipConfirmationPage() {
             Return to Fellowship Page
           </Link>
           <Link
-            href="/contact"
+            href="/get-involved"
             className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg border border-gray-300 dark:border-dark-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-dark-800 transition-colors"
           >
             Contact Us
