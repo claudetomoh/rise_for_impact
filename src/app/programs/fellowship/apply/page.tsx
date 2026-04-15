@@ -1318,7 +1318,7 @@ function mapFormToApi(form: ApplicationFormData, currentStep: number) {
     hasCurrentInitiative: form.hasCurrentInitiative === 'yes' ? true : form.hasCurrentInitiative === 'no' ? false : null,
     hasLedInitiative: form.hasLedInitiative === 'yes' ? true : form.hasLedInitiative === 'no' ? false : null,
     contributionWilling: form.contributionWilling === 'yes' ? true : form.contributionWilling === 'no' ? false : null,
-    dateOfBirth: form.dateOfBirth || null,
+    dateOfBirth: form.dateOfBirth ? new Date(form.dateOfBirth).toISOString() : null,
     age: form.age,
   }
 }
