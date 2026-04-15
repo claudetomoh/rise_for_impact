@@ -50,10 +50,6 @@ export default function FellowshipApplicationsPage() {
     if (status === 'unauthenticated') router.push('/login')
   }, [status, router])
 
-  useEffect(() => {
-    if (status === 'authenticated') fetchApplications()
-  }, [status, submittedOnly])
-
   const fetchApplications = () => {
     setIsLoading(true)
     const params = new URLSearchParams({ submittedOnly: String(submittedOnly) })
@@ -62,6 +58,11 @@ export default function FellowshipApplicationsPage() {
       .then((data) => { setApplications(data); setIsLoading(false) })
       .catch(() => setIsLoading(false))
   }
+
+  useEffect(() => {
+    if (status === 'authenticated') fetchApplications()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status, submittedOnly])
 
   const filtered = useMemo(() => {
     return applications.filter((a) => {

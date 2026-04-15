@@ -59,6 +59,8 @@ interface FullApplication {
   declareCommitProgram: boolean
   declareCompetitiveProc: boolean
   declareActiveParticip: boolean
+  declareAccurate: boolean
+  declareDataConsent: boolean
   submittedAt: string | null
   createdAt: string
   review: {
@@ -274,6 +276,8 @@ export default function FellowshipApplicationDetailPage({ params }: { params: { 
                 { label: 'Commits to 4-month program', v: app.declareCommitProgram },
                 { label: 'Understands competitive process', v: app.declareCompetitiveProc },
                 { label: 'Agrees to active participation', v: app.declareActiveParticip },
+                { label: 'Declares information is accurate', v: app.declareAccurate },
+                { label: 'Consents to data use', v: app.declareDataConsent },
               ].map(({ label, v }) => (
                 <div key={label} className="flex items-center gap-2 text-sm">
                   {v ? (
