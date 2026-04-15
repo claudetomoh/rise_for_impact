@@ -45,19 +45,19 @@ export default function WordCountTextarea({
 
   return (
     <div className="space-y-2">
-      <label htmlFor={id} className="block text-sm font-semibold text-white">
+      <label htmlFor={id} className="block text-sm font-semibold text-gray-200 tracking-wide">
         {label}
-        {required && <span className="text-red-400 ml-1">*</span>}
+        {required && <span className="text-primary-400 ml-1">*</span>}
       </label>
 
       {/* Multi-line prompt rendered with line breaks */}
       {prompt && (
-        <div className="bg-dark-800 border border-dark-700 rounded-lg p-4">
+        <div className="bg-dark-800/60 border border-primary-500/20 border-l-2 border-l-primary-500/60 rounded-xl p-5">
           {prompt.split('\n').map((line, i) =>
             line.trim() === '' ? (
               <br key={i} />
             ) : (
-              <p key={i} className="text-sm text-dark-200 leading-relaxed">
+              <p key={i} className="text-sm text-dark-200 leading-relaxed italic">
                 {line}
               </p>
             )
@@ -74,18 +74,18 @@ export default function WordCountTextarea({
         placeholder={placeholder}
         required={required}
         aria-describedby={`${id}-counter ${id}-error`}
-        className={`w-full px-4 py-3 rounded-lg border text-sm text-white bg-dark-800 placeholder-dark-500 focus:outline-none focus:ring-2 transition-colors resize-none ${
+        className={`w-full px-4 py-3 rounded-xl border text-sm text-white bg-dark-800/80 placeholder-dark-500/70 focus:outline-none focus:ring-2 transition-all resize-none ${
           overLimit
-            ? 'border-red-500/60 focus:ring-red-500/20'
+            ? 'border-red-500/50 focus:ring-red-500/20 focus:border-red-500/60'
             : error
-            ? 'border-red-500/60 focus:ring-red-500/20'
-            : 'border-dark-700 focus:ring-primary-500/30 focus:border-primary-500'
+            ? 'border-red-500/50 focus:ring-red-500/20 focus:border-red-500/60'
+            : 'border-dark-700/80 focus:ring-primary-500/25 focus:border-primary-500/60 hover:border-dark-600'
         }`}
       />
 
       {/* Word count bar */}
       <div id={`${id}-counter`} className="space-y-1" aria-live="polite" aria-atomic="true">
-        <div className="h-1 w-full bg-dark-800 rounded-full overflow-hidden">
+        <div className="h-1.5 w-full bg-dark-800/80 rounded-full overflow-hidden">
           <div
             className={`h-full rounded-full transition-all duration-200 ${
               overLimit ? 'bg-red-500' : pct > 85 ? 'bg-amber-500' : 'bg-primary-500'

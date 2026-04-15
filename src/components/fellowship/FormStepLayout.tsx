@@ -13,10 +13,13 @@ export default function FormStepLayout({ title, subtitle, children }: FormStepLa
   return (
     <div>
       {/* Step header */}
-      <div className="mb-6">
-        <h2 className="text-xl font-bold text-white">{title}</h2>
+      <div className="mb-8 pb-6 border-b border-dark-800/60">
+        <div className="flex items-center gap-3">
+          <span className="block w-1 h-7 rounded-full bg-gradient-to-b from-primary-400 to-primary-600 flex-shrink-0" />
+          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">{title}</h2>
+        </div>
         {subtitle && (
-          <p className="mt-1 text-sm text-dark-300 leading-relaxed">{subtitle}</p>
+          <p className="mt-2 text-sm text-dark-300 leading-relaxed ml-4">{subtitle}</p>
         )}
       </div>
 
@@ -44,11 +47,11 @@ export function FieldRow({
 }) {
   return (
     <div className="space-y-1.5">
-      <label htmlFor={id} className="block text-sm font-semibold text-white">
+      <label htmlFor={id} className="block text-sm font-semibold text-gray-200 tracking-wide">
         {label}
-        {required && <span className="text-red-400 ml-1">*</span>}
+        {required && <span className="text-primary-400 ml-1">*</span>}
       </label>
-      {hint && <p className="text-xs text-dark-400">{hint}</p>}
+      {hint && <p className="text-xs text-dark-500 italic">{hint}</p>}
       {children}
       {error && (
         <p className="text-xs text-red-500" role="alert">
@@ -62,10 +65,11 @@ export function FieldRow({
 /** Reusable section divider inside a step */
 export function SectionHeading({ title }: { title: string }) {
   return (
-    <div className="pt-4">
-      <h3 className="text-base font-bold text-white border-b border-dark-700 pb-2">
-        {title}
-      </h3>
+    <div className="pt-6 pb-1">
+      <div className="flex items-center gap-2.5">
+        <span className="block w-0.5 h-4 rounded-full bg-primary-500 flex-shrink-0" />
+        <h3 className="text-xs font-bold text-dark-300 uppercase tracking-widest">{title}</h3>
+      </div>
     </div>
   )
 }
@@ -100,10 +104,10 @@ export function TextInput({
       required={required}
       placeholder={placeholder}
       disabled={disabled}
-      className={`w-full px-4 py-2.5 rounded-lg border text-sm text-white bg-dark-800 placeholder-dark-500 focus:outline-none focus:ring-2 transition-colors disabled:opacity-50 ${
+      className={`w-full px-4 py-3 rounded-xl border text-sm text-white bg-dark-800/80 placeholder-dark-500/70 focus:outline-none focus:ring-2 transition-all disabled:opacity-40 disabled:cursor-not-allowed ${
         error
-          ? 'border-red-500/60 focus:ring-red-500/20'
-          : 'border-dark-700 focus:ring-primary-500/30 focus:border-primary-500'
+          ? 'border-red-500/50 focus:ring-red-500/20 focus:border-red-500/60'
+          : 'border-dark-700/80 focus:ring-primary-500/25 focus:border-primary-500/60 hover:border-dark-600'
       }`}
     />
   )
@@ -128,27 +132,36 @@ export function SelectInput({
   error?: string
 }) {
   return (
-    <select
-      id={id}
-      name={id}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      required={required}
-      className={`w-full px-4 py-2.5 rounded-lg border text-sm text-white bg-dark-800 focus:outline-none focus:ring-2 transition-colors ${
-        error
-          ? 'border-red-500/60 focus:ring-red-500/20'
-          : 'border-dark-700 focus:ring-primary-500/30 focus:border-primary-500'
-      }`}
-    >
-      <option value="" disabled>
-        {placeholder || 'Select an option'}
-      </option>
-      {options.map((opt) => (
-        <option key={opt.value} value={opt.value}>
-          {opt.label}
+    <div className="relative">
+      <select
+        id={id}
+        name={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        required={required}
+        className={`w-full px-4 py-3 pr-10 rounded-xl border text-sm bg-dark-800/80 focus:outline-none focus:ring-2 transition-all appearance-none cursor-pointer ${
+          value ? 'text-white' : 'text-dark-500'
+        } ${
+          error
+            ? 'border-red-500/50 focus:ring-red-500/20 focus:border-red-500/60'
+            : 'border-dark-700/80 focus:ring-primary-500/25 focus:border-primary-500/60 hover:border-dark-600'
+        }`}
+      >
+        <option value="" disabled>
+          {placeholder || 'Select an option'}
         </option>
-      ))}
-    </select>
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+      <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-dark-400">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
+    </div>
   )
 }
 
@@ -173,10 +186,10 @@ export function RadioGroup({
       {options.map((opt) => (
         <label
           key={opt.value}
-          className={`flex items-center gap-3 px-4 py-3 rounded-lg border cursor-pointer transition-all text-sm font-medium flex-1 ${
+          className={`flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl border cursor-pointer transition-all text-sm font-semibold flex-1 select-none ${
             value === opt.value
-              ? 'border-primary-500 bg-primary-500/10 text-white'
-              : 'border-dark-700 text-dark-400 hover:border-dark-600 hover:text-dark-200'
+              ? 'border-primary-500/80 bg-primary-500/10 text-primary-300'
+              : 'border-dark-700/80 text-dark-400 hover:border-dark-500 hover:text-dark-200 hover:bg-white/[0.03]'
           }`}
         >
           <input
@@ -186,8 +199,11 @@ export function RadioGroup({
             checked={value === opt.value}
             onChange={() => onChange(opt.value)}
             required={required}
-            className="accent-primary-500"
+            className="sr-only"
           />
+          {value === opt.value && (
+            <span className="w-2 h-2 rounded-full bg-primary-400 flex-shrink-0" />
+          )}
           {opt.label}
         </label>
       ))}
@@ -227,10 +243,10 @@ export function ShortTextarea({
       required={required}
       placeholder={placeholder}
       rows={rows}
-      className={`w-full px-4 py-3 rounded-lg border text-sm text-white bg-dark-800 placeholder-dark-500 focus:outline-none focus:ring-2 transition-colors resize-none ${
+      className={`w-full px-4 py-3 rounded-xl border text-sm text-white bg-dark-800/80 placeholder-dark-500/70 focus:outline-none focus:ring-2 transition-all resize-none ${
         error
-          ? 'border-red-500/60 focus:ring-red-500/20'
-          : 'border-dark-700 focus:ring-primary-500/30 focus:border-primary-500'
+          ? 'border-red-500/50 focus:ring-red-500/20 focus:border-red-500/60'
+          : 'border-dark-700/80 focus:ring-primary-500/25 focus:border-primary-500/60 hover:border-dark-600'
       }`}
     />
   )

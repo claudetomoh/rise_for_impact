@@ -554,7 +554,8 @@ export default function FellowshipApplyPage() {
         )}
 
         {/* Step panels */}
-        <div className="bg-dark-900 rounded-2xl border border-dark-800 p-6 sm:p-8">
+        <div className="relative bg-dark-900 rounded-2xl border border-dark-800/80 p-6 sm:p-8 shadow-xl shadow-dark-950/60 overflow-hidden">
+          <div className="absolute top-0 inset-x-10 h-px bg-gradient-to-r from-transparent via-primary-500/40 to-transparent pointer-events-none" />
           {step === 1 && <Step1Overview followLinkedIn={followLinkedIn} setFollowLinkedIn={setFollowLinkedIn} followFacebook={followFacebook} setFollowFacebook={setFollowFacebook} />}
           {step === 2 && <Step2Personal form={form} set={field} />}
           {step === 3 && <Step3Logistics form={form} set={field} />}
@@ -574,11 +575,11 @@ export default function FellowshipApplyPage() {
         </div>
 
         {/* Navigation buttons */}
-        <div className="mt-6 flex items-center justify-between gap-4">
+        <div className="mt-8 pt-6 border-t border-dark-800/60 flex items-center justify-between gap-4">
           {step > 1 ? (
             <button
               onClick={handleBack}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg border border-dark-700 text-sm font-medium text-dark-300 hover:bg-dark-800 hover:text-white transition-colors"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-dark-700/80 text-sm font-medium text-dark-300 hover:bg-dark-800 hover:border-dark-600 hover:text-white transition-all"
             >
               <ChevronLeft className="w-4 h-4" />
               Back
