@@ -260,7 +260,7 @@ export default function FellowshipApplyPage() {
       } catch (err: unknown) {
         setSaveStatus('error')
         setSaveError(err instanceof Error ? err.message : 'Failed to save your application. Please try again.')
-        return draftId
+        return null
       } finally {
         setIsSaving(false)
         setTimeout(() => setSaveStatus('idle'), 3000)
@@ -280,7 +280,7 @@ export default function FellowshipApplyPage() {
     setStepErrors([])
     setSaveError('')
     const id = await saveDraft(form, step + 1)
-    if (!id && step > 1) return  // save failed, block
+    if (!id) return  // save failed, block
     setStep((s) => s + 1)
     scrollToTop()
   }
