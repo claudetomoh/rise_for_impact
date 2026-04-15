@@ -77,8 +77,10 @@ function sanitiseFields(data: Record<string, unknown>) {
   for (const key of allowed) {
     if (data[key] === undefined) continue
     if (booleanFields.includes(key)) {
+      // 'yes'/'no' strings → booleans; null → null (unanswered optional field)
       const v = data[key]
-      if (typeof v === 'string') out[key] = v === 'yes' || v === 'true'
+      if (v === null) out[key] = null
+      else if (typeof v === 'string') out[key] = v === 'yes' || v === 'true'
       else out[key] = Boolean(v)
     } else {
       out[key] = data[key]
