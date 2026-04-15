@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CheckCircle2, ArrowLeft, Mail } from 'lucide-react'
+import { CheckCircle2, ArrowLeft, Mail, Users } from 'lucide-react'
 
 export const metadata = {
   title: 'Application Submitted | Rise for Impact Fellowship',
@@ -50,7 +50,27 @@ export default function FellowshipConfirmationPage() {
               </p>
             </div>
           </div>
+          <div className="flex items-start gap-3">
+            <Users className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-gray-800 dark:text-gray-200">Join our community</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                While you wait, join the Rise for Impact Southwest WhatsApp group to connect with peers and stay updated.
+              </p>
+            </div>
+          </div>
         </div>
+
+        {/* WhatsApp CTA */}
+        <a
+          href="https://chat.whatsapp.com/HRo4Qf39p3P7sSRQzGkmqT"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 w-full px-6 py-3 rounded-xl bg-green-500 hover:bg-green-600 text-white text-sm font-semibold transition-colors mb-4"
+        >
+          <Users className="w-4 h-4" />
+          Join the RFI Southwest WhatsApp Group
+        </a>
 
         {/* CTA */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
