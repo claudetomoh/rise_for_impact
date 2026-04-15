@@ -178,7 +178,9 @@ export default function FellowshipApplyPage() {
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saved' | 'error'>('idle')
   const [stepErrors, setStepErrors] = useState<string[]>([])
   const [submitError, setSubmitError] = useState<string>('')
+  const [saveError, setSaveError] = useState<string>('')
   const errorsRef = useRef<HTMLDivElement>(null)
+  const saveErrorRef = useRef<HTMLDivElement>(null)
   // Social follow gate — required before proceeding past step 1
   const [followLinkedIn, setFollowLinkedIn] = useState(false)
   const [followFacebook, setFollowFacebook] = useState(false)
@@ -209,6 +211,13 @@ export default function FellowshipApplyPage() {
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
+  // Scroll to save error when it appears
+  useEffect(() => {
+    if (saveError) {
+      setTimeout(() => saveErrorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50)
+    }
+  }, [saveError])
+
   // Auto-save to API (create or update)
   const saveDraft = useCallback(
     async (data: ApplicationFormData, currentStep: number): Promise<string | null> => {
@@ -224,11 +233,15 @@ export default function FellowshipApplyPage() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ ...payload, cohortSlug: COHORT_SLUG }),
           })
-          if (!res.ok) throw new Error('Failed to create draft')
+          if (!res.ok) {
+            const errJson = await res.json().catch(() => ({}))
+            throw new Error(errJson.error || 'Failed to save your application. Please try again.')
+          }
           const created = await res.json()
           localStorage.setItem(DRAFT_STORAGE_KEY, created.id)
           setDraftId(created.id)
           setSaveStatus('saved')
+          setSaveError('')
           return created.id
         } else {
           const res = await fetch(`/api/fellowship/applications/${draftId}`, {
@@ -236,12 +249,17 @@ export default function FellowshipApplyPage() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
           })
-          if (!res.ok) throw new Error('Failed to update draft')
+          if (!res.ok) {
+            const errJson = await res.json().catch(() => ({}))
+            throw new Error(errJson.error || 'Failed to save your application. Please try again.')
+          }
           setSaveStatus('saved')
+          setSaveError('')
           return draftId
         }
-      } catch {
+      } catch (err: unknown) {
         setSaveStatus('error')
+        setSaveError(err instanceof Error ? err.message : 'Failed to save your application. Please try again.')
         return draftId
       } finally {
         setIsSaving(false)
@@ -255,10 +273,12 @@ export default function FellowshipApplyPage() {
     const errs = validateStep(step, form)
     if (errs.length > 0) {
       setStepErrors(errs)
+      setSaveError('')
       setTimeout(() => errorsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50)
       return
     }
     setStepErrors([])
+    setSaveError('')
     const id = await saveDraft(form, step + 1)
     if (!id && step > 1) return  // save failed, block
     setStep((s) => s + 1)
@@ -267,6 +287,7 @@ export default function FellowshipApplyPage() {
 
   const handleBack = () => {
     setStepErrors([])
+    setSaveError('')
     setStep((s) => s - 1)
     scrollToTop()
   }
@@ -506,6 +527,23 @@ export default function FellowshipApplyPage() {
                 <ul className="text-sm text-red-300 space-y-0.5 list-disc list-inside">
                   {stepErrors.map((e, i) => <li key={i}>{e}</li>)}
                 </ul>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Save error banner */}
+        {saveError && (
+          <div ref={saveErrorRef} className="mb-6 bg-red-900/20 border border-red-800/60 rounded-lg p-4" role="alert">
+            <div className="flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-sm font-semibold text-red-400 mb-1">Unable to save your progress</p>
+                <p className="text-sm text-red-300">{saveError}</p>
+                <p className="text-xs text-red-400 mt-1">
+                  Please check your internet connection and try again. If the problem persists, contact us at{' '}
+                  <a href="mailto:info@riseforimpact.org" className="underline hover:text-red-300">info@riseforimpact.org</a>.
+                </p>
               </div>
             </div>
           </div>
