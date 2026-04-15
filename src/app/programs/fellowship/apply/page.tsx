@@ -152,7 +152,11 @@ export default function FellowshipApplyPage() {
           beforeYouApplyPoints:      arr(db.beforeYouApplyJson,          STATIC_COPY.beforeYouApplyPoints),
           contributionFullTitle:     db.contributionFullTitle     ?? STATIC_COPY.contributionFullTitle,
           contributionFullParagraph: db.contributionFullParagraph ?? STATIC_COPY.contributionFullParagraph,
-          declarationCheckboxes:     arr(db.declarationCheckboxesJson,   STATIC_COPY.declarationCheckboxes),
+          declarationCheckboxes: (() => {
+            const loaded = arr(db.declarationCheckboxesJson, STATIC_COPY.declarationCheckboxes)
+            // Ensure every index has a value — fall back to static default for any missing entry
+            return STATIC_COPY.declarationCheckboxes.map((fallback, i) => loaded[i] ?? fallback)
+          })(),
           essay1Title:               db.essay1Title               ?? STATIC_COPY.essay1Title,
           essay1Prompt:              db.essay1Prompt              ?? STATIC_COPY.essay1Prompt,
           essay2Title:               db.essay2Title               ?? STATIC_COPY.essay2Title,
