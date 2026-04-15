@@ -42,6 +42,8 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
         !app.declareCompetitiveProc || !app.declareActiveParticip) {
       missing.push('All declarations must be confirmed')
     }
+    if (!app.declareAccurate) missing.push('Accuracy declaration must be confirmed')
+    if (!app.declareDataConsent) missing.push('Data consent must be confirmed')
 
     if (missing.length > 0) {
       return NextResponse.json(

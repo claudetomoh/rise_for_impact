@@ -56,6 +56,7 @@ function sanitiseFields(data: Record<string, unknown>) {
     'hasLedInitiative', 'contributionWilling',
     'declareAttendBuea', 'declareTransportAccom', 'declareCommitProgram',
     'declareCompetitiveProc', 'declareActiveParticip',
+    'declareAccurate', 'declareDataConsent',
   ]
   const allowed = [
     'fullName', 'dateOfBirth', 'age', 'gender', 'email', 'phone',
@@ -68,6 +69,7 @@ function sanitiseFields(data: Record<string, unknown>) {
     'motivationOneSentence',
     'declareAttendBuea', 'declareTransportAccom', 'declareCommitProgram',
     'declareCompetitiveProc', 'declareActiveParticip',
+    'declareAccurate', 'declareDataConsent',
     'progressStep',
   ]
 
