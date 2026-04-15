@@ -220,7 +220,11 @@ export default function FellowshipApplicationsPage() {
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-dark-800">
                 {filtered.map((app) => (
-                  <tr key={app.id} className="hover:bg-gray-50 dark:hover:bg-dark-800/50 transition-colors">
+                  <tr
+                    key={app.id}
+                    onClick={() => router.push(`/admin/fellowship/applications/${app.id}`)}
+                    className="hover:bg-gray-50 dark:hover:bg-dark-800/50 transition-colors cursor-pointer"
+                  >
                     <td className="px-4 py-3">
                       <div className="font-medium text-gray-900 dark:text-white">{app.fullName || '—'}</div>
                       <div className="text-xs text-gray-500 dark:text-gray-400">{app.email || '—'}</div>
