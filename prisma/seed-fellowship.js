@@ -12,7 +12,7 @@ async function main() {
             country: 'Cameroon',
             city: 'Yaoundé',
             venueCity: 'Yaoundé',
-            status: 'open',
+            status: 'closed',
             applicationOpenDate: new Date('2026-04-15T00:00:00.000Z'),
             applicationCloseDate: new Date('2026-05-31T23:59:59.000Z'),
             inPersonStartDate: new Date('2026-07-20T00:00:00.000Z'),

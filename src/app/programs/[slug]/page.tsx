@@ -153,7 +153,7 @@ The design is deliberate: participants move through three connected phases — f
     image: '/images/backgrounds/fellowship.jpeg',
     color: 'from-yellow-500 to-yellow-600',
     applicationsOpen: false,
-    status: 'Applications open April 15, 2026'
+    status: 'Applications Closed'
   },
   'campus-ambassadors': {
     id: 'campus-ambassadors',
@@ -347,9 +347,9 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Programs
               </Link>
               <div className="max-w-3xl">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/15 border border-green-500/25 mb-6">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                  <span className="text-xs font-semibold text-green-400 tracking-widest uppercase">Applications Now Open</span>
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/15 border border-red-500/25 mb-6">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                  <span className="text-xs font-semibold text-red-400 tracking-widest uppercase">Applications Closed</span>
                 </div>
                 <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-4 leading-tight">
                   Rise for Impact <span className="text-gradient">Fellowship</span>
@@ -362,9 +362,9 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
                 </p>
                 <p className="text-dark-400 text-sm mb-10 max-w-xl">Starting in Cameroon · Cohort 1 · 2026</p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/programs/fellowship/apply" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-dark-950 font-bold text-sm transition-colors">
-                    Apply Now →
-                  </Link>
+                  <button disabled className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gray-600 text-gray-300 font-bold text-sm opacity-50 cursor-not-allowed">
+                    Applications Closed
+                  </button>
                   <a href="#structure" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-white/15 hover:bg-white/5 text-white font-semibold transition-colors text-sm">
                     See Program Structure
                   </a>
@@ -652,26 +652,26 @@ export default function ProgramDetailPage({ params }: { params: Promise<{ slug: 
 
           {/* ── CTA ── */}
           <section className="container-premium pt-6">
-            <div className="rounded-3xl bg-gradient-to-br from-yellow-900/30 via-dark-900/55 to-primary-900/25 border border-yellow-500/15 p-12 md:p-16 text-center">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/15 border border-green-500/25 mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-xs font-semibold text-green-400 tracking-widest uppercase">Cohort 1 — Applications Now Open</span>
+            <div className="rounded-3xl bg-gradient-to-br from-red-900/30 via-dark-900/55 to-primary-900/25 border border-red-500/15 p-12 md:p-16 text-center">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/15 border border-red-500/25 mb-6">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                <span className="text-xs font-semibold text-red-400 tracking-widest uppercase">Cohort 1 — Applications Closed</span>
               </div>
-              <p className="text-base font-semibold text-yellow-400/80 italic mb-3 tracking-wide">Where Africa's Next Leaders Are Built.</p>
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Apply for Cohort 1 — Cameroon 2026</h2>
-              <p className="text-dark-300 mb-6 max-w-xl mx-auto leading-relaxed">Applications are now open. Only 40 spots available. If you have the commitment, the drive, and the vision to lead — this fellowship was built for you.</p>
-              {/* Download Guide prompt */}
+              <p className="text-base font-semibold text-yellow-400/80 italic mb-3 tracking-wide">Thank you for your interest.</p>
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Applications for Cohort 1 Are Now Closed</h2>
+              <p className="text-dark-300 mb-6 max-w-xl mx-auto leading-relaxed">We received an overwhelming response to our fellowship and are currently reviewing all applications. We'll announce results soon. Thank you for your interest in joining the Rise for Impact Fellowship!</p>
+              {/* Future cohorts note */}
               <div className="bg-dark-900/60 border border-dark-700 rounded-2xl p-5 max-w-md mx-auto mb-8 text-left">
-                <p className="text-xs font-semibold text-white mb-1">Prepare your application early</p>
-                <p className="text-xs text-dark-400 mb-4 leading-relaxed">Download the full application guide — covering the programme overview, all 9 form sections, every essay prompt, and what we look for in successful candidates.</p>
-                <DownloadGuideButton variant="secondary" size="sm" />
+                <p className="text-xs font-semibold text-white mb-1">Interested in future cohorts?</p>
+                <p className="text-xs text-dark-400 mb-4 leading-relaxed">We're planning to expand the Fellowship to other countries. Subscribe to our newsletter to be notified when Cohort 2 opens for applications.</p>
+                <Link href="/#newsletter" className="text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors">Subscribe to updates →</Link>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/programs/fellowship/apply" className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-dark-950 font-bold transition-colors">
-                  Apply Now →
-                </Link>
                 <Link href="/programs" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/12 hover:bg-white/5 text-white font-semibold transition-colors">
                   Explore Other Programs
+                </Link>
+                <Link href="/get-involved" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-semibold transition-colors">
+                  Other Ways to Get Involved →
                 </Link>
               </div>
             </div>

@@ -335,8 +335,8 @@ export default function FellowshipApplyPage() {
 
   // ─── Render ────────────────────────────────────────────────────────────────
 
-  // Applications are OPEN
-  const isApplicationOpen = true
+  // Applications are CLOSED
+  const isApplicationOpen = false
 
   if (!isApplicationOpen) {
     return (
@@ -387,9 +387,9 @@ export default function FellowshipApplyPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-dark-950/60 via-dark-950/40 to-dark-950" />
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-yellow-500/20 border border-yellow-500/30 mb-4 backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
-              <span className="text-xs font-semibold text-yellow-300 tracking-widest uppercase">Applications not yet open</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/20 border border-red-500/30 mb-4 backdrop-blur-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+              <span className="text-xs font-semibold text-red-300 tracking-widest uppercase">Applications Closed</span>
             </div>
             <h1 className="text-3xl md:text-4xl font-display font-bold text-white drop-shadow-lg">Rise for Impact Fellowship</h1>
             <p className="text-dark-300 text-sm mt-2 drop-shadow">Cohort 1 — Buea, Cameroon · 2026</p>
@@ -398,49 +398,54 @@ export default function FellowshipApplyPage() {
 
         <main className="px-4 py-12">
           <div className="text-center max-w-xl mx-auto">
-            <div className="inline-block px-8 py-5 rounded-2xl bg-yellow-500/10 border border-yellow-500/25 mb-6">
-              <p className="text-xs text-yellow-500 uppercase tracking-widest font-semibold mb-1">Applications open</p>
-              <p className="text-3xl font-bold text-yellow-300">April 15, 2026</p>
+            <div className="inline-block px-8 py-5 rounded-2xl bg-red-500/10 border border-red-500/25 mb-6">
+              <p className="text-xs text-red-500 uppercase tracking-widest font-semibold mb-1">Status</p>
+              <p className="text-3xl font-bold text-red-300">Applications Closed</p>
             </div>
 
             <p className="text-dark-300 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
-              Mark your calendar. While you wait, download the complete application guide — it covers the full fellowship programme and every question on the form so you can prepare your responses in advance.
+              Thank you for your interest in the Rise for Impact Fellowship. Applications for Cohort 1 (Cameroon 2026) have now closed. We received an overwhelming response and are currently reviewing applications.
             </p>
 
-            {/* Download Guide CTA */}
+            {/* Notification about future cohorts */}
             <div className="bg-dark-900 border border-dark-700 rounded-2xl p-6 mb-8 text-left">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-primary-500/15 border border-primary-500/25 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.966 8.966 0 00-6 2.292m0-14.25v14.25" />
+                <div className="w-10 h-10 rounded-xl bg-blue-500/15 border border-blue-500/25 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-sm font-bold text-white mb-1">Prepare Before You Apply</h3>
+                  <h3 className="text-sm font-bold text-white mb-1">Future Cohorts Coming Soon</h3>
                   <p className="text-xs text-dark-400 mb-4 leading-relaxed">
-                    Download the official RFI Fellowship Application Guide — a full walkthrough of the programme, all 9 sections, every question and essay prompt, plus tips on what we look for in successful candidates.
+                    We're excited about expanding the Rise for Impact Fellowship to more countries and cohorts in 2026 and beyond. Keep an eye on our website and newsletter for announcements about the next opportunity.
                   </p>
-                  <DownloadGuideButton variant="primary" size="sm" />
+                  <Link
+                    href="/#newsletter"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/15 border border-blue-500/25 text-xs font-semibold text-blue-300 hover:bg-blue-500/25 transition-colors"
+                  >
+                    Subscribe to Updates <ArrowRight className="w-3 h-3" />
+                  </Link>
                 </div>
               </div>
             </div>
 
-            {/* Save & continue note */}
+            {/* Explore other ways to get involved */}
             <div className="bg-dark-900/60 border border-dark-800 rounded-xl p-4 mb-8 flex items-start gap-3 text-left">
-              <CheckCircle2 className="w-4 h-4 text-primary-400 mt-0.5 flex-shrink-0" />
+              <Users className="w-4 h-4 text-primary-400 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-xs font-semibold text-white mb-0.5">Save & continue anytime</p>
+                <p className="text-xs font-semibold text-white mb-0.5">Other Ways to Get Involved</p>
                 <p className="text-xs text-dark-400 leading-relaxed">
-                  Once applications open, your progress is saved automatically at every step. You can close the page and pick up right where you left off.
+                  Check out our other programs including Rise Circles, Impact Clinics, Campus Ambassadors, and more. You can also explore curated opportunities through Opportunity Plug.
                 </p>
               </div>
             </div>
 
             <Link
-              href="/programs/fellowship"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-dark-950 font-semibold transition-colors text-sm"
+              href="/get-involved"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-semibold transition-colors text-sm"
             >
-              Explore the Fellowship <ArrowRight className="w-4 h-4" />
+              Explore Other Programs <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </main>
